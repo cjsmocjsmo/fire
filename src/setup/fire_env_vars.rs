@@ -50,7 +50,7 @@ pub fn read_config() -> bool {
             let fire_dir = cwd.clone().to_string() + "/fire_dir";
             fs::create_dir_all(fire_dir.clone()).unwrap();
             let f2 = String::from("FIRE_DIR");
-            set_env_var(fire_dir.clone(), f2).unwrap();
+            set_env_var(f2, fire_dir);
 
             let thumb_dir = cwd.clone().to_string() + "/fire_dir/thumbnails";
             fs::create_dir_all(thumb_dir.clone()).unwrap();
