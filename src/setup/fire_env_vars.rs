@@ -67,7 +67,7 @@ pub fn read_config() -> bool {
             set_env_var(dvar1, dvar2).unwrap();
 
             let music0 = "FIRE_ADD_MEDIA_PATH".to_string();
-            let music1 = d["FIRE_MEDIA_PATH"].as_str().unwrap().to_string();
+            let music1 = d["FIRE_ADD_MEDIA_PATH"].as_str().unwrap().to_string();
             set_env_var(music0, music1).unwrap();
 
             let static1 = String::from("FIRE_MONGODB_ADDRESS");
