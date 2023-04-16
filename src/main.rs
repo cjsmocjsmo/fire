@@ -1,6 +1,6 @@
 pub mod setup;
 
 fn main() {
-    setup::run_setup();
-    println!("\nSetup is Complete!");
+    let setup_result = setup::run_setup();
+    println!("\nSetup is Complete! {}", setup_result);
 }

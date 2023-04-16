@@ -2,7 +2,11 @@ use std::env;
 use std::fs;
 use std::fs::File;
 use std::io::prelude::*;
+use std::path::Path;
 use yaml_rust::YamlLoader;
+use glob::glob;
+
+
 
 pub fn get_current_working_dir() -> String {
     let path = env::current_dir().unwrap();
@@ -48,19 +52,39 @@ pub fn read_config() -> bool {
 
             let cwd = get_current_working_dir();
             let fire_dir = cwd.clone().to_string() + "/fire_dir";
-            fs::create_dir_all(fire_dir.clone()).unwrap();
-            let f2 = String::from("FIRE_DIR");
-            set_env_var(f2, fire_dir).unwrap();
+            let fire_dir_exists = Path::new(&fire_dir).is_dir();
+            if fire_dir_exists {
+                let f2 = String::from("FIRE_DIR");
+                set_env_var(f2, fire_dir).unwrap();
+            } else {
+                fs::create_dir_all(fire_dir.clone()).unwrap();
+                let f2 = String::from("FIRE_DIR");
+                set_env_var(f2, fire_dir).unwrap();
+            }
 
             let thumb_dir = cwd.clone().to_string() + "/fire_dir/thumbnails";
-            fs::create_dir_all(thumb_dir.clone()).unwrap();
-            let td = String::from("FIRE_THUMBNAIL");
-            set_env_var(td, thumb_dir.clone()).unwrap();
+            let thumb_dir_exists = Path::new(&thumb_dir).is_dir();
+            if thumb_dir_exists {
+                let td = String::from("FIRE_THUMBNAIL");
+                set_env_var(td, thumb_dir.clone()).unwrap();
+                clean_thumbnail_dir();
+            } else {
+                fs::create_dir_all(thumb_dir.clone()).unwrap();
+                let td = String::from("FIRE_THUMBNAIL");
+                set_env_var(td, thumb_dir.clone()).unwrap();
+            }
 
             let nfo_dir = cwd.clone().to_string() + "/fire_dir/nfos";
-            fs::create_dir_all(nfo_dir.clone()).unwrap();
-            let nd = String::from("FIRE_NFOS");
-            set_env_var(nd, nfo_dir.clone()).unwrap();
+            let nfos_dir_exists = Path::new(&nfo_dir).is_dir();
+            if nfos_dir_exists {
+                let nd = String::from("FIRE_NFOS");
+                set_env_var(nd, nfo_dir.clone()).unwrap();
+                clean_nfos_dir();
+            } else {
+                fs::create_dir_all(nfo_dir.clone()).unwrap();
+                let nd = String::from("FIRE_NFOS");
+                set_env_var(nd, nfo_dir.clone()).unwrap();
+            }
 
             let dvar1 = String::from("FIRE_DOCKER_VAR");
             let dvar2 = d["FIRE_DOCKER_VAR"].as_str().unwrap().to_string();
@@ -143,4 +167,30 @@ pub fn read_config() -> bool {
         // set_env_var(static1, static2).unwrap();
     }
     return true;
+}
+
+
+fn clean_nfos_dir() -> u32 {
+    let movie_meta_dir_path = env::var("FIRE_NFOS").unwrap();
+    let glob_str = movie_meta_dir_path + "/*.nfo";
+    let mut count = 0;
+    for e in glob(glob_str.as_str()).expect("Failed to read glob pattern") {
+        let rm_path = e.unwrap();
+        count = count + 1;
+        fs::remove_file(rm_path).expect("File delete failed");
+    }
+
+    count
+}
+
+fn clean_thumbnail_dir() -> u32 {
+    let music_meta_dir_path = env::var("FIRE_THUMBNAIL").unwrap();
+    let glob_str = music_meta_dir_path + "/*.jpg";
+    let mut count = 0;
+    for e in glob(glob_str.as_str()).expect("Failed to read glob pattern") {
+        count = count + 1;
+        let rm_path = e.unwrap();
+        fs::remove_file(rm_path).expect("File delete failed");
+    }
+    count
 }
