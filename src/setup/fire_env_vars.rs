@@ -50,17 +50,17 @@ pub fn read_config() -> bool {
             let fire_dir = cwd.clone().to_string() + "/fire_dir";
             fs::create_dir_all(fire_dir.clone()).unwrap();
             let f2 = String::from("FIRE_DIR");
-            set_env_var(f2, fire_dir);
+            set_env_var(f2, fire_dir).unwrap();
 
             let thumb_dir = cwd.clone().to_string() + "/fire_dir/thumbnails";
             fs::create_dir_all(thumb_dir.clone()).unwrap();
             let td = String::from("FIRE_THUMBNAIL");
-            set_env_var(thumb_dir.clone(), td).unwrap();
+            set_env_var(td, thumb_dir.clone()).unwrap();
 
             let nfo_dir = cwd.clone().to_string() + "/fire_dir/nfos";
             fs::create_dir_all(nfo_dir.clone()).unwrap();
             let nd = String::from("FIRE_NFOS");
-            set_env_var(nfo_dir, nd).unwrap();
+            set_env_var(nd, nfo_dir.clone()).unwrap();
 
             let dvar1 = String::from("FIRE_DOCKER_VAR");
             let dvar2 = d["FIRE_DOCKER_VAR"].as_str().unwrap().to_string();
