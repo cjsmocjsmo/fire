@@ -11,7 +11,7 @@ pub fn run_setup() -> bool {
     }
 
     let homedir = fire_walk_dirs::home_dir();
-    println!("{}", homedir);
+    println!("this is home dir {}", homedir);
 
     let mut result = false;
 
