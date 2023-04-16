@@ -2,10 +2,9 @@ use std::env;
 use walkdir::WalkDir;
 use simple_home_dir::*;
 
-pub fn home_dir() -> bool {
+pub fn home_dir() -> String {
     let hd = simple_home_dir::home_dir().unwrap().to_string_lossy().to_string();
-    println!("{}", hd);
-    return true
+    return hd
 }
 
 
