@@ -1,0 +1,74 @@
+#############################################################
+#############################################################
+#############################################################
+# config for charliepi
+# FIRE_MONGODB_ADDRESS: "mongodb://db:27017/FIRE"
+
+# FIRE_MEDIA_PATH: "/media/charliepi/FOO/media"
+
+# FIRE_MUSIC_PATH: "/media/charliepi/FOO/media/Music/"
+# FIRE_MUSIC_THUMBNAIL_PATH: "/media/charliepi/FOO/media/Thumbnails/music"
+# FIRE_MUSIC_METADATA_PATH: "/media/charliepi/FOO/media/Meta/music"
+
+# FIRE_MOVIES_PATH: "/media/charliepi/FOO/media/Movies"
+# FIRE_MOVIES_METADATA_PATH: "/media/charliepi/FOO/media/Meta/movie"
+# FIRE_MOVIES_POSTERS_PATH: "/media/charliepi/FOO/media/Posters2"
+# FIRE_MOVIES_THUMBNAIL_PATH: "/media/charliepi/FOO/media/Thumbnails/movie"
+
+# FIRE_TVSHOWS_PATH: "/media/charliepi/FOO/media/TVShows"
+# FIRE_TVSHOWS_METADATA_PATH: "/media/charliepi/FOO/media/Meta/tvshows"
+# FIRE_TVSHOWS_POSTERS_PATH: "/media/charliepi/FOO/media/TVPosters"
+# FIRE_TVSHOWS_THUMBNAIL_PATH: "/media/charliepi/FOO/media/TVThumbnails"
+
+# FIRE_GZIP_PATH: /media/charliepi/FOO/media/gzip
+# FIRE_STATIC_PATH: "/media/charliepi/FOO/media/static"
+# FIRE_SERVER_ADDRESS: "http://192.168.0.94"
+# FIRE_SERVER_PORT: "8888"
+# FIRE_DOCKER_VAR: "NONE"
+# FIRE_OFFSET: "25"
+
+#############################################################
+#############################################################
+#############################################################
+# FIRE_MONGODB_ADDRESS: "mongodb://db:27017/fire"
+
+# FIRE_MEDIA_PATH: "/media/pi/FOO/media"
+
+# FIRE_MUSIC_PATH: "/media/pi/FOO/media/Music/"
+# FIRE_MUSIC_THUMBNAIL_PATH: "/media/pi/FOO/media/Thumbnails/music"
+# FIRE_MUSIC_METADATA_PATH: "/media/pi/FOO/media/Meta/music"
+
+# FIRE_MOVIES_PATH: "/media/pi/FOO/media/Movies"
+# FIRE_MOVIES_METADATA_PATH: "/media/pi/FOO/media/Meta/movie"
+# FIRE_MOVIES_POSTERS_PATH: "/media/pi/FOO/media/Posters2"
+# FIRE_MOVIES_THUMBNAIL_PATH: "/media/pi/FOO/media/Thumbnails/movie"
+
+# FIRE_TVSHOWS_PATH: "/media/pi/FOO/media/TVShows"
+# FIRE_TVSHOWS_METADATA_PATH: "/media/pi/FOO/media/Meta/tvshows"
+# FIRE_TVSHOWS_POSTERS_PATH: "/media/pi/FOO/media/TVPosters"
+# FIRE_TVSHOWS_THUMBNAIL_PATH: "/media/pi/FOO/media/TVThumbnails"
+
+# FIRE_GZIP_PATH: /media/pi/FOO/media/gzip
+# FIRE_STATIC_PATH: "/media/pi/FOO/media/static"
+# FIRE_SERVER_ADDRESS: "http://192.168.0.61"
+# FIRE_SERVER_PORT: "8888"
+# FIRE_DOCKER_VAR: "NONE"
+# FIRE_OFFSET: "25"
+
+#############################################################
+#############################################################
+#############################################################
+
+FIRE_SETUP: "yes"
+FIRE_DOCKER_VAR: "default" # or docker
+
+FIRE_MONGODB_ADDRESS: "mongodb://db:27017/fire"
+
+# for additional media other than /home/Music and /home/Videos
+# thumbnails are placed in /home/Pictures/fire
+FIRE_ADD_MEDIA_PATH: "/media/pi/FOO/media" 
+
+# FIRE_ADDRESS: "http://192.168.0.61"
+# FIRE_PORT: "8888"
+
+FIRE_PAGINATION: "25"
