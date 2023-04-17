@@ -20,9 +20,9 @@ pub fn walk_video_dir(apath: String) -> Vec<String> {
             println!("{}", fname);
 
 
-            if fname.ends_with(".mp4") {
+            if fname.ends_with("mp4") {
                 vidvec.push(fname.clone());
-            } else if fname.ends_with(".mkv") {
+            } else if fname.ends_with("mkv") {
                 vidvec.push(fname.clone());
             } else {
                 continue;
