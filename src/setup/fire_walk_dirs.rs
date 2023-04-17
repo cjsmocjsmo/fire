@@ -17,6 +17,7 @@ pub fn walk_video_dir(apath: String) -> Vec<String> {
     {
         if e.metadata().unwrap().is_file() {
             let fname = e.path().to_string_lossy().to_string();
+            println!("{}", fname);
 
 
             if fname.ends_with(".mp4") {
