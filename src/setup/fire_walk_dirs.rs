@@ -1,17 +1,42 @@
 use std::env;
 use walkdir::WalkDir;
-use simple_home_dir::*;
+// use simple_home_dir::*;
 
 pub fn home_dir() -> String {
     let hd = simple_home_dir::home_dir().unwrap().to_string_lossy().to_string();
     return hd
 }
 
+pub fn walk_video_dir(apath: String) -> Vec<String> {
+    let mut vidvec = Vec::new();
+    // let mtv_music_path = env::var("MTV_MUSIC_PATH").expect("$MTV_MUSIC_PATH is not set");
+    for e in WalkDir::new(apath)
+        .follow_links(true)
+        .into_iter()
+        .filter_map(|e| e.ok())
+    {
+        if e.metadata().unwrap().is_file() {
+            let fname = e.path().to_string_lossy().to_string();
 
-pub fn walk_music_dir_music() -> Vec<String> {
-    let mut mp3vec = Vec::new();
-    let mtv_music_path = env::var("MTV_MUSIC_PATH").expect("$MTV_MUSIC_PATH is not set");
-    for e in WalkDir::new(mtv_music_path.clone())
+
+            if fname.ends_with(".mp4") {
+                vidvec.push(fname.clone());
+            } else if fname.ends_with(".mkv") {
+                vidvec.push(fname.clone());
+            } else {
+                continue;
+            }
+        }
+    }
+
+    vidvec
+}
+
+
+pub fn walk_music_dir_music(apath: String) -> Vec<String> {
+    let mut vidvec = Vec::new();
+    // let mtv_music_path = env::var("MTV_MUSIC_PATH").expect("$MTV_MUSIC_PATH is not set");
+    for e in WalkDir::new(apath)
         .follow_links(true)
         .into_iter()
         .filter_map(|e| e.ok())
@@ -20,14 +45,14 @@ pub fn walk_music_dir_music() -> Vec<String> {
             let fname = e.path().to_string_lossy().to_string();
 
             if fname.ends_with(".mp3") {
-                mp3vec.push(fname.clone());
+                vidvec.push(fname.clone());
             } else {
                 continue;
             }
         }
     }
 
-    mp3vec
+    vidvec
 }
 
 pub fn walk_music_dir_images() -> Vec<String> {
@@ -136,4 +161,45 @@ pub fn walk_tvshows_dir() -> Vec<String> {
     }
 
     tvshowsvec
+}
+
+pub fn run_all_walkers() {
+    let homedir = home_dir();
+    println!("this is home dir {}", homedir.clone());
+    
+    let music_dir = homedir.clone() + "/Music";
+    let mut music_list = walk_music_dir_music(music_dir);
+
+    // walk FIRE_ADD_MUSIC_PATH
+    let add_music = env::var("FIRE_ADD_MUSIC_PATH").expect("$FIRE_ADD_MUSIC_PATH is not set");
+    let mut mlist2 = Vec::new();
+    if add_music != String::from("NONE") {
+        mlist2 = walk_music_dir_music(add_music);
+    };
+
+    music_list.append(&mut mlist2);
+
+    println!("{:?}", music_list)
+
+
+
+
+
+    // let video_dir = homedir.clone() + "/Videos";
+    // let mut video_list = walk_video_dir(video_dir);
+    
+    // // walk FIRE_ADD_VIDEO_PATH
+    // let add_vids = env::var("FIRE_ADD_VIDEO_PATH").expect("$FIRE_ADD_VIDEO_PATH is not set");
+    // let mut vlist2 = Vec::new();
+    // if add_vids != String::from("NONE") {
+    //     vlist2 = walk_music_dir_music(add_vids);
+    // };
+
+    // video_list.append(&mut vlist2);
+    
+
+
+    // scan posters2 
+    // scan mp3 folders for images
+
 }
