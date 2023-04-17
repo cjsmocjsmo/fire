@@ -59,7 +59,7 @@
 #############################################################
 #############################################################
 
-FIRE_SETUP: "yes"
+
 FIRE_DOCKER_VAR: "default" # or docker
 
 FIRE_MONGODB_ADDRESS: "mongodb://db:27017/fire"
