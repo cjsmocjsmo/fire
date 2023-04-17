@@ -160,7 +160,7 @@ pub fn scan_all_sources() {
 
     let mut media_images = Vec::new();
 
-    let vid_posters_path = video_dir.clone() + "Posters2";
+    let vid_posters_path = video_dir.clone() + "/Posters2";
     let mut vid_posters = fire_walk_dirs::walk_posters2_dir(vid_posters_path);
 
     let mut music_images = fire_walk_dirs::walk_music_dir_images(music_dir.clone());
