@@ -200,7 +200,7 @@ pub fn run_all_walkers() {
 
     video_list.append(&mut vlist2);
     
-    println!("{:?}", vlist2)
+    println!("{:?}", video_list)
 
     // scan posters2 
     // scan mp3 folders for images
