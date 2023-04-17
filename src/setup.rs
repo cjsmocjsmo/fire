@@ -13,7 +13,7 @@ pub fn run_setup() -> bool {
         env_result = true;
     }
 
-    fire_walk_dirs::run_all_walkers();
+    fire_walk_dirs::scan_all_sources();
 
     let mut result = false;
 
