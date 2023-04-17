@@ -179,25 +179,25 @@ pub fn run_all_walkers() {
 
     music_list.append(&mut mlist2);
 
-    println!("{:?}", music_list)
+    println!("{:?}", music_list);
 
 
 
 
 
-    // let video_dir = homedir.clone() + "/Videos";
-    // let mut video_list = walk_video_dir(video_dir);
+    let video_dir = homedir.clone() + "/Videos";
+    let mut video_list = walk_video_dir(video_dir);
     
-    // // walk FIRE_ADD_VIDEO_PATH
-    // let add_vids = env::var("FIRE_ADD_VIDEO_PATH").expect("$FIRE_ADD_VIDEO_PATH is not set");
-    // let mut vlist2 = Vec::new();
-    // if add_vids != String::from("NONE") {
-    //     vlist2 = walk_music_dir_music(add_vids);
-    // };
+    // walk FIRE_ADD_VIDEO_PATH
+    let add_vids = env::var("FIRE_ADD_VIDEO_PATH").expect("$FIRE_ADD_VIDEO_PATH is not set");
+    let mut vlist2 = Vec::new();
+    if add_vids != String::from("NONE") {
+        vlist2 = walk_music_dir_music(add_vids);
+    };
 
-    // video_list.append(&mut vlist2);
+    video_list.append(&mut vlist2);
     
-
+    println!("{:?}", vlist2)
 
     // scan posters2 
     // scan mp3 folders for images
