@@ -30,6 +30,8 @@ pub fn walk_video_dir(apath: String) -> Vec<String> {
         }
     }
 
+    println!("{:?}", vidvec);
+
     vidvec
 }
 
