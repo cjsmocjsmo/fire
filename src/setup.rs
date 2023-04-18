@@ -9,7 +9,7 @@ pub fn run_setup() -> bool {
     let mut env_result = false;
     let isset_env_vars = fire_env_vars::read_config();
     if isset_env_vars {
-        print!("env vars are set");
+        print!("env vars are set\n\n");
         env_result = true;
     }
 
@@ -20,7 +20,7 @@ pub fn run_setup() -> bool {
 
     let video_list: Vec<String> = media_lists.1;
     for m in &video_list {
-        if m.contains("Movies") {
+        if m.contains("TVShows") {
             println!("{}", m);
         }
     }
