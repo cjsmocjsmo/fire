@@ -13,7 +13,13 @@ pub fn run_setup() -> bool {
         env_result = true;
     }
 
-    fire_walk_dirs::scan_all_sources();
+    let media_lists = fire_walk_dirs::scan_all_sources();
+    let music_list: Vec<String> = media_lists.0;
+    println!("{:?}", music_list);
+    let video_list: Vec<String> = media_lists.1;
+    println!("{:?}", video_list);
+    let images_list: Vec<String> = media_lists.2;
+    println!("{:?}", images_list);
 
     let mut result = false;
 
