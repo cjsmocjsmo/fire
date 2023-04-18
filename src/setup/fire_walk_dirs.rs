@@ -138,11 +138,15 @@ pub fn scan_all_sources() -> (Vec<String>, Vec<String>, Vec<String>) {
     let mut media_images = Vec::new();
 
     let vid_posters_path = video_dir.clone() + "/Posters2";
-    println!("{}", vid_posters_path);
-    let mut vid_posters = Vec::new();
+    let mut vid_posters = fire_walk_dirs::walk_posters2_dir(vid_posters_path.clone());
+
+    println!("{}", &vid_posters_path);
+
+    let add_vids_posters_path = add_vids.clone() + "/Posters2";
+    let mut add_vid_posters = Vec::new();
     if add_vids.clone() != String::from("NONE") {
-        vid_posters = fire_walk_dirs::walk_posters2_dir(vid_posters_path);
-        println!("{:?}", vid_posters);
+        add_vid_posters = fire_walk_dirs::walk_posters2_dir(add_vids_posters_path);
+        println!("{:?}", add_vid_posters);
     };
 
     let mut music_images = Vec::new();
@@ -151,6 +155,7 @@ pub fn scan_all_sources() -> (Vec<String>, Vec<String>, Vec<String>) {
     };
     
     media_images.append(&mut vid_posters);
+    media_images.append(&mut add_vid_posters);
     media_images.append(&mut music_images);
 
     (music_list, video_list, media_images)
