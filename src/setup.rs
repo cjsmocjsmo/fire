@@ -14,24 +14,26 @@ pub fn run_setup() -> bool {
     }
 
     let media_lists = fire_walk_dirs::scan_all_sources();
-    let music_list: Vec<String> = media_lists.0;
-    for m in music_list {
-        println!("{:?}", m);
-    }
+    // let music_list: Vec<String> = media_lists.0;
+    // for m in music_list {
+    //     println!("{:?}", m);
+    // }
     
 
-    let video_list: Vec<String> = media_lists.1;
-    for m in &video_list {
-        if m.contains("Movies") {
-            println!("{}", m);
-        } else {
-            println!("{}", m);
-        }
-    }
+    // let video_list: Vec<String> = media_lists.1;
+    // for m in &video_list {
+    //     if m.contains("Movies") {
+    //         println!("{}", m);
+    //     } else {
+    //         println!("{}", m);
+    //     }
+    // }
 
     let images_list: Vec<String> = media_lists.2;
     for i in images_list {
-        println!("{}", i);
+        if i.contains("Posters2") {
+            println!("{}", i);
+        }
     }
     
 
