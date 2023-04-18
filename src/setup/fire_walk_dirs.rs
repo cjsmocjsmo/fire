@@ -90,7 +90,6 @@ fn walk_posters2_dir(apath: String) -> Vec<String> {
     {
         if e.metadata().unwrap().is_file() {
             let fname = e.path().to_string_lossy().to_string();
-            println!("{}", fname);
             if fname.ends_with(".jpg") {
                 moviesthumbvec.push(fname);
             } else if fname.ends_with(".jpeg") {
@@ -140,13 +139,10 @@ pub fn scan_all_sources() -> (Vec<String>, Vec<String>, Vec<String>) {
     let vid_posters_path = video_dir.clone() + "/Posters2";
     let mut vid_posters = fire_walk_dirs::walk_posters2_dir(vid_posters_path.clone());
 
-    println!("{}", &vid_posters_path);
-
     let add_vids_posters_path = add_vids.clone() + "/Posters2";
     let mut add_vid_posters = Vec::new();
     if add_vids.clone() != String::from("NONE") {
         add_vid_posters = fire_walk_dirs::walk_posters2_dir(add_vids_posters_path);
-        println!("{:?}", add_vid_posters);
     };
 
     let mut music_images = Vec::new();
