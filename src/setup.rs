@@ -15,15 +15,15 @@ pub fn run_setup() -> bool {
 
     let media_lists = fire_walk_dirs::scan_all_sources();
 
-    let music_list: Vec<String> = media_lists.0;
-    for m in &music_list {
+    // let music_list: Vec<String> = media_lists.0;
+    // println!("{:?}", music_list);
+
+    let video_list: Vec<String> = media_lists.1;
+    for m in &video_list {
         if m.contains("Movies") {
             println!("{}", m);
         }
     }
-    println!("{:?}", music_list);
-
-    // let video_list: Vec<String> = media_lists.1;
     // println!("{:?}", video_list);
 
     // let images_list: Vec<String> = media_lists.2;
