@@ -1,4 +1,4 @@
-use std::env;
+// use std::env;
 use walkdir::WalkDir;
 use crate::setup::fire_walk_dirs;
 
@@ -113,46 +113,48 @@ pub fn scan_all_sources() -> (Vec<String>, Vec<String>, Vec<String>) {
     let homedir = home_dir();
     
     let music_dir = homedir.clone() + "/Music";
-    let mut music_list = walk_music_dir_music(music_dir.clone());
+    let music_list = walk_music_dir_music(music_dir.clone());
 
-    let add_music = env::var("FIRE_ADD_MUSIC_PATH").expect("$FIRE_ADD_MUSIC_PATH is not set");
-    let mut mlist2 = Vec::new();
-    if add_music != String::from("NONE") {
-        mlist2 = walk_music_dir_music(add_music.clone());
-    };
+    // let add_music = env::var("FIRE_ADD_MUSIC_PATH").expect("$FIRE_ADD_MUSIC_PATH is not set");
+    // let mut mlist2 = Vec::new();
+    // if add_music != String::from("NONE") {
+    //     mlist2 = walk_music_dir_music(add_music.clone());
+    // };
 
-    music_list.append(&mut mlist2);
+    // music_list.append(&mut mlist2);
 
     let video_dir = homedir.clone() + "/Videos";
-    let mut video_list = walk_video_dir(video_dir.clone());
+    let video_list = walk_video_dir(video_dir.clone());
 
-    let add_vids = env::var("FIRE_ADD_VIDEO_PATH").expect("$FIRE_ADD_VIDEO_PATH is not set");
-    let mut vlist2 = Vec::new();
-    if add_vids.clone() != String::from("NONE") {
-        vlist2 = walk_music_dir_music(add_vids.clone());
-    };
+    // let add_vids = env::var("FIRE_ADD_VIDEO_PATH").expect("$FIRE_ADD_VIDEO_PATH is not set");
+    // let mut vlist2 = Vec::new();
+    // if add_vids.clone() != String::from("NONE") {
+    //     vlist2 = walk_music_dir_music(add_vids.clone());
+    // };
 
-    video_list.append(&mut vlist2);
+    // video_list.append(&mut vlist2);
 
     let mut media_images = Vec::new();
 
     let vid_posters_path = video_dir.clone() + "/Posters2";
     let mut vid_posters = fire_walk_dirs::walk_posters2_dir(vid_posters_path.clone());
 
-    let add_vids_posters_path = add_vids.clone() + "/Posters2";
-    let mut add_vid_posters = Vec::new();
-    if add_vids.clone() != String::from("NONE") {
-        add_vid_posters = fire_walk_dirs::walk_posters2_dir(add_vids_posters_path);
-    };
+    // let add_vids_posters_path = add_vids.clone() + "/Posters2";
+    // let mut add_vid_posters = Vec::new();
+    // if add_vids.clone() != String::from("NONE") {
+    //     add_vid_posters = fire_walk_dirs::walk_posters2_dir(add_vids_posters_path);
+    // };
 
-    let mut music_images = Vec::new();
-    if add_music.clone() != String::from("NONE") {
-        music_images = fire_walk_dirs::walk_music_dir_images(music_dir.clone());
-    };
+    let mut music_images = fire_walk_dirs::walk_music_dir_images(music_dir.clone());
+    // let mut add_music_images = Vec::new();
+    // if add_music.clone() != String::from("NONE") {
+    //     add_music_images = fire_walk_dirs::walk_music_dir_images(add_music.clone());
+    // };
     
     media_images.append(&mut vid_posters);
-    media_images.append(&mut add_vid_posters);
+    // media_images.append(&mut add_vid_posters);
     media_images.append(&mut music_images);
+    // media_images.append(&mut add_music_images);
 
     (music_list, video_list, media_images)
 

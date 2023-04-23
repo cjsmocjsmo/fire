@@ -1,14 +1,14 @@
+use glob::glob;
 use std::env;
 use std::fs;
 use std::fs::File;
 use std::io::prelude::*;
 use std::path::Path;
 use yaml_rust::YamlLoader;
-use glob::glob;
 
+use yaml_rust::Yaml;
 
-
-pub fn get_current_working_dir() -> String {
+fn get_current_working_dir() -> String {
     let path = env::current_dir().unwrap();
     let dir_path = String::from(path.to_string_lossy());
 
@@ -25,7 +25,7 @@ pub fn get_current_working_dir() -> String {
 //     docker_var
 // }
 
-pub fn set_env_var(p1: String, p2: String) -> Result<(), Box<dyn std::error::Error>> {
+fn set_env_var(p1: String, p2: String) -> Result<(), Box<dyn std::error::Error>> {
     env::set_var(&p1, p2);
     let value = env::var(&p1);
     if value.is_err() {
@@ -37,7 +37,7 @@ pub fn set_env_var(p1: String, p2: String) -> Result<(), Box<dyn std::error::Err
     Ok(())
 }
 
-pub fn read_config() -> bool {
+pub fn read_config() -> Vec<Yaml> {
     let mut file = File::open("./src/config.yaml").expect("Unable to open file");
     let mut contents = String::new();
 
@@ -46,65 +46,89 @@ pub fn read_config() -> bool {
 
     let docs = YamlLoader::load_from_str(&contents).unwrap();
 
-    for d in docs {
-        if d["FIRE_DOCKER_VAR"].as_str().unwrap().to_string() == "default" {
+    docs
+}
+
+fn set_fire_dir_env(cwd: &String) {
+    let fire_dir = cwd.to_string() + "/fire_dir";
+    let fire_dir_exists = Path::new(&fire_dir).is_dir();
+    if fire_dir_exists {
+        let f2 = String::from("FIRE_DIR");
+        set_env_var(f2, fire_dir).unwrap();
+    } else {
+        fs::create_dir_all(fire_dir.clone()).unwrap();
+        let f2 = String::from("FIRE_DIR");
+        set_env_var(f2, fire_dir).unwrap();
+    }
+}
+
+fn set_fire_dir_thumbnails(cwd: &String) {
+    let thumb_dir = cwd.to_string() + "/fire_dir/thumbnails";
+    let thumb_dir_exists = Path::new(&thumb_dir).is_dir();
+    if thumb_dir_exists {
+        let td = String::from("FIRE_THUMBNAIL");
+        set_env_var(td, thumb_dir.clone()).unwrap();
+        clean_thumbnail_dir();
+    } else {
+        fs::create_dir_all(thumb_dir.clone()).unwrap();
+        let td = String::from("FIRE_THUMBNAIL");
+        set_env_var(td, thumb_dir.clone()).unwrap();
+    }
+}
+
+fn set_fire_dir_nfos(cwd: &String) {
+    let nfo_dir = cwd.to_string() + "/fire_dir/nfos";
+    let nfos_dir_exists = Path::new(&nfo_dir).is_dir();
+    if nfos_dir_exists {
+        let nd = String::from("FIRE_NFOS");
+        set_env_var(nd, nfo_dir.clone()).unwrap();
+        clean_nfos_dir();
+    } else {
+        fs::create_dir_all(nfo_dir.clone()).unwrap();
+        let nd = String::from("FIRE_NFOS");
+        set_env_var(nd, nfo_dir.clone()).unwrap();
+    }
+}
+
+fn set_fire_docker_var(dvar: String) {
+    let dvar1 = String::from("FIRE_DOCKER_VAR");
+    let dvar2 = dvar;
+    set_env_var(dvar1, dvar2).unwrap();
+}
+
+fn set_fire_mongodb_address(addr: String) {
+    let static1 = String::from("FIRE_MONGODB_ADDRESS");
+    let static2 = addr;
+    set_env_var(static1, static2).unwrap();
+}
+
+fn set_fire_pagination() {
+    let offset1 = String::from("FIRE_PAGINATION");
+    let offset2 = String::from("25");
+    set_env_var(offset1, offset2).unwrap();
+}
+
+fn set_fire_additional_media_path(med_path: String) {
+    let music0 = "FIRE_ADDITIONAL_MEDIA_PATH".to_string();
+    let music1 = med_path;
+    set_env_var(music0, music1).unwrap();
+}
+
+pub fn set_all_env_vars(paras: Vec<Yaml>) {
+    for d in paras {
+        if d["FIRE_DOCKER_VAR"].as_str().unwrap().to_string() == "nodocker" {
             // set docker_var for future runs
 
             let cwd = get_current_working_dir();
-            let fire_dir = cwd.clone().to_string() + "/fire_dir";
-            let fire_dir_exists = Path::new(&fire_dir).is_dir();
-            if fire_dir_exists {
-                let f2 = String::from("FIRE_DIR");
-                set_env_var(f2, fire_dir).unwrap();
-            } else {
-                fs::create_dir_all(fire_dir.clone()).unwrap();
-                let f2 = String::from("FIRE_DIR");
-                set_env_var(f2, fire_dir).unwrap();
-            }
 
-            let thumb_dir = cwd.clone().to_string() + "/fire_dir/thumbnails";
-            let thumb_dir_exists = Path::new(&thumb_dir).is_dir();
-            if thumb_dir_exists {
-                let td = String::from("FIRE_THUMBNAIL");
-                set_env_var(td, thumb_dir.clone()).unwrap();
-                clean_thumbnail_dir();
-            } else {
-                fs::create_dir_all(thumb_dir.clone()).unwrap();
-                let td = String::from("FIRE_THUMBNAIL");
-                set_env_var(td, thumb_dir.clone()).unwrap();
-            }
+            set_fire_dir_env(&cwd);
+            set_fire_dir_thumbnails(&cwd);
+            set_fire_dir_nfos(&cwd);
+            set_fire_docker_var(d["FIRE_DOCKER_VAR"].as_str().unwrap().to_string());
+            set_fire_additional_media_path(d["FIRE_ADDITIONAL_MEDIA_PATH"].as_str().unwrap().to_string());
 
-            let nfo_dir = cwd.clone().to_string() + "/fire_dir/nfos";
-            let nfos_dir_exists = Path::new(&nfo_dir).is_dir();
-            if nfos_dir_exists {
-                let nd = String::from("FIRE_NFOS");
-                set_env_var(nd, nfo_dir.clone()).unwrap();
-                clean_nfos_dir();
-            } else {
-                fs::create_dir_all(nfo_dir.clone()).unwrap();
-                let nd = String::from("FIRE_NFOS");
-                set_env_var(nd, nfo_dir.clone()).unwrap();
-            }
-
-            let dvar1 = String::from("FIRE_DOCKER_VAR");
-            let dvar2 = d["FIRE_DOCKER_VAR"].as_str().unwrap().to_string();
-            set_env_var(dvar1, dvar2).unwrap();
-
-            let music0 = "FIRE_ADD_VIDEO_PATH".to_string();
-            let music1 = d["FIRE_ADD_VIDEO_PATH"].as_str().unwrap().to_string();
-            set_env_var(music0, music1).unwrap();
-
-            let m0 = "FIRE_ADD_MUSIC_PATH".to_string();
-            let m1 = d["FIRE_ADD_MUSIC_PATH"].as_str().unwrap().to_string();
-            set_env_var(m0, m1).unwrap();
-
-            let static1 = String::from("FIRE_MONGODB_ADDRESS");
-            let static2 = d["FIRE_MONGODB_ADDRESS"].as_str().unwrap().to_string();
-            set_env_var(static1, static2).unwrap();
-
-            let offset1 = String::from("FIRE_PAGINATION");
-            let offset2 = String::from("25");
-            set_env_var(offset1, offset2).unwrap();
+            set_fire_mongodb_address(d["FIRE_MONGODB_ADDRESS"].as_str().unwrap().to_string());
+            set_fire_pagination();
         };
 
         // let addr1 = String::from("FIRE_SERVER_ADDRESS");
@@ -170,9 +194,7 @@ pub fn read_config() -> bool {
         // let static2 = d["FIRE_STATIC_PATH"].as_str().unwrap().to_string();
         // set_env_var(static1, static2).unwrap();
     }
-    return true;
 }
-
 
 fn clean_nfos_dir() -> u32 {
     let movie_meta_dir_path = env::var("FIRE_NFOS").unwrap();

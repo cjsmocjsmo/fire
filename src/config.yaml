@@ -60,15 +60,16 @@
 #############################################################
 
 
-FIRE_DOCKER_VAR: "default" # or docker
+FIRE_DOCKER_VAR: "nodocker" # or docker
+
+FIRE_SCAN_HOME_DIR: "yes" # or no
 
 FIRE_MONGODB_ADDRESS: "mongodb://db:27017/fire"
 
 # for additional media other than /home/Music and /home/Videos
 # thumbnails are placed in /home/Pictures/fire
-FIRE_ADD_VIDEO_PATH: "NONE" 
 
-FIRE_ADD_MUSIC_PATH: "/media/pi/FOO/media"
+FIRE_ADDITIONAL_MEDIA_PATH: "/media/pi/FOO/media"
 
 # FIRE_ADDRESS: "http://192.168.0.61"
 # FIRE_PORT: "8888"

@@ -4,44 +4,30 @@
 // use crate::setup::fire_walk_dirs::walk_posters2_dir;
 pub mod fire_env_vars;
 pub mod fire_walk_dirs;
+pub mod fire_process_movie_images;
+pub mod fire_image;
+pub mod fire_misc;
+pub mod fire_split;
+
 
 pub fn run_setup() -> bool {
-    let mut env_result = false;
-    let isset_env_vars = fire_env_vars::read_config();
-    if isset_env_vars {
-        print!("env vars are set\n\n");
-        env_result = true;
-    }
+    let paras = fire_env_vars::read_config();
+    crate::setup::fire_env_vars::set_all_env_vars(paras);
+
 
     let media_lists = fire_walk_dirs::scan_all_sources();
-    // let music_list: Vec<String> = media_lists.0;
-    // for m in music_list {
-    //     println!("{:?}", m);
-    // }
     
-
-    // let video_list: Vec<String> = media_lists.1;
-    // for m in &video_list {
-    //     if m.contains("Movies") {
-    //         println!("{}", m);
-    //     } else {
-    //         println!("{}", m);
-    //     }
-    // }
 
     let images_list: Vec<String> = media_lists.2;
+    let mut index = 0;
     for i in images_list {
+        index = index + 1;
         if i.contains("Posters2") {
-            println!("{}", i);
+            // fire_process_movie_images::process_movie_posters(i.clone(), index);
+            println!("{}", i.clone());
         }
-    }
+    };
     
 
-    let mut result = false;
-
-    if env_result {
-        result = true;
-    }
-
-    result
+    true
 }
