@@ -11,7 +11,7 @@ fn create_movie_thumbnail(x: String) -> String {
     let old_fname = crate::setup::fire_split::split_poster_name(x.clone());
     let out_fname = fire_movie_metadata_path + "/" + &old_fname;
 
-    let img = image::open(x).expect(&x);
+    let img = image::open(&x).expect(&x);
     let thumbnail = img.resize(230, 345, image::imageops::FilterType::Lanczos3);
     thumbnail
         .save(out_fname.clone())
