@@ -23,7 +23,7 @@ pub fn run_setup() -> bool {
     for i in images_list {
         index = index + 1;
         if i.contains("Posters2") {
-            // fire_process_movie_images::process_movie_posters(i.clone(), index);
+            fire_process_movie_images::process_movie_posters(i.clone(), index);
             println!("{}", i.clone());
         }
     };
