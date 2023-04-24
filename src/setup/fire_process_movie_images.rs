@@ -20,7 +20,7 @@ fn create_movie_thumbnail(x: String) -> String {
     out_fname
 }
 
-pub fn process_movie_posters(x: String, index: i32) -> (String, String) {
+pub fn process_movie_posters(x: String, index: i32) -> String {
     // let movie_posters_vec = crate::fire_walk_dirs::walk_posters2_dir();
     // let mut index = 0;
     // let mut bad_image_vec = vec![];
@@ -29,7 +29,7 @@ pub fn process_movie_posters(x: String, index: i32) -> (String, String) {
     // index = index + 1;
 
     let dims = crate::setup::fire_image::get_image_dims(&x);
-    println!("{:?}", dims);
+    let dims_foo = format!("{:?}", dims);
     println!("{}", index);
 
     let img_size = crate::setup::fire_misc::get_file_size(&x);
@@ -38,6 +38,7 @@ pub fn process_movie_posters(x: String, index: i32) -> (String, String) {
 
     let mov_img_obj = object! {
         path: &*x,
+        dims: dims_foo,
         size: img_size.to_string(),
         name: name,
         thumbpath: thumb_path,
@@ -45,7 +46,7 @@ pub fn process_movie_posters(x: String, index: i32) -> (String, String) {
 
     let mov_img_info = json::stringify(mov_img_obj.dump());
 
-    println!("{}", mov_img_info);
+    // println!("{}", mov_img_info);
 
     // let fire_movie_metadata_path =
         // env::var("fire_MOVIES_METADATA_PATH").expect("$fire_MOVIES_METADATA_PATH is not set");
@@ -75,5 +76,5 @@ pub fn process_movie_posters(x: String, index: i32) -> (String, String) {
     // }
 
     // (bad_image_count.to_string(), index.to_string())
-    (String::from("fuckit"), String::from("fuckit2"))
+    mov_img_info
 }
