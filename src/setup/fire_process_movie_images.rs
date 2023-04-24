@@ -7,7 +7,7 @@ use std::env;
 
 fn create_movie_thumbnail(x: String) -> String {
     let fire_movie_metadata_path =
-        env::var("fire_MOVIES_THUMBNAIL_PATH").expect("$fire_MOVIES_THUMBNAIL_PATH is not set");
+        env::var("FIRE_THUMBNAIL").expect("$FIRE_THUMBNAIL is not set");
     let old_fname = crate::setup::fire_split::split_poster_name(x.clone());
     let out_fname = fire_movie_metadata_path + "/" + &old_fname;
 
