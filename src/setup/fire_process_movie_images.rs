@@ -29,6 +29,8 @@ pub fn process_movie_posters(x: String, index: i32) -> (String, String) {
     // index = index + 1;
 
     let dims = crate::setup::fire_image::get_image_dims(&x);
+    println!("{:?}", dims);
+    println!("{}", index);
 
     let img_size = crate::setup::fire_misc::get_file_size(&x);
     let name = crate::setup::fire_split::split_poster_name(x.clone());
@@ -41,7 +43,9 @@ pub fn process_movie_posters(x: String, index: i32) -> (String, String) {
         thumbpath: thumb_path,
     };
 
-    // let mov_img_info = json::stringify(mov_img_obj.dump());
+    let mov_img_info = json::stringify(mov_img_obj.dump());
+
+    println!("{}", mov_img_info);
 
     // let fire_movie_metadata_path =
         // env::var("fire_MOVIES_METADATA_PATH").expect("$fire_MOVIES_METADATA_PATH is not set");
