@@ -63,7 +63,7 @@ pub fn run_setup() -> bool {
         println!("{}\n", v);
     };
 
-    // run_img_threads(media_lists.2);
+    run_img_threads(media_lists.2);
 
     true
 }
