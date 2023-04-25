@@ -10,6 +10,9 @@ pub mod fire_image;
 pub mod fire_misc;
 pub mod fire_split;
 pub mod fire_process_music_images;
+pub mod fire_process_music;
+pub mod fire_mp3_info;
+pub mod fire_nnc_info;
 
 fn run_img_threads(alist: Vec<String>) {
     let pool = ThreadPool::new(num_cpus::get());
@@ -50,19 +53,17 @@ pub fn run_setup() -> bool {
 
     let media_lists = fire_walk_dirs::scan_all_sources();
 
-    let music_list = media_lists.0;
-    for m in music_list {
-        println!("{}\n", m)
-    }
+    
+    crate::setup::fire_process_music::process_mp3s(media_lists.0);
+    // println!("{}\n", m);
+    
 
     let video_list = media_lists.1;
     for v in video_list {
-        println!("{}\n", v)
-    }
-    
-    // let images_list: Vec<String> = media_lists.2;
+        println!("{}\n", v);
+    };
 
-    // run_img_threads(images_list);
+    // run_img_threads(media_lists.2);
 
     true
 }
