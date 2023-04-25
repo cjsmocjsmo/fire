@@ -40,7 +40,7 @@ pub fn process_music_images(x: String, index: i32) -> String {
 
         let dims = crate::setup::fire_image::get_image_dims(&x);
 
-        println!("{}\n\t{:?}", id, dims);
+        
         if dims != (0, 0) {
             let newdims = crate::setup::fire_image::normalize_music_image(dims);
             let width_r = newdims.0.to_string();
@@ -76,7 +76,7 @@ pub fn process_music_images(x: String, index: i32) -> String {
                 fullpath: full_path.to_string(),
                 thumbpath: thumb_path
             };
-
+            println!("\n{:?}", music_image_info);
             // println!("{:?}", music_image_info);
             // put this is db
             // crate::setup::fire_image::write_image_json_to_file(
