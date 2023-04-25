@@ -151,8 +151,8 @@ pub fn scan_all_sources() -> (Vec<String>, Vec<String>, Vec<String>) {
     //     add_music_images = fire_walk_dirs::walk_music_dir_images(add_music.clone());
     // };
 
-    println!("{}", vid_posters.len());
-    println!("{}", music_images.len());
+    println!("this is posters count: {}", vid_posters.len());
+    println!("this is music images: {}", music_images.len());
     
     media_images.append(&mut vid_posters);
     // media_images.append(&mut add_vid_posters);

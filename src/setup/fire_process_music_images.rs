@@ -3,7 +3,7 @@ use std::env;
 
 fn create_music_thumbnail(x: &String, art: String, alb: String) -> String{
     let fire_music_metadata_path =
-        env::var("fire_MUSIC_THUMBNAIL_PATH").expect("$fire_MUSIC_THUMBNAIL_PATH is not set");
+        env::var("FIRE_THUMBNAIL").expect("$FIRE_THUMBNAIL is not set");
     // let old_fname = crate::setup::fire_split::split_poster_name(x.clone());
     let new_fname = "/".to_string() + art.as_str() + "_-_" + alb.as_str() + ".jpg";
     let out_fname = fire_music_metadata_path + "/" + &new_fname;
