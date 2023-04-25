@@ -16,7 +16,7 @@ fn run_img_threads(alist: Vec<String>) {
     let (tx, rx) = channel();
 
     let mut img_index = 0;
-    for i in images_list {
+    for i in alist {
         img_index = img_index + 1;
         if i.contains("Posters2") {
             let tx = tx.clone();
