@@ -1,5 +1,5 @@
 // use std::fs;
-// use std::env;
+use std::env;
 use threadpool::ThreadPool;
 use std::sync::mpsc::channel;
 // use crate::setup::fire_walk_dirs::walk_posters2_dir;
@@ -45,6 +45,43 @@ fn run_img_threads(alist: Vec<String>) {
     }   
 }
 
+fn run_music_threads(alist: Vec<String>) {
+    let pool = ThreadPool::new(num_cpus::get());
+    let (tx, rx) = channel();
+
+    let mut index = 0;
+    let mut page = 1;
+    let mut page_count = 0;
+
+    let ofs = env::var("FIRE_PAGINATION").unwrap();
+    let offset: u32 = ofs.trim().parse().expect("offset conversion failed");
+
+    for a in alist {
+        index = index + 1;
+        if page_count < offset {
+            page_count = page_count + 1;
+            page = page;
+        } else {
+            page_count = 1;
+            page = page + 1;
+        }
+        let tx = tx.clone();
+        pool.execute(move || {
+            let mfi = crate::setup::fire_process_music::process_mp3s(a.clone(), index.to_string(), page.to_string());
+            tx.send(mfi).expect("Could not send data");
+        });
+    };
+
+
+    drop(tx);
+    for t in rx.iter() {
+    let ifo = t;
+    println!("{:?}", ifo);
+    }   
+
+
+
+}
 
 pub fn run_setup() -> bool {
     let paramaters = fire_env_vars::read_config();
@@ -53,8 +90,8 @@ pub fn run_setup() -> bool {
 
     let media_lists = fire_walk_dirs::scan_all_sources();
 
+    run_music_threads(media_lists.0);
     
-    crate::setup::fire_process_music::process_mp3s(media_lists.0);
     // println!("{}\n", m);
     
 
