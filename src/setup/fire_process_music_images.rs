@@ -38,7 +38,7 @@ pub fn process_music_images(x: String, index: i32) -> String {
             let height_r = newdims.1.to_string();
 
             let base_dir = crate::setup::fire_split::split_base_dir(&x);
-            println!("{}\n", base_dir);
+            println!("{}\n\t{}", x.clone(),base_dir);
         //     let file_name = crate::setup::fire_split::split_filename(&x);
         //     let extension = crate::setup::fire_split::split_ext(&x);
 
