@@ -52,7 +52,7 @@ pub fn image_split_artist(x: &String) -> String {
         fin.push(f);
     }
 
-    String::from(fin[2])
+    String::from(fin[1])
 }
 
 pub fn music_split_artist(x: &String) -> String {
