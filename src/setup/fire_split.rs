@@ -22,7 +22,7 @@ pub fn split_base_dir(astring: &String) -> String {
         myvec.push(my);
     }
 
-    let path = env::var("MTV_MUSIC_PATH").unwrap();
+    let path = env::var("FIRE_THUMBNAIL").unwrap();
     let envsplit = path.split("/");
 
     let mut envvec = vec![];

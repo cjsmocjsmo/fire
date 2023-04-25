@@ -30,42 +30,42 @@ pub fn process_music_images(x: String, index: i32) -> String {
         let id = crate::setup::fire_misc::get_md5(&x);
 
         let dims = crate::setup::fire_image::get_image_dims(&x);
-        if dims != (0, 0) {
-            let newdims = crate::setup::fire_image::normalize_music_image(dims);
-            let width_r = newdims.0.to_string();
-            let height_r = newdims.1.to_string();
+        // if dims != (0, 0) {
+        //     let newdims = crate::setup::fire_image::normalize_music_image(dims);
+        //     let width_r = newdims.0.to_string();
+        //     let height_r = newdims.1.to_string();
 
-            let base_dir = crate::setup::fire_split::split_base_dir(&x);
-            let file_name = crate::setup::fire_split::split_filename(&x);
-            let extension = crate::setup::fire_split::split_ext(&x);
+        //     let base_dir = crate::setup::fire_split::split_base_dir(&x);
+        //     let file_name = crate::setup::fire_split::split_filename(&x);
+        //     let extension = crate::setup::fire_split::split_ext(&x);
 
-            let artist_results = crate::setup::fire_split::image_split_artist(&base_dir);
-            let album_results = crate::setup::fire_split::image_split_album(&base_dir);
+        //     let artist_results = crate::setup::fire_split::image_split_artist(&base_dir);
+        //     let album_results = crate::setup::fire_split::image_split_album(&base_dir);
 
-            let fsize_results = crate::setup::fire_misc::get_file_size(&x).to_string();
-            let fullpath = &x.to_string();
+        //     let fsize_results = crate::setup::fire_misc::get_file_size(&x).to_string();
+        //     let fullpath = &x.to_string();
 
-            let thumb_path = create_music_thumbnail(&x, artist_results.clone(), album_results.clone());
+        //     let thumb_path = create_music_thumbnail(&x, artist_results.clone(), album_results.clone());
 
-            // let b64image = crate::setup::fire_image::to_base64_str(&thumb_path);
+        //     // let b64image = crate::setup::fire_image::to_base64_str(&thumb_path);
 
-            crate::setup::fire_image::write_image_json_to_file(
-                id,
-                width_r,
-                height_r,
-                base_dir,
-                file_name,
-                extension,
-                artist_results,
-                album_results,
-                fsize_results,
-                // b64image,
-                fullpath.to_string(),
-                index.to_string(),
-                thumb_path,
-            );
+        //     crate::setup::fire_image::write_image_json_to_file(
+        //         id,
+        //         width_r,
+        //         height_r,
+        //         base_dir,
+        //         file_name,
+        //         extension,
+        //         artist_results,
+        //         album_results,
+        //         fsize_results,
+        //         // b64image,
+        //         fullpath.to_string(),
+        //         index.to_string(),
+        //         thumb_path,
+        //     );
             
-        };
+        // };
         // put it in a db
     
 

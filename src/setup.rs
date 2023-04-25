@@ -27,15 +27,17 @@ pub fn run_setup() -> bool {
     let mut index = 0;
     for i in images_list {
         index = index + 1;
-        if i.contains("Posters2") {
-            let tx = tx.clone();
-            pool.execute(move || {
-                let img_info = fire_process_movie_images::process_movie_posters(i.clone(), index);
-                tx.send(img_info).expect("Could not send data");
-                println!("{}", i.clone());
-            });
+        // if i.contains("Posters2") {
+        //     let tx = tx.clone();
+        //     pool.execute(move || {
+        //         let img_info = fire_process_movie_images::process_movie_posters(i.clone(), index);
+        //         tx.send(img_info).expect("Could not send data");
+        //         println!("{}", i.clone());
+        //     });
             
-        } else if i.contains("Music") {
+        // };
+        
+        if i.contains("Music") {
             let tx = tx.clone();
             pool.execute(move || {
                 let img_info = fire_process_music_images::process_music_images(i.clone(), index);
