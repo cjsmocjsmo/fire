@@ -60,9 +60,9 @@ pub fn run_setup() -> bool {
         println!("{}\n", v)
     }
     
-    let images_list: Vec<String> = media_lists.2;
+    // let images_list: Vec<String> = media_lists.2;
 
-    run_img_threads(images_list);
+    // run_img_threads(images_list);
 
     true
 }
