@@ -32,12 +32,13 @@ pub fn process_music_images(x: String, index: i32) -> String {
         let dims = crate::setup::fire_image::get_image_dims(&x);
 
         println!("{}\n\t{:?}", id, dims);
-        // if dims != (0, 0) {
-        //     let newdims = crate::setup::fire_image::normalize_music_image(dims);
-        //     let width_r = newdims.0.to_string();
-        //     let height_r = newdims.1.to_string();
+        if dims != (0, 0) {
+            let newdims = crate::setup::fire_image::normalize_music_image(dims);
+            let width_r = newdims.0.to_string();
+            let height_r = newdims.1.to_string();
 
-        //     let base_dir = crate::setup::fire_split::split_base_dir(&x);
+            let base_dir = crate::setup::fire_split::split_base_dir(&x);
+            println!("{}\n", base_dir);
         //     let file_name = crate::setup::fire_split::split_filename(&x);
         //     let extension = crate::setup::fire_split::split_ext(&x);
 
@@ -67,7 +68,7 @@ pub fn process_music_images(x: String, index: i32) -> String {
         //         thumb_path,
         //     );
             
-        // };
+        };
         // put it in a db
     
 
