@@ -9,12 +9,13 @@ pub mod fire_process_movie_images;
 pub mod fire_image;
 pub mod fire_misc;
 pub mod fire_split;
+pub mod fire_process_music_images;
 
 
 pub fn run_setup() -> bool {
-    let paras = fire_env_vars::read_config();
-    crate::setup::fire_env_vars::set_all_env_vars(paras);
+    let paramaters = fire_env_vars::read_config();
 
+    crate::setup::fire_env_vars::set_all_env_vars(paramaters);
 
     let media_lists = fire_walk_dirs::scan_all_sources();
     
@@ -30,10 +31,16 @@ pub fn run_setup() -> bool {
             let tx = tx.clone();
             pool.execute(move || {
                 let img_info = fire_process_movie_images::process_movie_posters(i.clone(), index);
-            tx.send(img_info).expect("Could not send data");
-            println!("{}", i.clone());
+                tx.send(img_info).expect("Could not send data");
+                println!("{}", i.clone());
             });
             
+        } else if i.contains("Music") {
+            let tx = tx.clone();
+            pool.execute(move || {
+                let img_info = fire_process_music_images::process_music_images(i.clone(), index);
+                tx.send(img_info).expect("Could not send data");
+            });
         }
     };
     
