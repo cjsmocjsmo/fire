@@ -30,6 +30,8 @@ pub fn process_music_images(x: String, index: i32) -> String {
         let id = crate::setup::fire_misc::get_md5(&x);
 
         let dims = crate::setup::fire_image::get_image_dims(&x);
+
+        println!("{}\n\t{:?}", id, dims);
         // if dims != (0, 0) {
         //     let newdims = crate::setup::fire_image::normalize_music_image(dims);
         //     let width_r = newdims.0.to_string();
