@@ -77,7 +77,8 @@ pub fn process_music_images(x: String, index: i32) -> String {
                 thumbpath: thumb_path
             };
 
-            println!("{:?}", music_image_info);
+            // println!("{:?}", music_image_info);
+            // put this is db
             // crate::setup::fire_image::write_image_json_to_file(
             //     id,
             //     width_r,
