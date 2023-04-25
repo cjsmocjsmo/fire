@@ -2,7 +2,8 @@
 use std::env;
 use threadpool::ThreadPool;
 use std::sync::mpsc::channel;
-// use crate::setup::fire_walk_dirs::walk_posters2_dir;
+
+
 pub mod fire_env_vars;
 pub mod fire_walk_dirs;
 pub mod fire_process_movie_images;
@@ -12,7 +13,6 @@ pub mod fire_split;
 pub mod fire_process_music_images;
 pub mod fire_process_music;
 pub mod fire_mp3_info;
-pub mod fire_nnc_info;
 
 fn run_img_threads(alist: Vec<String>) {
     let pool = ThreadPool::new(num_cpus::get());
@@ -95,12 +95,12 @@ pub fn run_setup() -> bool {
     // println!("{}\n", m);
     
 
-    let video_list = media_lists.1;
-    for v in video_list {
-        println!("{}\n", v);
-    };
+    // let video_list = media_lists.1;
+    // for v in video_list {
+    //     println!("{}\n", v);
+    // };
 
-    run_img_threads(media_lists.2);
+    // run_img_threads(media_lists.2);
 
     true
 }
