@@ -41,11 +41,13 @@ pub fn process_music_images(x: String, index: i32) -> String {
             
             let file_name = crate::setup::fire_split::split_filename(&x);
             let extension = crate::setup::fire_split::split_ext(&x);
-            println!("\n{}\n\t{}\n\t{}", x.clone(),base_dir,file_name);
+            
 
 
-        //     let artist_results = crate::setup::fire_split::image_split_artist(&base_dir);
-        //     let album_results = crate::setup::fire_split::image_split_album(&base_dir);
+            let artist_results = crate::setup::fire_split::image_split_artist(&base_dir);
+            let album_results = crate::setup::fire_split::image_split_album(&base_dir);
+
+            println!("\n{}\n\t{}\n\t{}", artist_results, album_results, extension);
 
         //     let fsize_results = crate::setup::fire_misc::get_file_size(&x).to_string();
         //     let fullpath = &x.to_string();
