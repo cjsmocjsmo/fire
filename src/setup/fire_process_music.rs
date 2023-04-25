@@ -87,7 +87,7 @@ pub fn process_mp3s(mp3svec: Vec<String>) -> String {
                 page: page.to_string(),
                 fsizeresults: fsize_results,
             };
-            println!(music_info);
+            println!("{:?}", music_info);
         };
         // else {
         //     println!("\n\tThe file parts and tags do not match:\n\t\t{}", &mp3);
