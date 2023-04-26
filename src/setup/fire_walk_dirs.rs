@@ -106,8 +106,8 @@ fn walk_posters2_dir(apath: String) -> Vec<String> {
 }
 
 pub fn walk_additional_dir(apath: String) -> (Vec<String>, Vec<String>, Vec<String>,Vec<String>,Vec<String>) {
-    let moviesvec = Vec::new();
-    let tvshowsvec = Vec::new();
+    let mut moviesvec = Vec::new();
+    let mut tvshowsvec = Vec::new();
     let mut posters2vec = Vec::new();
     let mut musicvec = Vec::new();
     let mut musicimgvec = Vec::new();
@@ -154,9 +154,17 @@ pub fn walk_additional_dir(apath: String) -> (Vec<String>, Vec<String>, Vec<Stri
                     continue;
                 };
             } else if fname.ends_with(".mkv") {
-                
+                if fname.contains("Movies") {
+                    moviesvec.push(fname);
+                } else if fname.contains("TVShows") {
+                    tvshowsvec.push(fname);
+                };
             } else if fname.ends_with(".mp4") {
-                
+                if fname.contains("Movies") {
+                    moviesvec.push(fname);
+                } else if fname.contains("TVShows") {
+                    tvshowsvec.push(fname);
+                };
             } else if fname.ends_with(".mp3") {
                 musicvec.push(fname);
             } else {
