@@ -114,6 +114,12 @@ fn set_fire_additional_media_path(med_path: String) {
     set_env_var(music0, music1).unwrap();
 }
 
+fn set_scan_home_dir(dpath: String) {
+    let h1 = "FIRE_SCAN_HOME_DIR".to_string();
+    let h2 = dpath;
+    set_env_var(h1, h2).unwrap();
+}
+
 pub fn set_all_env_vars(paras: Vec<Yaml>) {
     for d in paras {
         if d["FIRE_DOCKER_VAR"].as_str().unwrap().to_string() == "nodocker" {
@@ -126,7 +132,7 @@ pub fn set_all_env_vars(paras: Vec<Yaml>) {
             set_fire_dir_nfos(&cwd);
             set_fire_docker_var(d["FIRE_DOCKER_VAR"].as_str().unwrap().to_string());
             set_fire_additional_media_path(d["FIRE_ADDITIONAL_MEDIA_PATH"].as_str().unwrap().to_string());
-
+            set_scan_home_dir(d["FIRE_SCAN_HOME_DIR"].as_str().unwrap().to_string());
             set_fire_mongodb_address(d["FIRE_MONGODB_ADDRESS"].as_str().unwrap().to_string());
             set_fire_pagination();
         };
