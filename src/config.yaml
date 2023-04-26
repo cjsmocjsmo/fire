@@ -69,7 +69,7 @@ FIRE_MONGODB_ADDRESS: "mongodb://db:27017/fire"
 # for additional media other than /home/Music and /home/Videos
 # thumbnails are placed in /home/Pictures/fire
 
-FIRE_ADDITIONAL_MEDIA_PATH: "/media/pi/FOO/media"
+FIRE_ADDITIONAL_MEDIA_PATH: "/home/pipi/Desktop"
 
 # FIRE_ADDRESS: "http://192.168.0.61"
 # FIRE_PORT: "8888"

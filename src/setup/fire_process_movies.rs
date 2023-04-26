@@ -31,7 +31,7 @@ fn get_poster_addr(x: String) -> String {
 }
 
 pub fn process_movies() -> String {
-    let movies_vec = crate::mtv_walk_dirs::walk_movies_dir();
+    // let movies_vec = crate::mtv_walk_dirs::walk_movies_dir();
     let mut count = 0;
     for x in movies_vec {
         count = count + 1;
@@ -52,16 +52,16 @@ pub fn process_movies() -> String {
             index: count.to_string()
         };
 
-        let json_info = json::stringify(mov_js_obj.dump());
+        // let json_info = json::stringify(mov_js_obj.dump());
 
-        let mtv_movies_metadata_path =
-            env::var("MTV_MOVIES_METADATA_PATH").expect("$MTV_MOVIES_METADATA_PATH is not set");
+        // let mtv_movies_metadata_path =
+        //     env::var("MTV_MOVIES_METADATA_PATH").expect("$MTV_MOVIES_METADATA_PATH is not set");
 
-        let a = format!("{}/", mtv_movies_metadata_path.as_str());
-        let b = format!("Movie_Meta_{}.json", &count);
-        let outpath = a + &b;
+        // let a = format!("{}/", mtv_movies_metadata_path.as_str());
+        // let b = format!("Movie_Meta_{}.json", &count);
+        // let outpath = a + &b;
 
-        std::fs::write(outpath, json_info).unwrap();
+        // std::fs::write(outpath, json_info).unwrap();
     }
 
     count.to_string()

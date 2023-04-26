@@ -1,4 +1,3 @@
-// use std::fs;
 use std::env;
 use std::sync::mpsc::channel;
 use threadpool::ThreadPool;
@@ -52,7 +51,7 @@ fn run_music_threads(alist: Vec<String>) {
     }
 }
 
-fn run_vid_img_threads(alist: Vec<String>) {
+fn run_video_img_threads(alist: Vec<String>) {
     let pool = ThreadPool::new(num_cpus::get());
     let (tx, rx) = channel();
 
@@ -108,18 +107,34 @@ pub fn run_setup() -> bool {
 
     crate::setup::fire_env_vars::set_all_env_vars(paramaters);
 
-    let media_lists = fire_walk_dirs::scan_all_sources();
+    let scan_home_dir = 
+        env::var("FIRE_SCAN_HOME_DIR")
+        .expect("$FIRE_SCAN_HOME_DIR is not set");
 
-    run_music_threads(media_lists.0);
+    let famp = 
+        env::var("FIRE_ADDITIONAL_MEDIA_PATH")
+        .expect("$FIRE_ADDITIONAL_MEDIA_PATH is not set");
 
-    run_vid_img_threads(media_lists.2.clone());
-    run_music_img_threads(media_lists.2.clone());
+    if scan_home_dir == "yes" {
+        let media_lists = fire_walk_dirs::scan_all_sources();
 
+        run_music_threads(media_lists.0);
 
-    let video_list = media_lists.1;
-    for v in video_list {
-        println!("{}\n", v);
-    };
+        run_video_img_threads(media_lists.2.clone());
+        run_music_img_threads(media_lists.2.clone());
 
+        let video_list = media_lists.1;
+        for v in video_list {
+            println!("{}\n", v);
+        }
+
+        crate::setup::fire_walk_dirs::walk_additional_dir(famp);
+
+        // FIRE_ADDITIONAL_MEDIA_PATH: "/home/pipi/Desktop"
+    } else {
+        // FIRE_ADDITIONAL_MEDIA_PATH: "/home/pipi/Desktop"
+    }
+
+    
     true
 }
