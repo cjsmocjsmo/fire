@@ -164,8 +164,13 @@ pub fn walk_additional_dir(apath: String) -> (Vec<String>, Vec<String>, Vec<Stri
             }
         }
     }
+    println!("{}", moviesvec.clone().len());
+    println!("{}", tvshowsvec.clone().len());
+    println!("{}", posters2vec.clone().len());
+    println!("{}", musicvec.clone().len());
+    println!("{}", musicimgvec.clone().len());
 
-    (moviesvec, tvshowsvec, posters2vec, musicvec, musicimgvec)
+    (moviesvec.clone(), tvshowsvec.clone(), posters2vec.clone(), musicvec.clone(), musicimgvec.clone())
 }
 
 pub fn scan_all_sources() -> (Vec<String>, Vec<String>, Vec<String>) {
