@@ -30,6 +30,7 @@ pub struct MusicImageInfo {
     filesize: String,
     fullpath: String,
     thumbpath: String,
+    index: String,
 
 }
 
@@ -41,6 +42,7 @@ pub fn process_music_images(x: String, index: i32) -> MusicImageInfo {
         let dims = crate::setup::fire_image::get_image_dims(&x);
 
         let music_image_info = MusicImageInfo::default();
+
         if dims != (0, 0) {
             let newdims = crate::setup::fire_image::normalize_music_image(dims);
             let width_r = newdims.0.to_string();
@@ -74,9 +76,11 @@ pub fn process_music_images(x: String, index: i32) -> MusicImageInfo {
                 album: album_results,
                 filesize: fsize_results,
                 fullpath: full_path.to_string(),
-                thumbpath: thumb_path
+                thumbpath: thumb_path,
+                index: index.to_string(),
             };
             println!("\n{:?}", music_image_info);
+            return music_image_info
             
         };
         
