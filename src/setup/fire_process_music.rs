@@ -1,7 +1,7 @@
 // use json::object;
-use std::env;
+// use std::env;
 
-#[derive(Debug)]
+#[derive(Debug, Default)]
 pub struct MusicInfo {
     id: String,
     imgurl: String,

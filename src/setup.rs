@@ -52,7 +52,7 @@ fn run_music_threads(alist: Vec<String>) {
     }
 }
 
-fn run_img_threads(alist: Vec<String>) {
+fn run_vid_img_threads(alist: Vec<String>) {
     let pool = ThreadPool::new(num_cpus::get());
     let (tx, rx) = channel();
 
@@ -67,7 +67,25 @@ fn run_img_threads(alist: Vec<String>) {
                 tx.send(img_info).expect("Could not send data");
                 println!("{}", i.clone());
             });
-        } else if i.contains("Music") {
+        }
+    }
+
+    drop(tx);
+    for t in rx.iter() {
+        // Insert this into db
+        let ifo = t;
+        println!("{}", ifo);
+    }
+}
+
+fn run_music_img_threads(alist: Vec<String>) {
+    let pool = ThreadPool::new(num_cpus::get());
+    let (tx, rx) = channel();
+
+    let mut img_index = 0;
+    for i in alist {
+        img_index = img_index + 1;
+        if i.contains("Music") {
             let tx = tx.clone();
             pool.execute(move || {
                 let img_info =
@@ -81,11 +99,9 @@ fn run_img_threads(alist: Vec<String>) {
     for t in rx.iter() {
         // Insert this into db
         let ifo = t;
-        println!("{}", ifo);
+        println!("{:?}", ifo);
     }
 }
-
-
 
 pub fn run_setup() -> bool {
     let paramaters = fire_env_vars::read_config();
@@ -96,7 +112,8 @@ pub fn run_setup() -> bool {
 
     run_music_threads(media_lists.0);
 
-    run_img_threads(media_lists.2);
+    run_vid_img_threads(media_lists.2.clone());
+    run_music_img_threads(media_lists.2.clone());
 
 
     let video_list = media_lists.1;

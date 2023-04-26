@@ -17,8 +17,8 @@ fn create_music_thumbnail(x: &String, art: String, alb: String) -> String{
     out_fname.to_string()
 }
 
-#[derive(Debug)]
-struct MusicImageInfo {
+#[derive(Debug, Default)]
+pub struct MusicImageInfo {
     id: String,
     width: String,
     height: String,
@@ -33,14 +33,14 @@ struct MusicImageInfo {
 
 }
 
-pub fn process_music_images(x: String, index: i32) -> String {
+pub fn process_music_images(x: String, index: i32) -> MusicImageInfo {
 
 
         let id = crate::setup::fire_misc::get_md5(&x);
 
         let dims = crate::setup::fire_image::get_image_dims(&x);
 
-        
+        let music_image_info = MusicImageInfo::default();
         if dims != (0, 0) {
             let newdims = crate::setup::fire_image::normalize_music_image(dims);
             let width_r = newdims.0.to_string();
@@ -77,40 +77,9 @@ pub fn process_music_images(x: String, index: i32) -> String {
                 thumbpath: thumb_path
             };
             println!("\n{:?}", music_image_info);
-            // println!("{:?}", music_image_info);
-            // put this is db
-            // crate::setup::fire_image::write_image_json_to_file(
-            //     id,
-            //     width_r,
-            //     height_r,
-            //     base_dir,
-            //     file_name,
-            //     extension,
-            //     artist_results,
-            //     album_results,
-            //     fsize_results,
-            //     // b64image,
-            //     fullpath.to_string(),
-            //     index.to_string(),
-            //     thumb_path,
-            // );
             
         };
-        // put it in a db
-    
+        
 
-    // let bad_image_count = bad_image_vec.clone().len();
-
-    // if bad_image_count != 0 {
-    //     let fire_music_metadata_path =
-    //         env::var("fire_MUSIC_METADATA_PATH").expect("$fire_MUSIC_METADATA_PATH is not set");
-
-    //     let a = format!("{}/", fire_music_metadata_path.as_str());
-    //     let b = format!("Bad_Music_Images.json");
-    //     let outpath = a + &b;
-    //     fs::write(outpath, bad_image_vec.join("\n"))
-    //         .expect("Failed to write named incorrectly json file");
-    // }
-
-    "fuckit".to_string()
+    music_image_info
 }
