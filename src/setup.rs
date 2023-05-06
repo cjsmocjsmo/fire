@@ -128,11 +128,12 @@ pub fn run_setup() -> bool {
             println!("{}\n", v);
         }
 
-        crate::setup::fire_walk_dirs::walk_additional_dir(famp);
+    //     let add_media_list = crate::setup::fire_walk_dirs::walk_additional_dir(famp);
 
-        // FIRE_ADDITIONAL_MEDIA_PATH: "/home/pipi/Desktop"
-    } else {
-        // FIRE_ADDITIONAL_MEDIA_PATH: "/home/pipi/Desktop"
+    //     // FIRE_ADDITIONAL_MEDIA_PATH: "/home/pipi/Desktop"
+    // } else {
+    //     let add_media_list = crate::setup::fire_walk_dirs::walk_additional_dir(famp);
+    //     // FIRE_ADDITIONAL_MEDIA_PATH: "/home/pipi/Desktop"
     }
 
     

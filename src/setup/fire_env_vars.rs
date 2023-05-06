@@ -90,51 +90,74 @@ fn set_fire_dir_nfos(cwd: &String) {
     }
 }
 
-fn set_fire_docker_var(dvar: String) {
-    let dvar1 = String::from("FIRE_DOCKER_VAR");
-    let dvar2 = dvar;
-    set_env_var(dvar1, dvar2).unwrap();
+pub struct EnvVars {
+    fire_docker_var: String,
+    fire_scan_home_dir: String,
+    fire_mongodb_address: String,
+    fire_additional_media_path: String,
+    fire_pagination: String,
+
 }
 
-fn set_fire_mongodb_address(addr: String) {
-    let static1 = String::from("FIRE_MONGODB_ADDRESS");
-    let static2 = addr;
-    set_env_var(static1, static2).unwrap();
-}
-
-fn set_fire_pagination() {
-    let offset1 = String::from("FIRE_PAGINATION");
-    let offset2 = String::from("25");
-    set_env_var(offset1, offset2).unwrap();
-}
-
-fn set_fire_additional_media_path(med_path: String) {
-    let music0 = "FIRE_ADDITIONAL_MEDIA_PATH".to_string();
-    let music1 = med_path;
-    set_env_var(music0, music1).unwrap();
-}
-
-fn set_scan_home_dir(dpath: String) {
-    let h1 = "FIRE_SCAN_HOME_DIR".to_string();
-    let h2 = dpath;
-    set_env_var(h1, h2).unwrap();
+impl EnvVars {
+    fn set_docker_var(&self) -> bool {
+        let dvar1 = String::from("FIRE_DOCKER_VAR");
+        let dvar2 = self.fire_docker_var.clone();
+        set_env_var(dvar1, dvar2).unwrap();
+        true
+    }
+    fn set_scan_home_dir(&self) -> bool {
+        let h1 = "FIRE_SCAN_HOME_DIR".to_string();
+        let h2 = self.fire_scan_home_dir.clone();
+        set_env_var(h1, h2).unwrap();
+        true
+    }
+    fn set_fire_mongodb_address(&self) -> bool {
+        let static1 = String::from("FIRE_MONGODB_ADDRESS");
+        let static2 = self.fire_mongodb_address.clone();
+        set_env_var(static1, static2).unwrap();
+        true
+    }
+    fn set_fire_additional_media_path(&self) -> bool {
+        let music0 = "FIRE_ADDITIONAL_MEDIA_PATH".to_string();
+        let music1 = self.fire_additional_media_path.clone();
+        set_env_var(music0, music1).unwrap();
+        true
+    }
+    fn set_fire_pagination(&self) -> bool {
+        let offset1 = String::from("FIRE_PAGINATION");
+        let offset2 = self.fire_pagination.clone();
+        set_env_var(offset1, offset2).unwrap();
+        true
+    }
 }
 
 pub fn set_all_env_vars(paras: Vec<Yaml>) {
     for d in paras {
+        let envvars = EnvVars {
+            fire_docker_var: d["FIRE_DOCKER_VAR"].as_str().unwrap().to_string(),
+            fire_scan_home_dir: d["FIRE_SCAN_HOME_DIR"].as_str().unwrap().to_string(),
+            fire_mongodb_address: d["FIRE_MONGODB_ADDRESS"].as_str().unwrap().to_string(),
+            fire_additional_media_path: d["FIRE_ADDITIONAL_MEDIA_PATH"].as_str().unwrap().to_string(),
+            fire_pagination: d["FIRE_PAGINATION"].as_str().unwrap().to_string(),
+        };
+
+        
+        
+
         if d["FIRE_DOCKER_VAR"].as_str().unwrap().to_string() == "nodocker" {
             // set docker_var for future runs
-
+            
             let cwd = get_current_working_dir();
 
             set_fire_dir_env(&cwd);
             set_fire_dir_thumbnails(&cwd);
             set_fire_dir_nfos(&cwd);
-            set_fire_docker_var(d["FIRE_DOCKER_VAR"].as_str().unwrap().to_string());
-            set_fire_additional_media_path(d["FIRE_ADDITIONAL_MEDIA_PATH"].as_str().unwrap().to_string());
-            set_scan_home_dir(d["FIRE_SCAN_HOME_DIR"].as_str().unwrap().to_string());
-            set_fire_mongodb_address(d["FIRE_MONGODB_ADDRESS"].as_str().unwrap().to_string());
-            set_fire_pagination();
+            envvars.set_docker_var();
+            envvars.set_scan_home_dir();
+            envvars.set_fire_mongodb_address();
+            envvars.set_fire_additional_media_path();
+            envvars.set_fire_pagination();
         };
 
         // let addr1 = String::from("FIRE_SERVER_ADDRESS");
