@@ -9,7 +9,7 @@ pub mod fire_mp3_info;
 pub mod fire_process_movie_images;
 pub mod fire_process_music;
 pub mod fire_process_music_images;
-pub mod fire_split;
+pub mod fire_utils;
 pub mod fire_walk_dirs;
 
 fn run_music_threads(alist: Vec<String>) {

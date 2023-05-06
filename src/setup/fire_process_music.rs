@@ -36,19 +36,19 @@ pub fn process_mp3s(x: String, index: String, page: String) -> MusicInfo {
     let fullpath = &x.to_string();
 
     
-    let base_dir = crate::setup::fire_split::split_base_dir(&x);
-
-    let foo3 = crate::setup::fire_split::StrSplit {
+    
+    let foo3 = crate::setup::fire_utils::FireUtils {
         apath: x.clone()
     };
+    let base_dir = crate::setup::fire_utils::FireUtils::split_base_dir(&foo3);
 
-    let filename_results = crate::setup::fire_split::StrSplit::split_filename(&foo3);
-    let music_artist_results = crate::setup::fire_split::StrSplit::music_split_artist(&foo3);
+    let filename_results = crate::setup::fire_utils::FireUtils::split_filename(&foo3);
+    let music_artist_results = crate::setup::fire_utils::FireUtils::music_split_artist(&foo3);
 
-    let music_album_results = crate::setup::fire_split::StrSplit::music_split_album(&foo3);
+    let music_album_results = crate::setup::fire_utils::FireUtils::music_split_album(&foo3);
 
 
-    let ext = crate::setup::fire_split::StrSplit::split_ext(&foo3);
+    let ext = crate::setup::fire_utils::FireUtils::split_ext(&foo3);
     let idx = index.to_string();
     let fsize_results = crate::setup::fire_misc::get_file_size(&x).to_string();
 

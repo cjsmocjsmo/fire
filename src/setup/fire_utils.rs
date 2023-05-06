@@ -1,36 +1,31 @@
 use std::env;
 use std::path::Path;
 
-pub fn split_base_dir(x: &String) -> String {
-    let mysplit = x.split("/");
-    let mut myvec = vec![];
-    for my in mysplit {
-        myvec.push(my);
-    }
-    let path = env::var("FIRE_THUMBNAIL").unwrap();
-    let envsplit = path.split("/");
-    let mut envvec = vec![];
-    for env in envsplit {
-        envvec.push(env);
-    }
-    let count = envvec.len() - 1;
-    myvec.drain(0..count);
-    myvec.pop();
-    let base_dir = myvec.join("/");
-    base_dir
-}
-
-
-
-
-
 #[derive(Debug)]
-pub struct StrSplit {
+pub struct FireUtils {
     pub apath: String
     
 }
 
-impl StrSplit {
+impl FireUtils {
+    pub fn split_base_dir(&self) -> String {
+        let mysplit = self.apath.split("/");
+        let mut myvec = vec![];
+        for my in mysplit {
+            myvec.push(my);
+        }
+        let path = env::var("FIRE_THUMBNAIL").unwrap();
+        let envsplit = path.split("/");
+        let mut envvec = vec![];
+        for env in envsplit {
+            envvec.push(env);
+        }
+        let count = envvec.len() - 1;
+        myvec.drain(0..count);
+        myvec.pop();
+        let base_dir = myvec.join("/");
+        base_dir
+    }
     pub fn split_ext(&self) -> String {
         let path = Path::new(&self.apath);
         let boo_results = path.extension();
@@ -127,59 +122,54 @@ impl StrSplit {
 
         filename.to_string()
     }
+    pub fn split_movie_name(&self) -> String {
+        let filesplit = self.apath.split("/");
+        let mut filenamevec: Vec<String> = vec![];
+        for file in filesplit {
+            filenamevec.push(file.to_string());
+        }
+        let raw_fname = filenamevec.pop().unwrap();
 
-}
+        let fsplit = raw_fname.split(" (");
+        let mut fsplit_vec = vec![];
+        for f in fsplit {
+            fsplit_vec.push(f);
+        }
 
-pub fn split_movie_name(x: String) -> String {
-    let filesplit = x.split("/");
-
-    let mut filenamevec: Vec<String> = vec![];
-    for file in filesplit {
-        filenamevec.push(file.to_string());
+        fsplit_vec[0].to_string()
     }
-    let raw_fname = filenamevec.pop().unwrap();
+    pub fn split_movie_year(&self) -> String {
+        let filesplit = self.apath.split("/");
 
-    let fsplit = raw_fname.split(" (");
-    let mut fsplit_vec = vec![];
-    for f in fsplit {
-        fsplit_vec.push(f);
+        let mut filenamevec: Vec<String> = vec![];
+        for file in filesplit {
+            filenamevec.push(file.to_string());
+        }
+        let raw_fname = filenamevec.pop().unwrap();
+
+        let fsplit = raw_fname.split(" (");
+        let mut fsplit_vec = vec![];
+        for f in fsplit {
+            fsplit_vec.push(f);
+        }
+
+        let fsplit2 = fsplit_vec[1].split(")");
+        let mut fsplit_vec2 = vec![];
+        for f2 in fsplit2 {
+            fsplit_vec2.push(f2);
+        }
+
+        fsplit_vec2[0].to_string()
     }
+    pub fn split_poster_name(&self) -> String {
+        let filesplit = self.apath.split("/");
 
-    fsplit_vec[0].to_string()
-}
+        let mut filenamevec: Vec<String> = vec![];
+        for file in filesplit {
+            filenamevec.push(file.to_string());
+        }
+        let fname = filenamevec.pop().unwrap();
 
-pub fn split_movie_year(x: String) -> String {
-    let filesplit = x.split("/");
-
-    let mut filenamevec: Vec<String> = vec![];
-    for file in filesplit {
-        filenamevec.push(file.to_string());
+        fname
     }
-    let raw_fname = filenamevec.pop().unwrap();
-
-    let fsplit = raw_fname.split(" (");
-    let mut fsplit_vec = vec![];
-    for f in fsplit {
-        fsplit_vec.push(f);
-    }
-
-    let fsplit2 = fsplit_vec[1].split(")");
-    let mut fsplit_vec2 = vec![];
-    for f2 in fsplit2 {
-        fsplit_vec2.push(f2);
-    }
-
-    fsplit_vec2[0].to_string()
-}
-
-pub fn split_poster_name(x: String) -> String{
-    let filesplit = x.split("/");
-
-    let mut filenamevec: Vec<String> = vec![];
-    for file in filesplit {
-        filenamevec.push(file.to_string());
-    }
-    let fname = filenamevec.pop().unwrap();
-
-    fname
 }

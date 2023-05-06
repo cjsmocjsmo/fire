@@ -6,9 +6,13 @@ use std::env;
 // use std::fs;
 
 fn create_movie_thumbnail(x: String) -> String {
+    let foobar = crate::setup::fire_utils::FireUtils {
+        apath: x.clone()
+    };
+
     let fire_movie_metadata_path =
         env::var("FIRE_THUMBNAIL").expect("$FIRE_THUMBNAIL is not set");
-    let old_fname = crate::setup::fire_split::split_poster_name(x.clone());
+    let old_fname = crate::setup::fire_utils::FireUtils::split_poster_name(&foobar);
     let out_fname = fire_movie_metadata_path + "/" + &old_fname;
 
     let img = image::open(&x).expect(&x);
@@ -32,8 +36,12 @@ pub fn process_movie_posters(x: String, index: i32) -> String {
     let dims_foo = format!("{:?}", dims);
     println!("{}", index);
 
+    let foobar2 = crate::setup::fire_utils::FireUtils {
+        apath: x.clone()
+    };
+
     let img_size = crate::setup::fire_misc::get_file_size(&x);
-    let name = crate::setup::fire_split::split_poster_name(x.clone());
+    let name = crate::setup::fire_utils::FireUtils::split_poster_name(&foobar2);
     let thumb_path = create_movie_thumbnail(x.clone());
 
     let mov_img_obj = object! {
