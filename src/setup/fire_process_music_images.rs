@@ -94,9 +94,9 @@ pub fn process_music_images(x: String, index: i32) -> bool {
         let width_r = newdims.0.to_string();
         let height_r = newdims.1.to_string();
 
-        let base_dir = crate::setup::fire_utils::FireUtils::get_base_dir(&foo2);
+        let base_dir = crate::setup::fire_utils::FireUtils::split_base_dir(&foo2);
 
-        let file_name = crate::setup::fire_utils::FireUtils::get_file_name(&foo2);
+        let file_name = crate::setup::fire_utils::FireUtils::split_filename(&foo2);
 
         let ext = crate::setup::fire_utils::FireUtils::split_ext(&foo2);
         // let ext = MusicImageInfo::get_ext(&foo);
