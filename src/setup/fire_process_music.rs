@@ -28,14 +28,27 @@ pub fn process_mp3s(x: String, index: String, page: String) -> MusicInfo {
 
     let id = crate::setup::fire_misc::get_md5(&x);
     let voodoo: &String = &"None".to_string();
-    let base_dir = crate::setup::fire_split::split_base_dir(&x);
-    let filename_results = crate::setup::fire_split::split_filename(&x);
-    let music_artist_results = crate::setup::fire_split::music_split_artist(&base_dir);
-    let music_album_results = crate::setup::fire_split::music_split_album(&base_dir);
+    
+    
+    
     let duration_results = crate::setup::fire_mp3_info::get_duration(&x);
 
     let fullpath = &x.to_string();
-    let ext = crate::setup::fire_split::split_ext(&x);
+
+    
+    let base_dir = crate::setup::fire_split::split_base_dir(&x);
+
+    let foo3 = crate::setup::fire_split::StrSplit {
+        apath: x.clone()
+    };
+
+    let filename_results = crate::setup::fire_split::StrSplit::split_filename(&foo3);
+    let music_artist_results = crate::setup::fire_split::StrSplit::music_split_artist(&foo3);
+
+    let music_album_results = crate::setup::fire_split::StrSplit::music_split_album(&foo3);
+
+
+    let ext = crate::setup::fire_split::StrSplit::split_ext(&foo3);
     let idx = index.to_string();
     let fsize_results = crate::setup::fire_misc::get_file_size(&x).to_string();
 
@@ -52,7 +65,7 @@ pub fn process_mp3s(x: String, index: String, page: String) -> MusicInfo {
         musicalbumresults: music_album_results,
         durationresults: duration_results,
         fullpath: fullpath.to_string(),
-        extension: ext,
+        extension: format!("{:?}", ext),
         index: idx,
         page: page.to_string(),
         fsizeresults: fsize_results,

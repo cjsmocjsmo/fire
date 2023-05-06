@@ -16,7 +16,6 @@ fn walk_video_dir(apath: String) -> Vec<String> {
     {
         if e.metadata().unwrap().is_file() {
             let fname = e.path().to_string_lossy().to_string();
-
             if fname.ends_with("mp4") {
                 vidvec.push(fname.clone());
             } else if fname.ends_with("mkv") {
@@ -29,7 +28,6 @@ fn walk_video_dir(apath: String) -> Vec<String> {
 
     vidvec
 }
-
 
 fn walk_music_dir_music(apath: String) -> Vec<String> {
     let mut mp3vec = Vec::new();
@@ -61,7 +59,6 @@ fn walk_music_dir_images(apath: String) -> Vec<String> {
     {
         if e.metadata().unwrap().is_file() {
             let fname = e.path().to_string_lossy().to_string();
-
             if fname.ends_with(".jpg") {
                 musicimagevec.push(fname);
             } else if fname.ends_with(".jpeg") {
@@ -111,8 +108,6 @@ pub fn walk_additional_dir(apath: String) -> (Vec<String>, Vec<String>, Vec<Stri
     let mut posters2vec = Vec::new();
     let mut musicvec = Vec::new();
     let mut musicimgvec = Vec::new();
-
-
 
     for e in WalkDir::new(apath)
         .follow_links(true)
@@ -187,20 +182,16 @@ pub fn scan_all_sources() -> (Vec<String>, Vec<String>, Vec<String>) {
     let music_dir = homedir.clone() + "/Music";
     let music_list = walk_music_dir_music(music_dir.clone());
 
-
     let video_dir = homedir.clone() + "/Videos";
     let video_list = walk_video_dir(video_dir.clone());
-
 
     let mut media_images = Vec::new();
 
     let vid_posters_path = video_dir.clone() + "/Posters2";
     let mut vid_posters = fire_walk_dirs::walk_posters2_dir(vid_posters_path.clone());
 
-
     let mut music_images = fire_walk_dirs::walk_music_dir_images(music_dir.clone());
     
-
     println!("this is posters count: {}", vid_posters.len());
     println!("this is music images: {}", music_images.len());
     

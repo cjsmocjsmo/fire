@@ -33,7 +33,7 @@ pub struct MII {
     width: String,
     height: String,
     basedir: String,
-    filename: String,
+    // filename: String,
     extension: String,
     artist: String,
     album: String,
@@ -56,20 +56,34 @@ impl MusicImageInfo {
         let bdir = crate::setup::fire_split::split_base_dir(&self.imgpath);
         bdir
      }
-     fn get_file_name(&self) -> String {
-        let fname = crate::setup::fire_split::split_filename(&self.imgpath);
-        fname
-     }
-     fn get_ext(&self) -> String {
-        let ext = crate::setup::fire_split::split_ext(&self.imgpath);
-        ext
-     }
+    //  fn get_file_name(&self) -> String {
+    //     let fname = crate::setup::fire_split::StrSplit::split_filename(&self.imgpath);
+    //     fname
+    //  }
+    //  fn get_ext(&self) -> String {
+    //     let path = Path::new(&astring);
+    //     let boo_results = path.extension();
+    //     let boo = match boo_results {
+    //         Some(b) => b.to_string_lossy().to_string(),
+    //         None => "split_ext did not work".to_string(),
+    //     };
+
+    //     let ext = ".".to_string() + boo.as_str();
+
+    //     ext
+    //     let ext = crate::setup::fire_split::split_ext(&self.imgpath);
+    //     ext
+    //  }
      
 }
 
 pub fn process_music_images(x: String, index: i32) -> bool {
     let foo = MusicImageInfo{
         imgpath: x.clone()
+    };
+
+    let foo2 = crate::setup::fire_split::StrSplit {
+        apath: x.clone()
     };
 
     let id = MusicImageInfo::set_id(&foo);
@@ -82,11 +96,13 @@ pub fn process_music_images(x: String, index: i32) -> bool {
 
         let base_dir = MusicImageInfo::get_base_dir(&foo);
 
-        let file_name = MusicImageInfo::get_file_name(&foo);
-        let ext = MusicImageInfo::get_ext(&foo);
+        // let file_name = MusicImageInfo::get_file_name(&foo);
 
-        let artist_results = crate::setup::fire_split::image_split_artist(&base_dir);
-        let album_results = crate::setup::fire_split::image_split_album(&base_dir);
+        let ext = crate::setup::fire_split::StrSplit::split_ext(&foo2);
+        // let ext = MusicImageInfo::get_ext(&foo);
+
+        let artist_results = crate::setup::fire_split::StrSplit::image_split_artist(&foo2);
+        let album_results = crate::setup::fire_split::StrSplit::image_split_album(&foo2);
 
         let fsize_results = crate::setup::fire_misc::get_file_size(&x).to_string();
         let full_path = &x.to_string();
@@ -100,7 +116,7 @@ pub fn process_music_images(x: String, index: i32) -> bool {
             width: width_r,
             height: height_r,
             basedir: base_dir,
-            filename: file_name,
+            // filename: file_name,
             extension: ext,
             artist: artist_results,
             album: album_results,

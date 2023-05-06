@@ -111,9 +111,9 @@ pub fn run_setup() -> bool {
         env::var("FIRE_SCAN_HOME_DIR")
         .expect("$FIRE_SCAN_HOME_DIR is not set");
 
-    let famp = 
-        env::var("FIRE_ADDITIONAL_MEDIA_PATH")
-        .expect("$FIRE_ADDITIONAL_MEDIA_PATH is not set");
+    // let famp = 
+    //     env::var("FIRE_ADDITIONAL_MEDIA_PATH")
+    //     .expect("$FIRE_ADDITIONAL_MEDIA_PATH is not set");
 
     if scan_home_dir == "yes" {
         let media_lists = fire_walk_dirs::scan_all_sources();
