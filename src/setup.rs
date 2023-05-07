@@ -127,9 +127,8 @@ pub fn run_setup() -> bool {
         }
         
         println!("music: {}\n", media_lists.0.clone().len());
-        println!("images: {}\n", media_lists.1.clone().len());
-        println!("videos: {}\n", media_lists.2.clone().len());
-        // let add_media_list = crate::setup::fire_walk_dirs::walk_additional_dir(famp);
+        println!("videos: {}\n", media_lists.1.clone().len());
+        println!("images: {}\n", media_lists.2.clone().len());
 
     
     } else {
