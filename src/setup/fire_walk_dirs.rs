@@ -1,4 +1,4 @@
-// use std::env;
+use std::env;
 use walkdir::WalkDir;
 use crate::setup::fire_walk_dirs;
 
@@ -102,7 +102,7 @@ fn walk_posters2_dir(apath: String) -> Vec<String> {
     moviesthumbvec
 }
 
-pub fn walk_additional_dir(apath: String) -> (Vec<String>, Vec<String>, Vec<String>,Vec<String>,Vec<String>) {
+pub fn walk_additional_dir(apath: String) -> (Vec<String>,Vec<String>,Vec<String>) {
     let mut moviesvec = Vec::new();
     let mut tvshowsvec = Vec::new();
     let mut posters2vec = Vec::new();
@@ -166,26 +166,33 @@ pub fn walk_additional_dir(apath: String) -> (Vec<String>, Vec<String>, Vec<Stri
                 continue;
             }
         }
-    }
+    };
+
+    let mut video_list = Vec::new();
+    video_list.append(&mut moviesvec);
+    video_list.append(&mut tvshowsvec);
+
+    let mut media_images = Vec::new();
+    media_images.append(&mut posters2vec);
+    media_images.append(&mut musicimgvec);
+
     println!("{}", moviesvec.clone().len());
     println!("{}", tvshowsvec.clone().len());
     println!("{}", posters2vec.clone().len());
     println!("{}", musicvec.clone().len());
     println!("{}", musicimgvec.clone().len());
 
-    (moviesvec.clone(), tvshowsvec.clone(), posters2vec.clone(), musicvec.clone(), musicimgvec.clone())
+    (video_list.clone(), media_images.clone(), musicvec.clone())
 }
 
 pub fn scan_all_sources() -> (Vec<String>, Vec<String>, Vec<String>) {
     let homedir = home_dir();
     
     let music_dir = homedir.clone() + "/Music";
-    let music_list = walk_music_dir_music(music_dir.clone());
+    let mut music_list = walk_music_dir_music(music_dir.clone());
 
     let video_dir = homedir.clone() + "/Videos";
-    let video_list = walk_video_dir(video_dir.clone());
-
-    let mut media_images = Vec::new();
+    let mut video_list = walk_video_dir(video_dir.clone());
 
     let vid_posters_path = video_dir.clone() + "/Posters2";
     let mut vid_posters = fire_walk_dirs::walk_posters2_dir(vid_posters_path.clone());
@@ -194,9 +201,23 @@ pub fn scan_all_sources() -> (Vec<String>, Vec<String>, Vec<String>) {
     
     println!("this is posters count: {}", vid_posters.len());
     println!("this is music images: {}", music_images.len());
+
+    let mut media_images = Vec::new();
     
     media_images.append(&mut vid_posters);
     media_images.append(&mut music_images);
+
+    let famp = env::var("FIRE_ADDITIONAL_MEDIA_PATH")
+        .expect("$FIRE_ADDITIONAL_MEDIA_PATH is not set");
+
+    let add_media = fire_walk_dirs::walk_additional_dir(famp);
+    let mut add_video_list = add_media.0;
+    let mut add_media_img_list = add_media.1;
+    let mut add_music_list = add_media.2;
+
+    video_list.append(&mut add_video_list);
+    music_list.append(&mut add_music_list);
+    media_images.append(&mut add_media_img_list);
 
     (music_list, video_list, media_images)
 
