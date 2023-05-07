@@ -131,13 +131,18 @@ pub fn run_setup() -> bool {
         println!("images: {}\n", media_lists.2.clone().len());
 
     
-    } else {
+    };
+
+    if scan_home_dir == "no" {
+
         let famp = env::var("FIRE_ADDITIONAL_MEDIA_PATH")
             .expect("$FIRE_ADDITIONAL_MEDIA_PATH is not set");
 
         let add_media_list = crate::setup::fire_walk_dirs::walk_additional_dir(famp);
-        // FIRE_ADDITIONAL_MEDIA_PATH: "/home/pipi/Desktop"
-    }
+        println!("{:?}", add_media_list.0)
+    };
+        
+    
     
     
     true
