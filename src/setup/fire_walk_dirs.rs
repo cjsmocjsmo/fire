@@ -214,7 +214,7 @@ pub fn scan_all_sources() -> (Vec<String>, Vec<String>, Vec<String>) {
     media_images.append(&mut add_media_img_list);
     println!("videos: {}\n", video_list.clone().len());
     println!("music: {}\n", music_list.clone().len());
-    println!("images: {}\n", media_images.cloone().len());
+    println!("images: {}\n", media_images.clone().len());
 
     (music_list, video_list, media_images)
 
