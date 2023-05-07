@@ -62,7 +62,7 @@
 
 FIRE_DOCKER_VAR: "nodocker" # or docker
 
-FIRE_SCAN_HOME_DIR: "yes" # or no
+FIRE_SCAN_HOME_DIR: "no" # or no
 
 FIRE_MONGODB_ADDRESS: "mongodb://db:27017/fire"
 
