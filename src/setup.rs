@@ -139,9 +139,9 @@ pub fn run_setup() -> bool {
             .expect("$FIRE_ADDITIONAL_MEDIA_PATH is not set");
 
         let add_media_list = crate::setup::fire_walk_dirs::walk_additional_dir(famp);
-        println!("music: {:?}\n", add_media_list.0.clone().len());
-        println!("videos: {:?}\n", add_media_list.1.clone().len());
-        println!("images: {:?}\n", add_media_list.2.clone().len());
+        println!("music: {:?}\n", add_media_list.2.clone().len());
+        println!("videos: {:?}\n", add_media_list.0.clone().len());
+        println!("images: {:?}\n", add_media_list.1.clone().len());
     };
         
     
