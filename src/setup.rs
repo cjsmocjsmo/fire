@@ -116,27 +116,30 @@ pub fn run_setup() -> bool {
     if scan_home_dir == "yes" {
         let media_lists = fire_walk_dirs::scan_all_sources();
 
-        run_music_threads(media_lists.0);
+        run_music_threads(media_lists.0.clone());
 
         run_video_img_threads(media_lists.2.clone());
         run_music_img_threads(media_lists.2.clone());
 
-        let video_list = media_lists.1;
+        let video_list = media_lists.1.clone();
         for v in video_list {
             println!("{}\n", v);
         }
-
+        
+        println!("music: {}\n", media_lists.0.clone().len());
+        println!("images: {}\n", media_lists.1.clone().len());
+        println!("videos: {}\n", media_lists.2.clone().len());
         // let add_media_list = crate::setup::fire_walk_dirs::walk_additional_dir(famp);
 
     
     } else {
         let famp = env::var("FIRE_ADDITIONAL_MEDIA_PATH")
             .expect("$FIRE_ADDITIONAL_MEDIA_PATH is not set");
-        
+
         let add_media_list = crate::setup::fire_walk_dirs::walk_additional_dir(famp);
         // FIRE_ADDITIONAL_MEDIA_PATH: "/home/pipi/Desktop"
     }
-
+    
     
     true
 }
