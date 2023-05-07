@@ -176,12 +176,6 @@ pub fn walk_additional_dir(apath: String) -> (Vec<String>,Vec<String>,Vec<String
     media_images.append(&mut posters2vec);
     media_images.append(&mut musicimgvec);
 
-    println!("{}", moviesvec.clone().len());
-    println!("{}", tvshowsvec.clone().len());
-    println!("{}", posters2vec.clone().len());
-    println!("{}", musicvec.clone().len());
-    println!("{}", musicimgvec.clone().len());
-
     (video_list.clone(), media_images.clone(), musicvec.clone())
 }
 
@@ -218,6 +212,9 @@ pub fn scan_all_sources() -> (Vec<String>, Vec<String>, Vec<String>) {
     video_list.append(&mut add_video_list);
     music_list.append(&mut add_music_list);
     media_images.append(&mut add_media_img_list);
+    println!("videos: {}\n", video_list.clone().len());
+    println!("music: {}\n", music_list.clone().len());
+    println!("images: {}\n", media_images.cloone().len());
 
     (music_list, video_list, media_images)
 
