@@ -21,3 +21,5 @@ threadpool = "1.8.1"
 num_cpus = "1.15.0"
 id3 = "1.7.0"
 mp3-duration = "0.1.10"
+diesel = { version = "2.0.0", features = ["sqlite"] }
+dotenvy = "0.15"
