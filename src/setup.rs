@@ -125,14 +125,14 @@ pub fn run_setup() -> bool {
 
         
 
-        run_video_img_threads(media_lists.2.clone());
-        run_music_img_threads(media_lists.2.clone());
+        // run_video_img_threads(media_lists.2.clone());
+        // run_music_img_threads(media_lists.2.clone());
 
         
         
-        println!("music: {}\n", media_lists.0.clone().len());
-        println!("videos: {}\n", media_lists.1.clone().len());
-        println!("images: {}\n", media_lists.2.clone().len());
+        // println!("music: {}\n", media_lists.0.clone().len());
+        // println!("videos: {}\n", media_lists.1.clone().len());
+        // println!("images: {}\n", media_lists.2.clone().len());
 
     
     };
