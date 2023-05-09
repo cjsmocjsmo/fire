@@ -1,5 +1,5 @@
 use std::env;
-
+use json::object;
 
 fn create_music_thumbnail(x: &String, art: String, alb: String) -> String {
     let fire_music_metadata_path = env::var("FIRE_THUMBNAIL").expect("$FIRE_THUMBNAIL is not set");
@@ -27,21 +27,21 @@ pub struct MusicImageInfo {
     
 }
 
-#[derive(Debug)]
-pub struct MII {
-    id: String,
-    width: String,
-    height: String,
-    basedir: String,
-    filename: String,
-    extension: String,
-    artist: String,
-    album: String,
-    filesize: String,
-    fullpath: String,
-    thumbpath: String,
-    index: String,
-}
+// #[derive(Debug)]
+// pub struct MII {
+//     id: String,
+//     width: String,
+//     height: String,
+//     basedir: String,
+//     filename: String,
+//     extension: String,
+//     artist: String,
+//     album: String,
+//     filesize: String,
+//     fullpath: String,
+//     thumbpath: String,
+//     index: String,
+// }
 
 impl MusicImageInfo {
     fn set_id(&self) -> String {
@@ -111,7 +111,7 @@ pub fn process_music_images(x: String, index: i32) -> bool {
 
         // let b64image = crate::setup::fire_image::to_base64_str(&thumb_path);
 
-        let music_image_info = MII {
+        let music_image_info = object! {
             id: id,
             width: width_r,
             height: height_r,
@@ -125,7 +125,9 @@ pub fn process_music_images(x: String, index: i32) -> bool {
             thumbpath: thumb_path,
             index: index.to_string(),
         };
-        println!("\n{:?}", music_image_info);
+
+        let mii = json::stringify(music_image_info.dump());
+        println!("\n{:?}", mii);
         // return music_image_info;
     };
 

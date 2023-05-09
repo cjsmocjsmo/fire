@@ -1,26 +1,26 @@
-// use json::object;
+use json::object;
 // use std::env;
 
-#[derive(Debug, Default)]
-pub struct MusicInfo {
-    id: String,
-    imgurl: String,
-    artist: String,
-    album: String,
-    song: String,
-    basedir: String,
-    filenameresults: String,
-    musicartistresults: String,
-    musicalbumresults: String,
-    durationresults: String,
-    fullpath: String,
-    extension: String,
-    index: String,
-    page: String,
-    fsizeresults: String,
-}
+// #[derive(Debug, Default)]
+// pub struct MusicInfo {
+//     id: String,
+//     imgurl: String,
+//     artist: String,
+//     album: String,
+//     song: String,
+//     basedir: String,
+//     filenameresults: String,
+//     musicartistresults: String,
+//     musicalbumresults: String,
+//     durationresults: String,
+//     fullpath: String,
+//     extension: String,
+//     index: String,
+//     page: String,
+//     fsizeresults: String,
+// }
 
-pub fn process_mp3s(x: String, index: String, page: String) -> MusicInfo {
+pub fn process_mp3s(x: String, index: String, page: String) -> String {
     let tags = crate::setup::fire_mp3_info::get_tag_info(&x);
     let artist = tags.0;
     let album = tags.1;
@@ -53,7 +53,7 @@ pub fn process_mp3s(x: String, index: String, page: String) -> MusicInfo {
     let fsize_results = crate::setup::fire_utils::FireUtils::get_file_size(&foo3).to_string();
 
     // crate::setup::fire_x_info::write_music_json_to_file(
-    let music_info = MusicInfo {
+    let music_info = object! { 
         id: id,
         imgurl: voodoo.to_string(),
         artist: artist,
@@ -70,6 +70,7 @@ pub fn process_mp3s(x: String, index: String, page: String) -> MusicInfo {
         page: page.to_string(),
         fsizeresults: fsize_results,
     };
+    let music_info = json::stringify(music_info.dump());
     println!("{:?}", music_info);
     music_info
     // println!("There are {} music files processed", &index);

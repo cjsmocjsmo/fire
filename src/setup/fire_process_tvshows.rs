@@ -1,5 +1,5 @@
 use json::object;
-use std::env;
+// use std::env;
 
 pub struct TVShowsUtils {
     apath: String
@@ -101,16 +101,18 @@ pub fn process_tvshows(tvshows_vec: Vec<String>) -> String{
             path: tv
         };
 
-        let tvsows_info = json::stringify(tvshows_obj.dump());
+        let tvshows_info = json::stringify(tvshows_obj.dump());
 
-        let mtv_tvshows_metadata_path =
-            env::var("MTV_TVSHOWS_METADATA_PATH").expect("$MTV_TVSHOWS_METADATA_PATH is not set");
+        println!("{:?}", tvshows_info);
 
-        let a = format!("{}/", mtv_tvshows_metadata_path.as_str());
-        let b = format!("TVShows_{}_Meta.json", count.to_string());
-        let outpath = a + &b;
+        // let mtv_tvshows_metadata_path =
+        //     env::var("MTV_TVSHOWS_METADATA_PATH").expect("$MTV_TVSHOWS_METADATA_PATH is not set");
 
-        std::fs::write(outpath, tvsows_info).unwrap();
+        // let a = format!("{}/", mtv_tvshows_metadata_path.as_str());
+        // let b = format!("TVShows_{}_Meta.json", count.to_string());
+        // let outpath = a + &b;
+
+        // std::fs::write(outpath, tvsows_info).unwrap();
     }
 
     count.to_string()
