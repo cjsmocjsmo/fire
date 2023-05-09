@@ -79,17 +79,19 @@ pub fn process_tvshows(tvshows_vec: Vec<String>) -> String{
     for tv in tvshows_vec {
         if tv.contains("TVShows") {
             println!("{}", tv);
-            // count = count + 1;
+            count = count + 1;
 
-            // let tvshows = crate::setup::fire_utils::FireUtils {
-            //     apath: tv.clone()
-            // };
-            // let tvshows2 = crate::setup::fire_process_tvshows::TVShowsUtils {
-            //     apath: tv.clone()
-            // };
+            let tvshows = crate::setup::fire_utils::FireUtils {
+                apath: tv.clone()
+            };
+            let tvshows2 = crate::setup::fire_process_tvshows::TVShowsUtils {
+                apath: tv.clone()
+            };
 
-            // let file_size = crate::setup::fire_utils::FireUtils::get_file_size(&tvshows);
-            // let catagory = crate::setup::fire_process_tvshows::TVShowsUtils::get_tv_catagory(&tvshows2);
+            let file_size = crate::setup::fire_utils::FireUtils::get_file_size(&tvshows);
+            let catagory = crate::setup::fire_process_tvshows::TVShowsUtils::get_tv_catagory(&tvshows2);
+            println!("{}", file_size);
+            println!("{}", catagory);
             // let es = crate::setup::fire_process_tvshows::TVShowsUtils::get_tv_episode_season(&tvshows2);
             // let season = es.0;
             // let episode = es.1;
