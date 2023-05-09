@@ -77,46 +77,47 @@ pub fn process_tvshows(tvshows_vec: Vec<String>) -> String{
 
     let mut count = 0;
     for tv in tvshows_vec {
-        println!("{}", tv);
-        count = count + 1;
+        if tv.contains("TVShows") {
+            println!("{}", tv);
+            count = count + 1;
 
-        let tvshows = crate::setup::fire_utils::FireUtils {
-            apath: tv.clone()
-        };
-        let tvshows2 = crate::setup::fire_process_tvshows::TVShowsUtils {
-            apath: tv.clone()
-        };
+            let tvshows = crate::setup::fire_utils::FireUtils {
+                apath: tv.clone()
+            };
+            let tvshows2 = crate::setup::fire_process_tvshows::TVShowsUtils {
+                apath: tv.clone()
+            };
 
-        let file_size = crate::setup::fire_utils::FireUtils::get_file_size(&tvshows);
-        let catagory = crate::setup::fire_process_tvshows::TVShowsUtils::get_tv_catagory(&tvshows2);
-        let es = crate::setup::fire_process_tvshows::TVShowsUtils::get_tv_episode_season(&tvshows2);
-        let season = es.0;
-        let episode = es.1;
+            let file_size = crate::setup::fire_utils::FireUtils::get_file_size(&tvshows);
+            let catagory = crate::setup::fire_process_tvshows::TVShowsUtils::get_tv_catagory(&tvshows2);
+            let es = crate::setup::fire_process_tvshows::TVShowsUtils::get_tv_episode_season(&tvshows2);
+            let season = es.0;
+            let episode = es.1;
 
-        let fname = crate::setup::fire_utils::FireUtils::split_filename(&tvshows);
+            let fname = crate::setup::fire_utils::FireUtils::split_filename(&tvshows);
 
-        let tvshows_obj = object! {
-            size: file_size,
-            catagory: catagory,
-            name: fname,
-            season: season,
-            episode: episode,
-            path: tv
-        };
+            let tvshows_obj = object! {
+                size: file_size,
+                catagory: catagory,
+                name: fname,
+                season: season,
+                episode: episode,
+                path: tv
+            };
 
-        let tvshows_info = json::stringify(tvshows_obj.dump());
+            let tvshows_info = json::stringify(tvshows_obj.dump());
 
-        println!("{:?}", tvshows_info);
+            println!("{:?}", tvshows_info);
 
-        // let mtv_tvshows_metadata_path =
-        //     env::var("MTV_TVSHOWS_METADATA_PATH").expect("$MTV_TVSHOWS_METADATA_PATH is not set");
+            // let mtv_tvshows_metadata_path =
+            //     env::var("MTV_TVSHOWS_METADATA_PATH").expect("$MTV_TVSHOWS_METADATA_PATH is not set");
 
-        // let a = format!("{}/", mtv_tvshows_metadata_path.as_str());
-        // let b = format!("TVShows_{}_Meta.json", count.to_string());
-        // let outpath = a + &b;
+            // let a = format!("{}/", mtv_tvshows_metadata_path.as_str());
+            // let b = format!("TVShows_{}_Meta.json", count.to_string());
+            // let outpath = a + &b;
 
-        // std::fs::write(outpath, tvsows_info).unwrap();
+            // std::fs::write(outpath, tvsows_info).unwrap();
+        }
     }
-
     count.to_string()
 }
