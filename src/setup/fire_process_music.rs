@@ -26,7 +26,11 @@ pub fn process_mp3s(x: String, index: String, page: String) -> String {
     let album = tags.1;
     let song = tags.2;
 
-    let id = crate::setup::fire_misc::get_md5(&x);
+    let fu = crate::setup::fire_utils::FireUtils {
+        apath: x.clone()
+    };
+
+    let id = crate::setup::fire_utils::FireUtils::get_md5(&fu);
     let voodoo: &String = &"None".to_string();
     
     

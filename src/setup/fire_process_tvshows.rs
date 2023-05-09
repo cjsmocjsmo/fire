@@ -1,5 +1,4 @@
 use json::object;
-// use std::env;
 
 pub struct TVShowsUtils {
     apath: String
@@ -68,17 +67,10 @@ impl TVShowsUtils {
 
 }
 
-// fn get_tv_poster_addr(x: &String) {
-
-// }
-
 pub fn process_tvshows(tvshows_vec: Vec<String>) -> String{
-    // let tvshows_vec = crate::mtv_walk_dirs::walk_tvshows_dir();
-
     let mut count = 0;
     for tv in tvshows_vec {
         if tv.contains("TVShows") {
-            println!("{}", tv);
             count = count + 1;
 
             let tvshows = crate::setup::fire_utils::FireUtils {
@@ -90,8 +82,6 @@ pub fn process_tvshows(tvshows_vec: Vec<String>) -> String{
 
             let file_size = crate::setup::fire_utils::FireUtils::get_file_size(&tvshows);
             let catagory = crate::setup::fire_process_tvshows::TVShowsUtils::get_tv_catagory(&tvshows2);
-            println!("{}", file_size);
-            println!("{}", catagory);
             let es = crate::setup::fire_process_tvshows::TVShowsUtils::get_tv_episode_season(&tvshows2);
             let season = es.0;
             let episode = es.1;
@@ -106,6 +96,15 @@ pub fn process_tvshows(tvshows_vec: Vec<String>) -> String{
                 episode: episode,
                 path: tv
             };
+
+    //         id INTEGER PRIMARY KEY,
+    // fireid TEXT,
+    // index TEXT,
+    // name TEXT,
+    // season TEXT,
+    // episode TEXT,
+    // size TEXT,
+    // httpmoviepath TEXT,
 
             let tvshows_info = json::stringify(tvshows_obj.dump());
 

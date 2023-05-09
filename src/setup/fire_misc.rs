@@ -3,27 +3,10 @@ use byte_unit::Byte;
 // use flate2::write::GzEncoder;
 // use flate2::Compression;
 // use glob::glob;
-use md5::{Digest, Md5};
-// use std::env;
 // use std::fs;
 // use std::fs::File;
 // use std::path::Path;
 use walkdir::WalkDir;
-
-pub fn get_md5(astring: &String) -> String {
-    let mut hasher2 = Md5::new();
-    hasher2.update(&astring);
-    let a_id = hasher2.finalize();
-    let foo = format!("{:x}", a_id);
-
-    foo
-}
-
-// pub fn get_file_size(x: &String) -> u64 {
-//     let path = Path::new(&x);
-
-//     path.size_on_disk().unwrap()
-// }
 
 pub fn media_total_size(addr: String) -> String {
     let total_size = WalkDir::new(addr)

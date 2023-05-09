@@ -1,6 +1,7 @@
 use std::env;
 use std::path::Path;
 use filesize::PathExt;
+use md5::{Digest, Md5};
 
 #[derive(Debug)]
 pub struct FireUtils {
@@ -178,4 +179,26 @@ impl FireUtils {
     
         path.size_on_disk().unwrap().to_string()
     }
+    pub fn get_md5(&self) -> String {
+        let mut hasher2 = Md5::new();
+        hasher2.update(&self.apath);
+        let a_id = hasher2.finalize();
+        let foo = format!("{:x}", a_id);
+    
+        foo
+    }
+    // pub fn set_id(&self) -> String {
+    //     // let astr = crate::setup::fire_utils::FireUtils {
+    //     //     apath: self.apath
+    //     // };
+    //     let id = crate::setup::fire_utils::FireUtils::get_md5(&self.apath);
+
+    //     id
+    //  }
+    
+    pub fn get_dims(&self) -> (u32, u32) {
+        let dims = crate::setup::fire_image::get_image_dims(&self.apath);
+
+        dims
+     }
 }

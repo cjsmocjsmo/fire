@@ -20,74 +20,34 @@ fn create_music_thumbnail(x: &String, art: String, alb: String) -> String {
 
 
 
+// pub fn set_id(x: String) -> String {
+//     let foobar = crate::setup::fire_utils::FireUtils {
+//         apath: x
+//     };
+//     let id = crate::setup::fire_utils::FireUtils::get_md5(&foobar);
+//     id
+//  }
 
-#[derive(Debug)]
-pub struct MusicImageInfo {
-    imgpath: String
-    
-}
+// pub fn get_dims(x: String) -> (u32, u32) {
+//     let foobar = crate::setup::fire_utils::FireUtils {
+//         apath: x
+//     };
+//     let dims = crate::setup::fire_image::get_image_dims(&x);
+//     dims
+//  }
 
-// #[derive(Debug)]
-// pub struct MII {
-//     id: String,
-//     width: String,
-//     height: String,
-//     basedir: String,
-//     filename: String,
-//     extension: String,
-//     artist: String,
-//     album: String,
-//     filesize: String,
-//     fullpath: String,
-//     thumbpath: String,
-//     index: String,
-// }
-
-impl MusicImageInfo {
-    fn set_id(&self) -> String {
-        let id = crate::setup::fire_misc::get_md5(&self.imgpath);
-        id
-     }
-     fn get_dims(&self) -> (u32, u32) {
-        let dims = crate::setup::fire_image::get_image_dims(&self.imgpath);
-        dims
-     }
-    //  fn get_base_dir(&self) -> String {
-    //     let bdir = crate::setup::fire_split::split_base_dir(&self.imgpath);
-    //     bdir
-    //  }
-    //  fn get_file_name(&self) -> String {
-    //     let fname = crate::setup::fire_split::FireUtils::split_filename(&self.imgpath);
-    //     fname
-    //  }
-    //  fn get_ext(&self) -> String {
-    //     let path = Path::new(&astring);
-    //     let boo_results = path.extension();
-    //     let boo = match boo_results {
-    //         Some(b) => b.to_string_lossy().to_string(),
-    //         None => "split_ext did not work".to_string(),
-    //     };
-
-    //     let ext = ".".to_string() + boo.as_str();
-
-    //     ext
-    //     let ext = crate::setup::fire_split::split_ext(&self.imgpath);
-    //     ext
-    //  }
-     
-}
 
 pub fn process_music_images(x: String, index: i32) -> bool {
-    let foo = MusicImageInfo{
-        imgpath: x.clone()
-    };
+    // let foo = MusicImageInfo{
+    //     imgpath: x.clone()
+    // };
 
     let foo2 = crate::setup::fire_utils::FireUtils {
         apath: x.clone()
     };
 
-    let id = MusicImageInfo::set_id(&foo);
-    let dims = MusicImageInfo::get_dims(&foo);
+    let id = crate::setup::fire_utils::FireUtils::get_md5(&foo2);
+    let dims = crate::setup::fire_utils::FireUtils::get_dims(&foo2);
 
     if dims != (0, 0) {
         let newdims = crate::setup::fire_image::normalize_music_image(dims);

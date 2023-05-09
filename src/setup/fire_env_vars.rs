@@ -1,12 +1,7 @@
 use glob::glob;
 use std::env;
 use std::fs;
-// use std::fs::File;
-// use std::io::prelude::*;
 use std::path::Path;
-// use yaml_rust::YamlLoader;
-
-// use yaml_rust::Yaml;
 
 fn get_current_working_dir() -> String {
     let path = env::current_dir().unwrap();
@@ -100,9 +95,17 @@ pub fn set_all_env_vars() {
         fire_dir: "/fire_dir".to_string(),
     };
 
-    let docker_var = env::var("FIRE_DOCKER_VAR").expect("docker var not set");
+    let cwd = get_current_working_dir().to_string();
+    let cdir = cwd + "/fire_dir";
 
-    if docker_var != "docker" {
+    let dir_exists = Path::new(&cdir).is_dir();
+
+    // let docker_var = env::var("FIRE_DOCKER_VAR").expect("docker var not set");
+
+    if dir_exists {
+        clean_nfos_dir();
+        clean_thumbnail_dir();
+    } else {
         envvars.set_fire_dir();
         envvars.set_fire_dir_thumbnails();
         envvars.set_fire_dir_nfos();
