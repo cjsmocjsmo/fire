@@ -11,6 +11,7 @@ pub mod fire_process_music;
 pub mod fire_process_music_images;
 pub mod fire_utils;
 pub mod fire_walk_dirs;
+pub mod fire_process_tvshows;
 
 fn run_music_threads(alist: Vec<String>) {
     let pool = ThreadPool::new(num_cpus::get());
@@ -118,13 +119,16 @@ pub fn run_setup() -> bool {
 
         run_music_threads(media_lists.0.clone());
 
+        let video_list = media_lists.1.clone();
+        // set this up with threading
+        crate::setup::fire_process_tvshows::process_tvshows(video_list);
+
+        
+
         run_video_img_threads(media_lists.2.clone());
         run_music_img_threads(media_lists.2.clone());
 
-        let video_list = media_lists.1.clone();
-        for v in video_list {
-            println!("{}\n", v);
-        }
+        
         
         println!("music: {}\n", media_lists.0.clone().len());
         println!("videos: {}\n", media_lists.1.clone().len());

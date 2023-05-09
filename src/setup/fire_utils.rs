@@ -1,5 +1,6 @@
 use std::env;
 use std::path::Path;
+use filesize::PathExt;
 
 #[derive(Debug)]
 pub struct FireUtils {
@@ -171,5 +172,10 @@ impl FireUtils {
         let fname = filenamevec.pop().unwrap();
 
         fname
+    }
+    pub fn get_file_size(&self) -> String {
+        let path = Path::new(&self.apath);
+    
+        path.size_on_disk().unwrap()
     }
 }

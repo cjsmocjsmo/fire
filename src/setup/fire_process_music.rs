@@ -50,7 +50,7 @@ pub fn process_mp3s(x: String, index: String, page: String) -> MusicInfo {
 
     let ext = crate::setup::fire_utils::FireUtils::split_ext(&foo3);
     let idx = index.to_string();
-    let fsize_results = crate::setup::fire_misc::get_file_size(&x).to_string();
+    let fsize_results = crate::setup::fire_utils::FireUtils::get_file_size(&foo3).to_string();
 
     // crate::setup::fire_x_info::write_music_json_to_file(
     let music_info = MusicInfo {

@@ -40,7 +40,7 @@ pub fn process_movie_posters(x: String, index: i32) -> String {
         apath: x.clone()
     };
 
-    let img_size = crate::setup::fire_misc::get_file_size(&x);
+    let img_size = crate::setup::fire_utils::FireUtils::get_file_size(&foobar2);
     let name = crate::setup::fire_utils::FireUtils::split_poster_name(&foobar2);
     let thumb_path = create_movie_thumbnail(x.clone());
 
