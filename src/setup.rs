@@ -103,9 +103,9 @@ fn run_music_img_threads(alist: Vec<String>) {
 }
 
 pub fn run_setup() -> bool {
-    let paramaters = fire_env_vars::read_config();
+    // let paramaters = fire_env_vars::read_config();
 
-    crate::setup::fire_env_vars::set_all_env_vars(paramaters);
+    crate::setup::fire_env_vars::set_all_env_vars();
 
     let scan_home_dir = 
         env::var("FIRE_SCAN_HOME_DIR")

@@ -1,7 +1,7 @@
 use id3::{Tag, TagLike};
-use json::{object, JsonValue};
+// use json::{object, JsonValue};
 use mp3_duration;
-use std::env;
+// use std::env;
 use std::path::Path;
 use std::time::Duration;
 
@@ -65,53 +65,53 @@ pub fn get_duration(x: &String) -> String {
     };
 }
 
-pub fn write_music_json_to_file(
-    id: String,
-    voodoo: String,
-    artist: String,
-    album: String,
-    song: String,
-    base_dir: String,
-    filename_results: String,
-    music_artist_results: String,
-    music_album_results: String,
-    duration_results: String,
-    fullpath: String,
-    extension: String,
-    idx: String,
-    page: String,
-    fsize_results: String,
-) -> JsonValue {
-    // if artc == true && albc == true && sc == true {
+// pub fn write_music_json_to_file(
+//     id: String,
+//     voodoo: String,
+//     artist: String,
+//     album: String,
+//     song: String,
+//     base_dir: String,
+//     filename_results: String,
+//     music_artist_results: String,
+//     music_album_results: String,
+//     duration_results: String,
+//     fullpath: String,
+//     extension: String,
+//     idx: String,
+//     page: String,
+//     fsize_results: String,
+// ) -> JsonValue {
+//     // if artc == true && albc == true && sc == true {
 
-    let mp3_info = object! {
-        mp3id: id,
-        fullpath: fullpath,
-        basedir: base_dir,
-        filename: filename_results,
-        ext: extension,
-        imgurl: &*voodoo,
-        mp3_url: &*voodoo,
-        tag_artist: artist,
-        tag_album: album,
-        tag_title: song,
-        idx: idx.clone(),
-        page: page,
-        fsize: fsize_results,
-        filename_artist: &*music_artist_results,
-        filename_album: &*music_album_results,
-        duration: duration_results,
-    };
+//     let mp3_info = object! {
+//         mp3id: id,
+//         fullpath: fullpath,
+//         basedir: base_dir,
+//         filename: filename_results,
+//         ext: extension,
+//         imgurl: &*voodoo,
+//         mp3_url: &*voodoo,
+//         tag_artist: artist,
+//         tag_album: album,
+//         tag_title: song,
+//         idx: idx.clone(),
+//         page: page,
+//         fsize: fsize_results,
+//         filename_artist: &*music_artist_results,
+//         filename_album: &*music_album_results,
+//         duration: duration_results,
+//     };
 
-    let mfo: String = json::stringify(mp3_info.dump());
+//     let mfo: String = json::stringify(mp3_info.dump());
 
-    let mtv_music_metadata_path =
-        env::var("MTV_MUSIC_METADATA_PATH").expect("$MTV_MUSIC_METADATA_PATH is not set");
+//     let mtv_music_metadata_path =
+//         env::var("MTV_MUSIC_METADATA_PATH").expect("$MTV_MUSIC_METADATA_PATH is not set");
 
-    let a = format!("{}/", mtv_music_metadata_path.as_str());
-    let b = format!("Music_File_Meta_{}.json", &idx);
-    let outpath = a + &b;
-    std::fs::write(outpath, mfo.clone()).unwrap();
+//     let a = format!("{}/", mtv_music_metadata_path.as_str());
+//     let b = format!("Music_File_Meta_{}.json", &idx);
+//     let outpath = a + &b;
+//     std::fs::write(outpath, mfo.clone()).unwrap();
 
-    return object! {filename: "Success".to_string() };
-}
+//     return object! {filename: "Success".to_string() };
+// }

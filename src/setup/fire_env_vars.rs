@@ -1,12 +1,12 @@
 use glob::glob;
 use std::env;
 use std::fs;
-use std::fs::File;
-use std::io::prelude::*;
+// use std::fs::File;
+// use std::io::prelude::*;
 use std::path::Path;
-use yaml_rust::YamlLoader;
+// use yaml_rust::YamlLoader;
 
-use yaml_rust::Yaml;
+// use yaml_rust::Yaml;
 
 fn get_current_working_dir() -> String {
     let path = env::current_dir().unwrap();
@@ -15,17 +15,17 @@ fn get_current_working_dir() -> String {
     dir_path
 }
 
-pub fn read_config() -> Vec<Yaml> {
-    let mut file = File::open("./src/config.yaml").expect("Unable to open file");
-    let mut contents = String::new();
+// pub fn read_config() -> Vec<Yaml> {
+//     let mut file = File::open("./src/config.yaml").expect("Unable to open file");
+//     let mut contents = String::new();
 
-    file.read_to_string(&mut contents)
-        .expect("Unable to read file");
+//     file.read_to_string(&mut contents)
+//         .expect("Unable to read file");
 
-    let docs = YamlLoader::load_from_str(&contents).unwrap();
+//     let docs = YamlLoader::load_from_str(&contents).unwrap();
 
-    docs
-}
+//     docs
+// }
 
 fn set_env_var(p1: String, p2: String) -> Result<(), Box<dyn std::error::Error>> {
     env::set_var(&p1, p2);
@@ -39,54 +39,16 @@ fn set_env_var(p1: String, p2: String) -> Result<(), Box<dyn std::error::Error>>
     Ok(())
 }
 
-
-
-
-
-
-
 pub struct EnvVars {
-    fire_docker_var: String,
-    fire_scan_home_dir: String,
-    fire_mongodb_address: String,
-    fire_additional_media_path: String,
-    fire_pagination: String,
+    fire_dir_nfos: String,
+    fire_dir_thumbnails: String,
+    fire_dir: String,
 
 }
 
 impl EnvVars {
-    fn set_docker_var(&self) -> bool {
-        let dvar1 = String::from("FIRE_DOCKER_VAR");
-        let dvar2 = self.fire_docker_var.clone();
-        set_env_var(dvar1, dvar2).unwrap();
-        true
-    }
-    fn set_scan_home_dir(&self) -> bool {
-        let h1 = "FIRE_SCAN_HOME_DIR".to_string();
-        let h2 = self.fire_scan_home_dir.clone();
-        set_env_var(h1, h2).unwrap();
-        true
-    }
-    fn set_fire_mongodb_address(&self) -> bool {
-        let static1 = String::from("FIRE_MONGODB_ADDRESS");
-        let static2 = self.fire_mongodb_address.clone();
-        set_env_var(static1, static2).unwrap();
-        true
-    }
-    fn set_fire_additional_media_path(&self) -> bool {
-        let music0 = "FIRE_ADDITIONAL_MEDIA_PATH".to_string();
-        let music1 = self.fire_additional_media_path.clone();
-        set_env_var(music0, music1).unwrap();
-        true
-    }
-    fn set_fire_pagination(&self) -> bool {
-        let offset1 = String::from("FIRE_PAGINATION");
-        let offset2 = self.fire_pagination.clone();
-        set_env_var(offset1, offset2).unwrap();
-        true
-    }
     fn set_fire_dir_nfos(&self) -> bool {
-        let nfo_dir = get_current_working_dir().to_string() + "/fire_dir/nfos";
+        let nfo_dir = get_current_working_dir().to_string() + &self.fire_dir_nfos;
         let nfos_dir_exists = Path::new(&nfo_dir).is_dir();
         if nfos_dir_exists {
             let nd = String::from("FIRE_NFOS");
@@ -101,7 +63,7 @@ impl EnvVars {
         true
     }
     fn set_fire_dir_thumbnails(&self) -> bool {
-        let thumb_dir = get_current_working_dir().to_string() + "/fire_dir/thumbnails";
+        let thumb_dir = get_current_working_dir().to_string() + &self.fire_dir_thumbnails;
         let thumb_dir_exists = Path::new(&thumb_dir).is_dir();
         if thumb_dir_exists {
             let td = String::from("FIRE_THUMBNAIL");
@@ -115,8 +77,8 @@ impl EnvVars {
 
         true
     }
-    fn set_fire_dir_env(&self) -> bool {
-        let fire_dir = get_current_working_dir().to_string() + "/fire_dir";
+    fn set_fire_dir(&self) -> bool {
+        let fire_dir = get_current_working_dir().to_string() + &self.fire_dir;
         let fire_dir_exists = Path::new(&fire_dir).is_dir();
         if fire_dir_exists {
             let f2 = String::from("FIRE_DIR");
@@ -131,27 +93,20 @@ impl EnvVars {
     }
 }
 
-pub fn set_all_env_vars(paras: Vec<Yaml>) {
-    for d in paras {
-        let envvars = EnvVars {
-            fire_docker_var: d["FIRE_DOCKER_VAR"].as_str().unwrap().to_string(),
-            fire_scan_home_dir: d["FIRE_SCAN_HOME_DIR"].as_str().unwrap().to_string(),
-            fire_mongodb_address: d["FIRE_MONGODB_ADDRESS"].as_str().unwrap().to_string(),
-            fire_additional_media_path: d["FIRE_ADDITIONAL_MEDIA_PATH"].as_str().unwrap().to_string(),
-            fire_pagination: d["FIRE_PAGINATION"].as_str().unwrap().to_string(),
-        };
+pub fn set_all_env_vars() {
+    let envvars = EnvVars {
+        fire_dir_nfos: "/fire_dir/nfos".to_string(),
+        fire_dir_thumbnails: "/fire_dir/thumbnails".to_string(),
+        fire_dir: "/fire_dir".to_string(),
+    };
 
-        if d["FIRE_DOCKER_VAR"].as_str().unwrap().to_string() == "nodocker" {
-            envvars.set_fire_dir_env();
-            envvars.set_fire_dir_thumbnails();
-            envvars.set_fire_dir_nfos();
-            envvars.set_docker_var();
-            envvars.set_scan_home_dir();
-            envvars.set_fire_mongodb_address();
-            envvars.set_fire_additional_media_path();
-            envvars.set_fire_pagination();
-        };
-    }
+    let docker_var = env::var("FIRE_DOCKER_VAR").expect("docker var not set");
+
+    if docker_var != "docker" {
+        envvars.set_fire_dir();
+        envvars.set_fire_dir_thumbnails();
+        envvars.set_fire_dir_nfos();
+    };
 }
 
 fn clean_nfos_dir() -> u32 {
