@@ -78,10 +78,10 @@ pub fn process_tvshows(tvshows_vec: Vec<String>) -> String{
         count = count + 1;
 
         let tvshows = crate::setup::fire_utils::FireUtils {
-            apath: tv
+            apath: tv.clone()
         };
         let tvshows2 = crate::setup::fire_process_tvshows::TVShowsUtils {
-            apath: tv
+            apath: tv.clone()
         };
 
         let file_size = crate::setup::fire_utils::FireUtils::get_file_size(&tvshows);
