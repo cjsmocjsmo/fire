@@ -48,7 +48,7 @@ fn run_music_threads(alist: Vec<String>) {
     for t in rx.iter() {
         // Insert this into db
         let ifo = t;
-        println!("{:?}", ifo);
+        println!("{:#?}", ifo);
     }
 }
 
