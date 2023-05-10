@@ -67,7 +67,7 @@ impl FireUtils {
         // }
         let art = format!("{:?}", &fsp);
         let art2 = art.replace("_", " ");
-        let artist = art2.replace("\"", " ");
+        let artist = art2.replace("\"", "");
         // println!("\n\nthis is artist: {}\n\n", &artist);
 
 
