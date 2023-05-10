@@ -201,10 +201,8 @@ pub fn scan_all_sources() -> (Vec<String>, Vec<String>, Vec<String>) {
     media_images.append(&mut vid_posters);
     media_images.append(&mut music_images);
 
-    let famp = env::var("FIRE_ADDITIONAL_MEDIA_PATH")
-        .expect("$FIRE_ADDITIONAL_MEDIA_PATH is not set");
-
-    let add_media = fire_walk_dirs::walk_additional_dir(famp);
+    let usb1 = env::var("FIRE_USB1").expect("$FIRE_USB1 is not set");
+    let add_media = fire_walk_dirs::walk_additional_dir(usb1);
     let mut add_video_list = add_media.0;
     let mut add_media_img_list = add_media.1;
     let mut add_music_list = add_media.2;
@@ -213,9 +211,37 @@ pub fn scan_all_sources() -> (Vec<String>, Vec<String>, Vec<String>) {
     music_list.append(&mut add_music_list);
     media_images.append(&mut add_media_img_list);
     
-    // println!("videos: {}\n", video_list.clone().len());
-    // println!("music: {}\n", music_list.clone().len());
-    // println!("images: {}\n", media_images.clone().len());
+    let usb2 = env::var("FIRE_USB2").expect("$FIRE_USB2 is not set");
+    let add_media2 = fire_walk_dirs::walk_additional_dir(usb2);
+    let mut add_video_list2 = add_media2.0;
+    let mut add_media_img_list2 = add_media2.1;
+    let mut add_music_list2 = add_media2.2;
+
+    video_list.append(&mut add_video_list2);
+    music_list.append(&mut add_music_list2);
+    media_images.append(&mut add_media_img_list2);
+
+
+    let usb3 = env::var("FIRE_USB3").expect("$FIRE_USB3 is not set");
+    let add_media3 = fire_walk_dirs::walk_additional_dir(usb3);
+    let mut add_video_list3 = add_media3.0;
+    let mut add_media_img_list3 = add_media3.1;
+    let mut add_music_list3 = add_media3.2;
+
+    video_list.append(&mut add_video_list3);
+    music_list.append(&mut add_music_list3);
+    media_images.append(&mut add_media_img_list3);
+
+
+    let usb4 = env::var("FIRE_USB4").expect("$FIRE_USB4 is not set");
+    let add_media4 = fire_walk_dirs::walk_additional_dir(usb4);
+    let mut add_video_list4 = add_media4.0;
+    let mut add_media_img_list4 = add_media4.1;
+    let mut add_music_list4 = add_media4.2;
+
+    video_list.append(&mut add_video_list4);
+    music_list.append(&mut add_music_list4);
+    media_images.append(&mut add_media_img_list4);
 
     (music_list, video_list, media_images)
 
