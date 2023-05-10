@@ -2,7 +2,7 @@ use std::env;
 use std::sync::mpsc::channel;
 use threadpool::ThreadPool;
 
-pub mod fire_env_vars;
+// pub mod fire_env_vars;
 pub mod fire_image;
 pub mod fire_misc;
 pub mod fire_mp3_info;
@@ -106,11 +106,11 @@ fn run_music_img_threads(alist: Vec<String>) {
 pub fn run_setup() -> bool {
     // let paramaters = fire_env_vars::read_config();
 
-    crate::setup::fire_env_vars::set_all_env_vars();
+    // crate::setup::fire_env_vars::set_all_env_vars();
 
     let scan_home_dir = 
-        env::var("FIRE_SCAN_HOME_DIR")
-        .expect("$FIRE_SCAN_HOME_DIR is not set");
+        env::var("FIRE_SCAN_HOME")
+        .expect("$FIRE_SCAN_HOME is not set");
 
     if scan_home_dir == "yes" {
         let media_lists = fire_walk_dirs::scan_all_sources();

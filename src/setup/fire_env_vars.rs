@@ -22,90 +22,90 @@ fn get_current_working_dir() -> String {
 //     docs
 // }
 
-fn set_env_var(p1: String, p2: String) -> Result<(), Box<dyn std::error::Error>> {
-    env::set_var(&p1, p2);
-    let value = env::var(&p1);
-    if value.is_err() {
-        println!("Error: key not found");
-    } else {
-        println!("key is set to: {}", value.unwrap());
-    }
+// fn set_env_var(p1: String, p2: String) -> Result<(), Box<dyn std::error::Error>> {
+//     env::set_var(&p1, p2);
+//     let value = env::var(&p1);
+//     if value.is_err() {
+//         println!("Error: key not found");
+//     } else {
+//         println!("key is set to: {}", value.unwrap());
+//     }
 
-    Ok(())
-}
+//     Ok(())
+// }
 
-pub struct EnvVars {
-    fire_dir_nfos: String,
-    fire_dir_thumbnails: String,
-    fire_dir: String,
+// pub struct EnvVars {
+//     fire_dir_nfos: String,
+//     fire_dir_thumbnails: String,
+//     fire_dir: String,
 
-}
+// }
 
-impl EnvVars {
-    fn set_fire_dir_nfos(&self) -> bool {
-        let nfo_dir = get_current_working_dir().to_string() + &self.fire_dir_nfos;
-        let nfos_dir_exists = Path::new(&nfo_dir).is_dir();
-        if nfos_dir_exists {
-            let nd = String::from("FIRE_NFOS");
-            set_env_var(nd, nfo_dir.clone()).unwrap();
-            // clean_nfos_dir();
-        } else {
-            fs::create_dir_all(nfo_dir.clone()).unwrap();
-            let nd = String::from("FIRE_NFOS");
-            set_env_var(nd, nfo_dir.clone()).unwrap();
-        }
+// impl EnvVars {
+//     fn set_fire_dir_nfos(&self) -> bool {
+//         let nfo_dir = get_current_working_dir().to_string() + &self.fire_dir_nfos;
+//         let nfos_dir_exists = Path::new(&nfo_dir).is_dir();
+//         if nfos_dir_exists {
+//             let nd = String::from("FIRE_NFOS");
+//             set_env_var(nd, nfo_dir.clone()).unwrap();
+//             // clean_nfos_dir();
+//         } else {
+//             fs::create_dir_all(nfo_dir.clone()).unwrap();
+//             let nd = String::from("FIRE_NFOS");
+//             set_env_var(nd, nfo_dir.clone()).unwrap();
+//         }
 
-        true
-    }
-    fn set_fire_dir_thumbnails(&self) -> bool {
-        let thumb_dir = get_current_working_dir().to_string() + &self.fire_dir_thumbnails;
-        let thumb_dir_exists = Path::new(&thumb_dir).is_dir();
-        if thumb_dir_exists {
-            let td = String::from("FIRE_THUMBNAIL");
-            set_env_var(td, thumb_dir.clone()).unwrap();
-            // clean_thumbnail_dir();
-        } else {
-            fs::create_dir_all(thumb_dir.clone()).unwrap();
-            let td = String::from("FIRE_THUMBNAIL");
-            set_env_var(td, thumb_dir.clone()).unwrap();
-        }
+//         true
+//     }
+//     fn set_fire_dir_thumbnails(&self) -> bool {
+//         let thumb_dir = get_current_working_dir().to_string() + &self.fire_dir_thumbnails;
+//         let thumb_dir_exists = Path::new(&thumb_dir).is_dir();
+//         if thumb_dir_exists {
+//             let td = String::from("FIRE_THUMBNAIL");
+//             set_env_var(td, thumb_dir.clone()).unwrap();
+//             // clean_thumbnail_dir();
+//         } else {
+//             fs::create_dir_all(thumb_dir.clone()).unwrap();
+//             let td = String::from("FIRE_THUMBNAIL");
+//             set_env_var(td, thumb_dir.clone()).unwrap();
+//         }
 
-        true
-    }
-    fn set_fire_dir(&self) -> bool {
-        let fire_dir = get_current_working_dir().to_string() + &self.fire_dir;
-        let fire_dir_exists = Path::new(&fire_dir).is_dir();
-        if fire_dir_exists {
-            let f2 = String::from("FIRE_DIR");
-            set_env_var(f2, fire_dir).unwrap();
-        } else {
-            fs::create_dir_all(fire_dir.clone()).unwrap();
-            let f2 = String::from("FIRE_DIR");
-            set_env_var(f2, fire_dir).unwrap();
-        }
+//         true
+//     }
+//     fn set_fire_dir(&self) -> bool {
+//         let fire_dir = get_current_working_dir().to_string() + &self.fire_dir;
+//         let fire_dir_exists = Path::new(&fire_dir).is_dir();
+//         if fire_dir_exists {
+//             let f2 = String::from("FIRE_DIR");
+//             set_env_var(f2, fire_dir).unwrap();
+//         } else {
+//             fs::create_dir_all(fire_dir.clone()).unwrap();
+//             let f2 = String::from("FIRE_DIR");
+//             set_env_var(f2, fire_dir).unwrap();
+//         }
 
-        true
-    }
-}
+//         true
+//     }
+// }
 
-pub fn set_all_env_vars() {
-    let envvars = EnvVars {
-        fire_dir_nfos: "/fire_dir/nfos".to_string(),
-        fire_dir_thumbnails: "/fire_dir/thumbnails".to_string(),
-        fire_dir: "/fire_dir".to_string(),
-    };
+// pub fn set_all_env_vars() {
+//     let envvars = EnvVars {
+//         fire_dir_nfos: "/fire_dir/nfos".to_string(),
+//         fire_dir_thumbnails: "/fire_dir/thumbnails".to_string(),
+//         fire_dir: "/fire_dir".to_string(),
+//     };
 
-    let cwd = get_current_working_dir().to_string();
-    let cdir = cwd + "/fire_dir";
+//     let cwd = get_current_working_dir().to_string();
+//     let cdir = cwd + "/fire_dir";
 
-    let dir_exists = Path::new(&cdir).is_dir();
+//     let dir_exists = Path::new(&cdir).is_dir();
 
-    if !dir_exists {
-        envvars.set_fire_dir();
-        envvars.set_fire_dir_thumbnails();
-        envvars.set_fire_dir_nfos();
-    };
-}
+//     if !dir_exists {
+//         envvars.set_fire_dir();
+//         envvars.set_fire_dir_thumbnails();
+//         envvars.set_fire_dir_nfos();
+//     };
+// }
 
 // fn clean_nfos_dir() -> u32 {
 //     let movie_meta_dir_path = env::var("FIRE_NFOS").unwrap();
