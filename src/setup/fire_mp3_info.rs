@@ -30,12 +30,14 @@ fn mp3_duration_extract(x: String) -> Duration {
         Ok(d) => d,
         Err(_) => Duration::new(0, 0),
     };
-
-    dur_sec
+    println!("\n\ndur_sec: {:?}\n\n", dur_sec.clone());
+    
+    dur_sec.clone()
 }
 
 pub fn get_duration(x: &String) -> String {
     let dur_sec = mp3_duration_extract(x.to_string());
+    
 
     if dur_sec == Duration::new(0, 0) {
         let dur_min = dur_sec.div_f32(60.0);
