@@ -42,17 +42,29 @@ impl FireUtils {
     }
     pub fn image_split_artist(&self) -> String {
         let filesplit = self.apath.split("/");
-        let mut filenamevec = vec![];
-        for file in filesplit {
-            filenamevec.push(file);
-        }
+        let mut fspvec = Vec::new();
+        for fp in filesplit.clone() {
+            fspvec.push(fp);
+        };
 
-        let mut fin = vec![];
-        for f in filenamevec {
-            fin.push(f);
-        }
+        let fspcount = fspvec.len();
+        let fsp = &fspvec[6..fspcount];
 
-        String::from(fin[1])
+        println!("\n\nthis is artist: {:?}\n\n", &fsp);
+
+
+
+        // let mut filenamevec = vec![];
+        // for file in filesplit {
+        //     filenamevec.push(file);
+        // }
+
+        // let mut fin = vec![];
+        // for f in filenamevec {
+        //     fin.push(f);
+        // }
+
+        format!("{:?}", &fsp)
     }
     pub fn music_split_artist(&self) -> String {
         let filesplit = self.apath.split("/");
