@@ -66,8 +66,8 @@ impl FireUtils {
         //     fin.push(f);
         // }
         let art = format!("{:?}", &fsp);
-        let art2 = art.replace("_", " ");
-        let artist = art2.replace("\"", "");
+        // let art2 = art.replace("_", " ");
+        let artist = art.replace("\"", "");
         // println!("\n\nthis is artist: {}\n\n", &artist);
 
 
@@ -115,8 +115,8 @@ impl FireUtils {
 
         // album.to_string()
         let alb = format!("{:?}", &fsp);
-        let alb2 = alb.replace("_", " ");
-        let album = alb2.replace("\"", " ");
+        // let alb2 = alb.replace("_", " ");
+        let album = alb.replace("\"", "");
         // println!("\n\nthis is album: {}\n\n", &album);
 
 
