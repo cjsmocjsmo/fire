@@ -88,18 +88,37 @@ impl FireUtils {
     }
     pub fn image_split_album(&self) -> String {
         let filesplit = self.apath.split("/");
-        let mut filenamevec = vec![];
-        for file in filesplit {
-            filenamevec.push(file);
-        }
-
-        let album_result = filenamevec.last();
-        let album = match album_result {
-            Some(album) => album.to_string(),
-            None => "None".to_string(),
+        let mut fspvec = Vec::new();
+        for fp in filesplit.clone() {
+            fspvec.push(fp);
         };
 
-        album.to_string()
+        let fspcount = fspvec.len();
+        let fspidx = fspcount.clone() - 3;
+
+        let fsp = &fspvec[fspidx];
+
+
+
+        // let filesplit = self.apath.split("/");
+        // let mut filenamevec = vec![];
+        // for file in filesplit {
+        //     filenamevec.push(file);
+        // }
+
+        // let album_result = filenamevec.last();
+        // let album = match album_result {
+        //     Some(album) => album.to_string(),
+        //     None => "None".to_string(),
+        // };
+
+        // album.to_string()
+        let alb = format!("{:?}", &fsp);
+        let album = alb.replace("_", " ");
+        println!("\n\nthis is artist: {}\n\n", &album);
+
+
+        album
     }
     pub fn music_split_album(&self) -> String {
         let filesplit = self.apath.split("/");
