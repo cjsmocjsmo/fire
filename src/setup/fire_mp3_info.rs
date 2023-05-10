@@ -30,7 +30,7 @@ fn mp3_duration_extract(x: String) -> Duration {
         Ok(d) => d,
         Err(_) => Duration::new(0, 0),
     };
-    println!("\n\ndur_sec: {:?}\n\n", dur_sec.clone());
+    
     
     dur_sec.clone()
 }
@@ -59,7 +59,8 @@ pub fn get_duration(x: &String) -> String {
         }
 
         let duration: String = newvec.into_iter().collect();
-        return duration;
+        println!("\n\nduration: {:?}\n\n", duration.clone());
+        return duration.clone();
     } else {
         let new_dur = Duration::new(0, 0);
         let duration = format!("{:?}", new_dur);
