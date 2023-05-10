@@ -1,4 +1,4 @@
-use glob::glob;
+// use glob::glob;
 use std::env;
 use std::fs;
 use std::path::Path;
@@ -48,7 +48,7 @@ impl EnvVars {
         if nfos_dir_exists {
             let nd = String::from("FIRE_NFOS");
             set_env_var(nd, nfo_dir.clone()).unwrap();
-            clean_nfos_dir();
+            // clean_nfos_dir();
         } else {
             fs::create_dir_all(nfo_dir.clone()).unwrap();
             let nd = String::from("FIRE_NFOS");
@@ -63,7 +63,7 @@ impl EnvVars {
         if thumb_dir_exists {
             let td = String::from("FIRE_THUMBNAIL");
             set_env_var(td, thumb_dir.clone()).unwrap();
-            clean_thumbnail_dir();
+            // clean_thumbnail_dir();
         } else {
             fs::create_dir_all(thumb_dir.clone()).unwrap();
             let td = String::from("FIRE_THUMBNAIL");
@@ -100,39 +100,34 @@ pub fn set_all_env_vars() {
 
     let dir_exists = Path::new(&cdir).is_dir();
 
-    // let docker_var = env::var("FIRE_DOCKER_VAR").expect("docker var not set");
-
-    if dir_exists {
-        clean_nfos_dir();
-        clean_thumbnail_dir();
-    } else {
+    if !dir_exists {
         envvars.set_fire_dir();
         envvars.set_fire_dir_thumbnails();
         envvars.set_fire_dir_nfos();
     };
 }
 
-fn clean_nfos_dir() -> u32 {
-    let movie_meta_dir_path = env::var("FIRE_NFOS").unwrap();
-    let glob_str = movie_meta_dir_path + "/*.nfo";
-    let mut count = 0;
-    for e in glob(glob_str.as_str()).expect("Failed to read glob pattern") {
-        let rm_path = e.unwrap();
-        count = count + 1;
-        fs::remove_file(rm_path).expect("File delete failed");
-    }
+// fn clean_nfos_dir() -> u32 {
+//     let movie_meta_dir_path = env::var("FIRE_NFOS").unwrap();
+//     let glob_str = movie_meta_dir_path + "/*.nfo";
+//     let mut count = 0;
+//     for e in glob(glob_str.as_str()).expect("Failed to read glob pattern") {
+//         let rm_path = e.unwrap();
+//         count = count + 1;
+//         fs::remove_file(rm_path).expect("File delete failed");
+//     }
 
-    count
-}
+//     count
+// }
 
-fn clean_thumbnail_dir() -> u32 {
-    let music_meta_dir_path = env::var("FIRE_THUMBNAIL").unwrap();
-    let glob_str = music_meta_dir_path + "/*.jpg";
-    let mut count = 0;
-    for e in glob(glob_str.as_str()).expect("Failed to read glob pattern") {
-        count = count + 1;
-        let rm_path = e.unwrap();
-        fs::remove_file(rm_path).expect("File delete failed");
-    }
-    count
-}
+// fn clean_thumbnail_dir() -> u32 {
+//     let music_meta_dir_path = env::var("FIRE_THUMBNAIL").unwrap();
+//     let glob_str = music_meta_dir_path + "/*.jpg";
+//     let mut count = 0;
+//     for e in glob(glob_str.as_str()).expect("Failed to read glob pattern") {
+//         count = count + 1;
+//         let rm_path = e.unwrap();
+//         fs::remove_file(rm_path).expect("File delete failed");
+//     }
+//     count
+// }
