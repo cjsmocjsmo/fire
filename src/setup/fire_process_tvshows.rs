@@ -51,10 +51,11 @@ impl TVShowsUtils {
             n_split_vec.push(n);
         }
         // let idx = n_split_vec.len() - 2;
-        let idx = n_split_vec.len() - 2;
+        let idx = &n_split_vec.len() - 1;
+        println!("{}", &idx);
 
 
-        let parts: Vec<char> = n_split_vec[idx].chars().collect();
+        let parts: Vec<char> = n_split_vec[idx.clone()].chars().collect();
         println!("{}", &self.apath);
         println!("{}", parts.len());
         println!("{:?}", parts);
