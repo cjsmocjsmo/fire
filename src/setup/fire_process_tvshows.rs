@@ -52,7 +52,7 @@ impl TVShowsUtils {
         }
         // let idx = n_split_vec.len() - 2;
         println!("{:?}", n_split_vec.clone());
-        let idx = &n_split_vec.len() - 1;
+        let idx = &n_split_vec.len() - 2;
         println!("\n\nthis is index {}\n\n", &idx);
 
 
