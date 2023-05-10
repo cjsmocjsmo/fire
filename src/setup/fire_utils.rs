@@ -16,7 +16,7 @@ impl FireUtils {
         for my in mysplit {
             myvec.push(my);
         }
-        let path = env::var("FIRE_THUMBNAIL").unwrap();
+        let path = env::var("FIRE_THUMBNAILS").unwrap();
         let envsplit = path.split("/");
         let mut envvec = vec![];
         for env in envsplit {
