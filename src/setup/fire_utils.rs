@@ -48,7 +48,9 @@ impl FireUtils {
         };
 
         let fspcount = fspvec.len();
-        let fsp = &fspvec[6..fspcount];
+        let fspidx = fspcount.clone() - 3;
+
+        let fsp = &fspvec[fspidx];
 
         println!("\n\nthis is artist: {:?}\n\n", &fsp);
 
