@@ -70,6 +70,8 @@ pub fn process_music_images(x: String, index: i32) -> bool {
 
         let thumb_path = create_music_thumbnail(&x, artist_results.clone(), album_results.clone());
 
+        println!("\n\nthumbpath: {}\n\n", thumb_path);
+
         // let b64image = crate::setup::fire_image::to_base64_str(&thumb_path);
 
         let music_image_info = object! {
