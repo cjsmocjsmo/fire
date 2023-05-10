@@ -16,13 +16,13 @@ impl FireUtils {
         for my in mysplit {
             myvec.push(my);
         }
-        let path = env::var("FIRE_THUMBNAILSS").unwrap();
+        let path = env::var("FIRE_THUMBNAILS").unwrap();
         let envsplit = path.split("/");
         let mut envvec = vec![];
         for env in envsplit {
             envvec.push(env);
         }
-        let count = envvec.len() - 1;
+        let count = envvec.len() - 2;
         myvec.drain(0..count);
         myvec.pop();
         let base_dir = myvec.join("/");
