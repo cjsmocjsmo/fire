@@ -59,7 +59,6 @@ pub fn get_duration(x: &String) -> String {
         }
 
         let duration: String = newvec.into_iter().collect();
-        println!("\n\nduration: {:?}\n\n", duration.clone());
         return duration.clone();
     } else {
         let new_dur = Duration::new(0, 0);

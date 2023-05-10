@@ -26,35 +26,28 @@ pub fn process_mp3s(x: String, index: String, page: String) -> String {
     let album = tags.1;
     let song = tags.2;
 
+    let voodoo: &String = &"None".to_string();
+
     let fu = crate::setup::fire_utils::FireUtils {
         apath: x.clone()
     };
 
     let id = crate::setup::fire_utils::FireUtils::get_md5(&fu);
-    let voodoo: &String = &"None".to_string();
-    
-    
     
     let duration_results = crate::setup::fire_mp3_info::get_duration(&x);
 
     let fullpath = &x.to_string();
-
     
-    
-    let foo3 = crate::setup::fire_utils::FireUtils {
-        apath: x.clone()
-    };
-    let base_dir = crate::setup::fire_utils::FireUtils::split_base_dir(&foo3);
+    let base_dir = crate::setup::fire_utils::FireUtils::split_base_dir(&fu);
 
-    let filename_results = crate::setup::fire_utils::FireUtils::split_filename(&foo3);
-    let music_artist_results = crate::setup::fire_utils::FireUtils::music_split_artist(&foo3);
+    let filename_results = crate::setup::fire_utils::FireUtils::split_filename(&fu);
+    let music_artist_results = crate::setup::fire_utils::FireUtils::music_split_artist(&fu);
 
-    let music_album_results = crate::setup::fire_utils::FireUtils::music_split_album(&foo3);
+    let music_album_results = crate::setup::fire_utils::FireUtils::music_split_album(&fu);
 
-
-    let ext = crate::setup::fire_utils::FireUtils::split_ext(&foo3);
+    let ext = crate::setup::fire_utils::FireUtils::split_ext(&fu);
     let idx = index.to_string();
-    let fsize_results = crate::setup::fire_utils::FireUtils::get_file_size(&foo3).to_string();
+    let fsize_results = crate::setup::fire_utils::FireUtils::get_file_size(&fu).to_string();
 
     // crate::setup::fire_x_info::write_music_json_to_file(
     let music_info = object! { 
