@@ -61,12 +61,12 @@ fn get_current_working_dir() -> String {
 //         let thumb_dir = get_current_working_dir().to_string() + &self.fire_dir_thumbnails;
 //         let thumb_dir_exists = Path::new(&thumb_dir).is_dir();
 //         if thumb_dir_exists {
-//             let td = String::from("FIRE_THUMBNAIL");
+//             let td = String::from("FIRE_THUMBNAILS");
 //             set_env_var(td, thumb_dir.clone()).unwrap();
 //             // clean_thumbnail_dir();
 //         } else {
 //             fs::create_dir_all(thumb_dir.clone()).unwrap();
-//             let td = String::from("FIRE_THUMBNAIL");
+//             let td = String::from("FIRE_THUMBNAILS");
 //             set_env_var(td, thumb_dir.clone()).unwrap();
 //         }
 
@@ -121,7 +121,7 @@ fn get_current_working_dir() -> String {
 // }
 
 // fn clean_thumbnail_dir() -> u32 {
-//     let music_meta_dir_path = env::var("FIRE_THUMBNAIL").unwrap();
+//     let music_meta_dir_path = env::var("FIRE_THUMBNAILS").unwrap();
 //     let glob_str = music_meta_dir_path + "/*.jpg";
 //     let mut count = 0;
 //     for e in glob(glob_str.as_str()).expect("Failed to read glob pattern") {

@@ -11,7 +11,7 @@ fn create_movie_thumbnail(x: String) -> String {
     };
 
     let fire_movie_metadata_path =
-        env::var("FIRE_THUMBNAIL").expect("$FIRE_THUMBNAIL is not set");
+        env::var("FIRE_THUMBNAILS").expect("$FIRE_THUMBNAILS is not set");
     let old_fname = crate::setup::fire_utils::FireUtils::split_poster_name(&foobar);
     let out_fname = fire_movie_metadata_path + "/" + &old_fname;
 
