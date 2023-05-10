@@ -112,8 +112,6 @@ pub fn run_setup() -> bool {
         env::var("FIRE_SCAN_HOME_DIR")
         .expect("$FIRE_SCAN_HOME_DIR is not set");
 
-    
-
     if scan_home_dir == "yes" {
         let media_lists = fire_walk_dirs::scan_all_sources();
 
