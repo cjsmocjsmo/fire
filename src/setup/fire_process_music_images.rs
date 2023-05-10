@@ -63,6 +63,7 @@ pub fn process_music_images(x: String, index: i32) -> bool {
 
         let artist_results = crate::setup::fire_utils::FireUtils::image_split_artist(&foo2);
         let album_results = crate::setup::fire_utils::FireUtils::image_split_album(&foo2);
+        println!("\n\n art && album: {} {}\n\n", artist_results.clone(), album_results.clone());
 
         let fsize_results = crate::setup::fire_utils::FireUtils::get_file_size(&foo2).to_string();
         let full_path = &x.to_string();
