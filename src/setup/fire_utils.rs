@@ -115,7 +115,7 @@ impl FireUtils {
         // album.to_string()
         let alb = format!("{:?}", &fsp);
         let album = alb.replace("_", " ");
-        println!("\n\nthis is artist: {}\n\n", &album);
+        println!("\n\nthis is album: {}\n\n", &album);
 
 
         album
