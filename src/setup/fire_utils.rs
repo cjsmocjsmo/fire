@@ -65,8 +65,10 @@ impl FireUtils {
         // for f in filenamevec {
         //     fin.push(f);
         // }
+        let art = format!("{:?}", &fsp);
+        let artist = art.replace("_", " ");
 
-        format!("{:?}", &fsp)
+        artist
     }
     pub fn music_split_artist(&self) -> String {
         let filesplit = self.apath.split("/");
