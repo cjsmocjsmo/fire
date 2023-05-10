@@ -39,7 +39,7 @@ pub fn get_duration(x: &String) -> String {
     let dur_sec = mp3_duration_extract(x.to_string());
     
 
-    if dur_sec == Duration::new(0, 0) {
+    if dur_sec != Duration::new(0, 0) {
         let dur_min = dur_sec.div_f32(60.0);
         let dur_str = format!("{:?}", dur_min);
         let mut durvec = vec![];
