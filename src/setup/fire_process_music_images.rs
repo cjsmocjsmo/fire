@@ -4,7 +4,7 @@ use json::object;
 fn create_music_thumbnail(x: &String, art: String, alb: String) -> String {
     let fire_music_metadata_path = env::var("FIRE_THUMBNAILS").expect("$FIRE_THUMBNAILS is not set");
     let new_fname = "/".to_string() + art.as_str() + "_-_" + alb.as_str() + ".jpg";
-    let out_fname = fire_music_metadata_path + "/" + &new_fname;
+    let out_fname = fire_music_metadata_path + &new_fname;
 
     println!("\n\nthis is fname {}\n\n", out_fname);
 
