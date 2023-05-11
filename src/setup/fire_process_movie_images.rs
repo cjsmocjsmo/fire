@@ -17,9 +17,9 @@ fn create_movie_thumbnail(x: String) -> String {
 
     let img = image::open(&x).expect(&x);
     let thumbnail = img.resize(230, 345, image::imageops::FilterType::Lanczos3);
-    thumbnail
-        .save(out_fname.clone())
-        .expect("Saving image failed");
+    // thumbnail
+    //     .save(out_fname.clone())
+    //     .expect("Saving image failed");
 
     println!("\n\nthis is moive fname\n{}\n\n", out_fname);
     out_fname
