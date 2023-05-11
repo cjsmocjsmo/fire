@@ -59,7 +59,7 @@ fn run_video_img_threads(alist: Vec<String>) {
     let mut img_index = 0;
     for i in alist {
         img_index = img_index + 1;
-        if i.contains("Posters2") {
+        if i.contains("MovPosters") {
             let tx = tx.clone();
             pool.execute(move || {
                 let img_info =
