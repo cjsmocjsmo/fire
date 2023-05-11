@@ -54,7 +54,7 @@ pub fn process_movie_posters(x: String, index: i32) -> String {
 
     let mov_img_info = json::stringify(mov_img_obj.dump());
 
-    // println!("{}", mov_img_info);
+    println!("{}", mov_img_info);
 
     // let fire_movie_metadata_path =
         // env::var("fire_MOVIES_METADATA_PATH").expect("$fire_MOVIES_METADATA_PATH is not set");
