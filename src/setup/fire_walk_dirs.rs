@@ -188,7 +188,7 @@ pub fn scan_all_sources() -> (Vec<String>, Vec<String>, Vec<String>) {
     let video_dir = homedir.clone() + "/Videos";
     let mut video_list = walk_video_dir(video_dir.clone());
 
-    let vid_posters_path = video_dir.clone() + "/Posters2";
+    let vid_posters_path = video_dir.clone() + "/MovPosters";
     let mut vid_posters = fire_walk_dirs::walk_posters2_dir(vid_posters_path.clone());
 
     let mut music_images = fire_walk_dirs::walk_music_dir_images(music_dir.clone());
