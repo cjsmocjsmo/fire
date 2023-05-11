@@ -1,5 +1,5 @@
 use json::object;
-
+use std::env;
 pub struct TVShowsUtils {
     apath: String
 }
@@ -7,34 +7,34 @@ pub struct TVShowsUtils {
 impl TVShowsUtils {
 
 
-    fn get_tv_catagory(&self) -> String {
+    // fn get_tv_catagory(&self) -> String {
 
-        let foo12 = crate::setup::fire_utils::FireUtils {
-            apath: self.apath.to_string()
-        };
+    //     let foo12 = crate::setup::fire_utils::FireUtils {
+    //         apath: self.apath.to_string()
+    //     };
 
-        let name = crate::setup::fire_utils::FireUtils::split_movie_name(&foo12);
-        let n_split = name.split(" ");
-        let mut n_split_vec = vec![];
+    //     let name = crate::setup::fire_utils::FireUtils::split_movie_name(&foo12);
+    //     let n_split = name.split(" ");
+    //     let mut n_split_vec = vec![];
 
-        for n in n_split {
-            n_split_vec.push(n);
-        }
+    //     for n in n_split {
+    //         n_split_vec.push(n);
+    //     }
 
-        let idx = n_split_vec.len() - 2;
+    //     let idx = n_split_vec.len() - 2;
 
-        let mut newname_vec = vec![];
+    //     let mut newname_vec = vec![];
 
-        let foo = n_split_vec.drain(0..idx);
+    //     let foo = n_split_vec.drain(0..idx);
 
-        for f in foo {
-            newname_vec.push(f);
-        }
+    //     for f in foo {
+    //         newname_vec.push(f);
+    //     }
 
-        let bar = newname_vec.join(" ");
+    //     let bar = newname_vec.join(" ");
 
-        bar.to_string()
-    }
+    //     bar.to_string()
+    // }
 
 
 
@@ -77,43 +77,38 @@ pub fn process_tvshows(tvshows_vec: Vec<String>) -> String{
             };
 
             let file_size = crate::setup::fire_utils::FireUtils::get_file_size(&tvshows);
-            let catagory = crate::setup::fire_process_tvshows::TVShowsUtils::get_tv_catagory(&tvshows2);
+            // let catagory = crate::setup::fire_process_tvshows::TVShowsUtils::get_tv_catagory(&tvshows2);
             let es = crate::setup::fire_process_tvshows::TVShowsUtils::get_tv_episode_season(&tvshows2);
             let season = es.0;
             let episode = es.1;
 
+            let fire_id = crate::setup::fire_utils::FireUtils::get_md5(&tvshows);
+
             let fname = crate::setup::fire_utils::FireUtils::split_filename(&tvshows);
 
             let tvshows_obj = object! {
-                size: file_size,
-                catagory: catagory,
+                
+                fireid: fire_id,
+                index: count.to_string(),
                 name: fname,
                 season: season,
                 episode: episode,
-                path: tv
+                size: file_size,
+                httpmoviepath: tv
             };
-
-    //         id INTEGER PRIMARY KEY,
-    // fireid TEXT,
-    // index TEXT,
-    // name TEXT,
-    // season TEXT,
-    // episode TEXT,
-    // size TEXT,
-    // httpmoviepath TEXT,
 
             let tvshows_info = json::stringify(tvshows_obj.dump());
 
             println!("{:?}", tvshows_info);
 
-            // let mtv_tvshows_metadata_path =
-            //     env::var("MTV_TVSHOWS_METADATA_PATH").expect("$MTV_TVSHOWS_METADATA_PATH is not set");
+            let fire_nfo_path =
+                env::var("FIRE_NFOS").expect("$FIRE_NFOS is not set");
 
-            // let a = format!("{}/", mtv_tvshows_metadata_path.as_str());
-            // let b = format!("TVShows_{}_Meta.json", count.to_string());
-            // let outpath = a + &b;
+            let a = format!("{}/", fire_nfo_path.as_str());
+            let b = format!("TVShows_{}_Meta.json", count.to_string());
+            let outpath = a + &b;
 
-            // std::fs::write(outpath, tvsows_info).unwrap();
+            std::fs::write(outpath, tvshows_info).unwrap();
         }
     }
     count.to_string()

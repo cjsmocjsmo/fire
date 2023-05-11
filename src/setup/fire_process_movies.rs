@@ -40,18 +40,18 @@ pub fn process_movies() -> String {
         let mov_year = crate::mtv_split::split_movie_year(x.clone());
         let mov_poster_addr = get_poster_addr(x.clone());
         let mov_size = crate::mtv_misc::get_file_size(&x);
-        let mov_file_exists = Path::new(&mov_poster_addr).exists();
+        // let mov_file_exists = Path::new(&mov_poster_addr).exists();
 
         let mov_js_obj = object! {
+            fireid: ,
+            index: count.to_string(),
             name: mov_name,
             year: mov_year,
-            poster_addr: mov_poster_addr,
             size: mov_size,
-            exists: mov_file_exists,
-            path: x,
-            index: count.to_string()
+            httpposterpath: mov_poster_addr,
+            httmmoviepath: mov_poster_addr
         };
-
+        
         // let json_info = json::stringify(mov_js_obj.dump());
 
         // let mtv_movies_metadata_path =

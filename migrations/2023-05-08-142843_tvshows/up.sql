@@ -10,9 +10,3 @@ CREATE TABLE tvshows (
     size TEXT,
     httpmoviepath TEXT,
 )
--- size: file_size,
---                 catagory: catagory,
---                 name: fname,
---                 season: season,
---                 episode: episode,
---                 path: tv

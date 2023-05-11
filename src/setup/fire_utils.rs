@@ -190,14 +190,6 @@ impl FireUtils {
     
         foo
     }
-    // pub fn set_id(&self) -> String {
-    //     // let astr = crate::setup::fire_utils::FireUtils {
-    //     //     apath: self.apath
-    //     // };
-    //     let id = crate::setup::fire_utils::FireUtils::get_md5(&self.apath);
-
-    //     id
-    //  }
     
     pub fn get_dims(&self) -> (u32, u32) {
         let dims = crate::setup::fire_image::get_image_dims(&self.apath);
