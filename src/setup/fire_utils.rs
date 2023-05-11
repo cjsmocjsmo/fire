@@ -51,25 +51,8 @@ impl FireUtils {
         let fspidx = fspcount.clone() - 3;
 
         let fsp = &fspvec[fspidx];
-
-        
-
-
-
-        // let mut filenamevec = vec![];
-        // for file in filesplit {
-        //     filenamevec.push(file);
-        // }
-
-        // let mut fin = vec![];
-        // for f in filenamevec {
-        //     fin.push(f);
-        // }
         let art = format!("{:?}", &fsp);
-        // let art2 = art.replace("_", " ");
         let artist = art.replace("\"", "");
-        // println!("\n\nthis is artist: {}\n\n", &artist);
-
 
         artist
     }
@@ -98,27 +81,8 @@ impl FireUtils {
         let fspidx = fspcount.clone() - 2;
 
         let fsp = &fspvec[fspidx];
-
-
-
-        // let filesplit = self.apath.split("/");
-        // let mut filenamevec = vec![];
-        // for file in filesplit {
-        //     filenamevec.push(file);
-        // }
-
-        // let album_result = filenamevec.last();
-        // let album = match album_result {
-        //     Some(album) => album.to_string(),
-        //     None => "None".to_string(),
-        // };
-
-        // album.to_string()
         let alb = format!("{:?}", &fsp);
-        // let alb2 = alb.replace("_", " ");
         let album = alb.replace("\"", "");
-        // println!("\n\nthis is album: {}\n\n", &album);
-
 
         album
     }

@@ -50,16 +50,8 @@ impl TVShowsUtils {
         for n in n_split {
             n_split_vec.push(n);
         }
-        // let idx = n_split_vec.len() - 2;
-        println!("{:?}", n_split_vec.clone());
         let idx = &n_split_vec.len() - 2;
-        println!("\n\nthis is index {}\n\n", &idx);
-
-
         let parts: Vec<char> = n_split_vec[idx.clone()].chars().collect();
-        println!("{}", &self.apath);
-        println!("{}", parts.len());
-        println!("{:?}", parts);
 
         let season = parts[1].to_string() + &parts[2].to_string();
         let episode = parts[4].to_string() + &parts[5].to_string();
