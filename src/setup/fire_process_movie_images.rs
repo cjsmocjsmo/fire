@@ -21,6 +21,7 @@ fn create_movie_thumbnail(x: String) -> String {
         .save(out_fname.clone())
         .expect("Saving image failed");
 
+    println!("\n\nthis is moive fname\n{}\n\n", out_fname);
     out_fname
 }
 
