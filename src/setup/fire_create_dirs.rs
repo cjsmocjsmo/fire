@@ -96,14 +96,24 @@ pub fn create_dirs() {
     let cdir = cwd + "/fire_dir";
 
     let dir_exists = Path::new(&cdir).is_dir();
-
-    if dir_exists {
-        fd.clean_nfos_dir();
-        fd.clean_thumbnail_dir();
-    } else {
+    if !dir_exists {
         fd.set_fire_dir();
+    };
+    
+    let thumbnaile_path = cdir.to_string() + &fd.fire_dir_thumbnails.to_string();
+    let thumbnails_exist = Path::new(&thumbnaile_path).is_dir();
+    if !thumbnails_exist {
         fd.set_fire_dir_thumbnails();
+    } else {
+        fd.clean_thumbnail_dir();
+    };
+
+    let nfo_path = cdir + &fd.fire_dir_nfos.to_string();
+    let nfos_exist = Path::new(&nfo_path).is_dir();
+    if !nfos_exist {
         fd.set_fire_dir_nfos();
+    } else {
+        fd.clean_nfos_dir();
     };
 }
 
