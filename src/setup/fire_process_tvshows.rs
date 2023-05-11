@@ -107,6 +107,7 @@ pub fn process_tvshows(tvshows_vec: Vec<String>) -> String{
             let a = format!("{}/", fire_nfo_path.as_str());
             let b = format!("TVShows_{}_Meta.json", count.to_string());
             let outpath = a + &b;
+            println!("\n\nthis is outpath {}\n\n", outpath);
 
             std::fs::write(outpath, tvshows_info).unwrap();
         }
