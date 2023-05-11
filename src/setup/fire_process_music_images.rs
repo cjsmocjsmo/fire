@@ -10,9 +10,9 @@ fn create_music_thumbnail(x: &String, art: String, alb: String) -> String {
 
     let img = image::open(x).expect("ooooh fuck it didnt open");
     let thumbnail = img.resize(200, 200, image::imageops::FilterType::Lanczos3);
-    // thumbnail
-    //     .save(out_fname.clone())
-    //     .expect("Saving image failed");
+    thumbnail
+        .save(out_fname.clone())
+        .expect("Saving image failed");
 
     out_fname.to_string()
 }
