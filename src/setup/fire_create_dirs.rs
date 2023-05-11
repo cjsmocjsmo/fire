@@ -45,7 +45,7 @@ impl FireDirs {
     fn set_fire_dir_thumbnails(&self) -> bool {
         let thumb_dir = get_current_working_dir().to_string() + &self.fire_dir_thumbnails;
         let thumb_dir_exists = Path::new(&thumb_dir).is_dir();
-        if thumb_dir_exists {
+        if !thumb_dir_exists {
             fs::create_dir_all(thumb_dir.clone()).unwrap();
         }
 
@@ -54,7 +54,7 @@ impl FireDirs {
     fn set_fire_dir(&self) -> bool {
         let fire_dir = get_current_working_dir().to_string() + &self.fire_dir;
         let fire_dir_exists = Path::new(&fire_dir).is_dir();
-        if fire_dir_exists {
+        if !fire_dir_exists {
             fs::create_dir_all(fire_dir.clone()).unwrap();
         }
 
