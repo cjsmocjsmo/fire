@@ -6,11 +6,13 @@ fn create_music_thumbnail(x: &String, art: String, alb: String) -> String {
     let new_fname = "/".to_string() + art.as_str() + "_-_" + alb.as_str() + ".jpg";
     let out_fname = fire_music_metadata_path + "/" + &new_fname;
 
+    println!("\n\nthis is fname {}\n\n", out_fname);
+
     let img = image::open(x).expect("ooooh fuck it didnt open");
     let thumbnail = img.resize(200, 200, image::imageops::FilterType::Lanczos3);
-    thumbnail
-        .save(out_fname.clone())
-        .expect("Saving image failed");
+    // thumbnail
+    //     .save(out_fname.clone())
+    //     .expect("Saving image failed");
 
     out_fname.to_string()
 }
