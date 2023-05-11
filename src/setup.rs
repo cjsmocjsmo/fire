@@ -117,7 +117,7 @@ pub fn run_setup() -> bool {
 
         // run_music_threads(media_lists.0.clone());
         run_video_img_threads(media_lists.2.clone()); //needs work
-        // run_music_img_threads(media_lists.2.clone());
+        run_music_img_threads(media_lists.2.clone());
 
         // let video_list = media_lists.1.clone();
         // // set this up with threading
