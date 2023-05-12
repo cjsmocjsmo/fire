@@ -3,7 +3,7 @@
 
 use json::object;
 use std::env;
-// use std::fs;
+use std::fs;
 
 fn create_movie_thumbnail(x: String) -> String {
     let foobar = crate::setup::fire_utils::FireUtils {
@@ -55,15 +55,15 @@ pub fn process_movie_posters(x: String, index: i32) -> String {
 
     let mov_img_info = json::stringify(mov_img_obj.dump());
 
-    println!("{}", mov_img_info);
+    println!("{}", &mov_img_info);
 
-    // let fire_movie_metadata_path =
-        // env::var("fire_MOVIES_METADATA_PATH").expect("$fire_MOVIES_METADATA_PATH is not set");
+    let fire_nfos_path =
+        env::var("FIRE_NFOS").expect("$FIRE_NFOS is not set");
 
-    // let a = format!("{}/", fire_movie_metadata_path.as_str());
-    // let b = format!("Movie_Image_{}_Info.json", index.to_string());
-    // let outpath = a + &b;
-    // fs::write(outpath, mov_img_info).expect("Failed to write named incorrectly json file");
+    let a = format!("{}/", fire_nfos_path.as_str());
+    let b = format!("Movie_Image_{}_Info.json", index.to_string());
+    let outpath = a + &b;
+    fs::write(outpath, mov_img_info.clone()).expect("Failed to write named incorrectly json file");
    
     // else {
     //     bad_image_vec.push(x.clone());

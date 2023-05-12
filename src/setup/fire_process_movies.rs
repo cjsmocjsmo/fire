@@ -52,16 +52,16 @@ pub fn process_movies() -> String {
             httmmoviepath: mov_poster_addr
         };
         
-        // let json_info = json::stringify(mov_js_obj.dump());
+        let json_info = json::stringify(mov_js_obj.dump());
 
-        // let mtv_movies_metadata_path =
-        //     env::var("MTV_MOVIES_METADATA_PATH").expect("$MTV_MOVIES_METADATA_PATH is not set");
+        let fire_movies_metadata_path =
+            env::var("FIRE_NFOS").expect("$FIRE_NFOS is not set");
 
-        // let a = format!("{}/", mtv_movies_metadata_path.as_str());
-        // let b = format!("Movie_Meta_{}.json", &count);
-        // let outpath = a + &b;
+        let a = format!("{}/", fire_movies_metadata_path.as_str());
+        let b = format!("Movie_Meta_{}.json", &count);
+        let outpath = a + &b;
 
-        // std::fs::write(outpath, json_info).unwrap();
+        std::fs::write(outpath, json_info).unwrap();
     }
 
     count.to_string()
