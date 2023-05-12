@@ -1,5 +1,5 @@
 use json::object;
-// use std::env;
+use std::env;
 
 // #[derive(Debug, Default)]
 // pub struct MusicInfo {
@@ -20,7 +20,7 @@ use json::object;
 //     fsizeresults: String,
 // }
 
-pub fn process_mp3s(x: String, index: String, page: String) -> String {
+pub fn process_mp3s(x: String, index: String, page: String) -> bool {
     let tags = crate::setup::fire_mp3_info::get_tag_info(&x);
     let artist = tags.0;
     let album = tags.1;
@@ -69,6 +69,16 @@ pub fn process_mp3s(x: String, index: String, page: String) -> String {
     };
     let music_info = json::stringify(music_info.dump());
     println!("{:?}", music_info);
-    music_info
+    
+    let fire_music_metadata_path =
+        env::var("FIRE_NFOS").expect("$FIRE_NFOS is not set");
+
+    let a = format!("{}/", fire_music_metadata_path.as_str());
+    let b = format!("Music_Meta_{}.json", &index);
+    let outpath = a + &b;
+
+    std::fs::write(outpath, &music_info).unwrap();
+
+    true
     // println!("There are {} music files processed", &index);
 }

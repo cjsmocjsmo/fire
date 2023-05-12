@@ -90,7 +90,14 @@ pub fn process_music_images(x: String, index: i32) -> bool {
 
         let mii = json::stringify(music_image_info.dump());
         println!("\n{:?}", mii);
-        // return music_image_info;
+        let fire_music_metadata_path =
+            env::var("FIRE_NFOS").expect("$FIRE_NFOS is not set");
+
+        let a = format!("{}/", fire_music_metadata_path.as_str());
+        let b = format!("Music_Image_Meta_{}.json", &index);
+        let outpath = a + &b;
+
+        std::fs::write(outpath, mii).unwrap();
     };
 
     // music_image_info
