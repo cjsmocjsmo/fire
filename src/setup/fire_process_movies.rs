@@ -31,15 +31,15 @@ fn get_poster_addr(x: String) -> String {
 }
 
 pub fn process_movies() -> String {
-    // let movies_vec = crate::mtv_walk_dirs::walk_movies_dir();
     let mut count = 0;
     for x in movies_vec {
         count = count + 1;
 
-        let mov_name = crate::mtv_split::split_movie_name(x.clone());
-        let mov_year = crate::mtv_split::split_movie_year(x.clone());
-        let mov_poster_addr = get_poster_addr(x.clone());
-        let mov_size = crate::mtv_misc::get_file_size(&x);
+        let mov_name = crate::setup::fire_utils::FireUtils::split_movie_name(&x);
+        let mov_year = crate::setup::fire_utils::FireUtils::split_movie_year(&x);
+        let mov_poster_addr = get_poster_addr(&x);
+        let mov_size = crate::setup::fire_utils::FireUtils::get_file_size(&x);
+        let fire_id = crate::setup::fire_utils::FireUtils::get_md5(&x);
         // let mov_file_exists = Path::new(&mov_poster_addr).exists();
 
         let mov_js_obj = object! {
