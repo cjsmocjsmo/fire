@@ -7,34 +7,34 @@ pub struct TVShowsUtils {
 impl TVShowsUtils {
 
 
-    // fn get_tv_catagory(&self) -> String {
+    fn get_tv_catagory(&self) -> String {
 
-    //     let foo12 = crate::setup::fire_utils::FireUtils {
-    //         apath: self.apath.to_string()
-    //     };
+        let foo12 = crate::setup::fire_utils::FireUtils {
+            apath: self.apath.to_string()
+        };
 
-    //     let name = crate::setup::fire_utils::FireUtils::split_movie_name(&foo12);
-    //     let n_split = name.split(" ");
-    //     let mut n_split_vec = vec![];
+        let name = crate::setup::fire_utils::FireUtils::split_movie_name(&foo12);
+        let n_split = name.split(" ");
+        let mut n_split_vec = vec![];
 
-    //     for n in n_split {
-    //         n_split_vec.push(n);
-    //     }
+        for n in n_split {
+            n_split_vec.push(n);
+        }
 
-    //     let idx = n_split_vec.len() - 2;
+        let idx = n_split_vec.len() - 2;
 
-    //     let mut newname_vec = vec![];
+        let mut newname_vec = vec![];
 
-    //     let foo = n_split_vec.drain(0..idx);
+        let foo = n_split_vec.drain(0..idx);
 
-    //     for f in foo {
-    //         newname_vec.push(f);
-    //     }
+        for f in foo {
+            newname_vec.push(f);
+        }
 
-    //     let bar = newname_vec.join(" ");
+        let bar = newname_vec.join(" ");
 
-    //     bar.to_string()
-    // }
+        bar.to_string()
+    }
 
 
 
@@ -77,7 +77,7 @@ pub fn process_tvshows(tvshows_vec: Vec<String>) -> String{
             };
 
             let file_size = crate::setup::fire_utils::FireUtils::get_file_size(&tvshows);
-            // let catagory = crate::setup::fire_process_tvshows::TVShowsUtils::get_tv_catagory(&tvshows2);
+            let catagory = crate::setup::fire_process_tvshows::TVShowsUtils::get_tv_catagory(&tvshows2);
             let es = crate::setup::fire_process_tvshows::TVShowsUtils::get_tv_episode_season(&tvshows2);
             let season = es.0;
             let episode = es.1;
@@ -85,16 +85,25 @@ pub fn process_tvshows(tvshows_vec: Vec<String>) -> String{
             let fire_id = crate::setup::fire_utils::FireUtils::get_md5(&tvshows);
 
             let fname = crate::setup::fire_utils::FireUtils::split_filename(&tvshows);
+            let mut fnsplit_vec = Vec::new();
+            let fnsplit = fname.split(" ");
+            for f in fnsplit {
+                fnsplit_vec.push(f.clone());
+            };
+            let episodename = fnsplit_vec.pop();
+
+
 
             let tvshows_obj = object! {
                 
                 fireid: fire_id,
                 index: count.to_string(),
-                name: fname,
+                catagory: catagory,
+                name: episodename,
                 season: season,
                 episode: episode,
                 size: file_size,
-                httpmoviepath: tv
+                httppath: tv
             };
 
             let tvshows_info = json::stringify(tvshows_obj.dump());
