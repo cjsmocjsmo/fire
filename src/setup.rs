@@ -120,19 +120,19 @@ pub fn run_setup() -> bool {
         run_video_img_threads(media_lists.2.clone()); //needs work
         
 
-        let video_list = media_lists.1.clone();
-        // set this up with threading
-        crate::setup::fire_process_tvshows::process_tvshows(video_list);
-
         
+        crate::setup::fire_process_tvshows::process_tvshows(media_lists.1.clone());
 
-        
 
-        
+        let ab_list = crate::setup::fire_misc::create_art_alb_list(media_lists.0.clone());
+        let artist_list = crate::setup::fire_misc::create_artistids(ab_list.0);
+        let album_list = crate::setup::fire_misc::create_albumids(ab_list.1);
         
         println!("music: {}\n", media_lists.0.clone().len());
         println!("videos: {}\n", media_lists.1.clone().len());
         println!("images: {}\n", media_lists.2.clone().len());
+        println!("artistid_list; {:?}\n", artist_list);
+        println!("albumid_list; {:?}\n", album_list)
 
     
     };

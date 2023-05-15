@@ -25,6 +25,95 @@ pub fn media_total_size(addr: String) -> String {
     size
 }
 
+pub fn create_art_alb_list(alist: Vec<String>) -> (Vec<String>, Vec<String>) {
+    let mut art_vec = Vec::new();
+    let mut alb_vec = Vec::new();
+
+    for a in alist {
+        let tags = crate::setup::fire_mp3_info::get_tag_info(&a);
+        let artist = tags.0;
+        let album = tags.1;
+        art_vec.push(artist);
+        alb_vec.push(album)
+    };
+
+    // let mut art_list = art_vec.sort();
+    // let mut alb_list = alb_vec.sort();
+    art_vec.sort();
+    alb_vec.sort();
+
+    art_vec.dedup();
+    alb_vec.dedup();
+
+    (art_vec, alb_vec)
+}
+
+#[derive(Debug)]
+pub struct Art_Id {
+    id: String,
+    artist: String,
+    artistid: String,
+}
+
+pub fn create_artistids(alist: Vec<String>) -> Vec<Art_Id> {
+
+    let mut art_id_list = Vec::new();
+    let mut count = 0;
+    for a in alist {
+        count = count + 1;
+    
+        let af = crate::setup::fire_utils::FireUtils {
+            apath: a.to_string()
+        };
+        
+        let artistid = crate::setup::fire_utils::FireUtils::get_md5(&af);
+        let artidstruc = Art_Id {
+            id: count.clone().to_string(),
+            artist: a.clone(),
+            artistid: artistid.clone()
+        };
+        
+        
+        art_id_list.push(artidstruc);
+        
+    };
+
+
+    art_id_list
+}
+
+#[derive(Debug)]
+pub struct Alb_Id {
+    id: String,
+    album: String,
+    albumid: String
+}
+
+pub fn create_albumids(alist: Vec<String>) -> Vec<Alb_Id> {
+    let mut alb_id_list = Vec::new();
+    let mut count = 0;
+    for a in alist {
+        count = count + 1;
+    
+        let af = crate::setup::fire_utils::FireUtils {
+            apath: a.to_string()
+        };
+        
+        let albumid = crate::setup::fire_utils::FireUtils::get_md5(&af);
+        let albidstruc = Alb_Id {
+            id: count.clone().to_string(),
+            album: a.clone(),
+            albumid: albumid.clone()
+        };
+        
+        
+        alb_id_list.push(albidstruc);
+        
+    };
+
+
+    alb_id_list
+}
 // pub fn write_music_gzip_file() -> Result<(), std::io::Error> {
 //     let music_meta = env::var("MTV_MUSIC_METADATA_PATH").unwrap();
 //     let static_path = env::var("MTV_GZIP_PATH").unwrap();
