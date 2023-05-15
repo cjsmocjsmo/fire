@@ -116,13 +116,13 @@ pub fn run_setup() -> bool {
     if scan_home_dir == "yes" {
         let media_lists = fire_walk_dirs::scan_all_sources();
 
-        // run_music_threads(media_lists.0.clone());
-        // run_music_img_threads(media_lists.2.clone());
-        // run_video_img_threads(media_lists.2.clone()); //needs work
+        run_music_threads(media_lists.0.clone());
+        run_music_img_threads(media_lists.2.clone());
+        run_video_img_threads(media_lists.2.clone()); //needs work
         
 
         
-        // crate::setup::fire_process_tvshows::process_tvshows(media_lists.1.clone());
+        crate::setup::fire_process_tvshows::process_tvshows(media_lists.1.clone());
 
 
         let ab_list = crate::setup::fire_misc::create_art_alb_list(media_lists.0.clone());
