@@ -121,24 +121,24 @@ pub fn create_albumids(alist: Vec<String>) -> Vec<AlbId> {
             albumid: albumid.clone()
         };
 
-        let albidlistserial = serde_json::to_string(&albid_list).unwrap();
-
-        println!("{:#?}", albidlistserial);
-
-        let fire_nfo_path =
-            env::var("FIRE_NFOS").expect("$FIRE_NFOS is not set");
-
-        let a = format!("{}/", fire_nfo_path.as_str());
-        let b = format!("Album_ID_List.json");
-        let outpath = a + &b;
-
-        std::fs::write(outpath, albidlistserial).unwrap();
+        
         
         
         albid_list.push(albidstruc);
         
     };
+    let albidlistserial = serde_json::to_string(&albid_list).unwrap();
 
+    println!("{:#?}", albidlistserial);
+
+    let fire_nfo_path =
+        env::var("FIRE_NFOS").expect("$FIRE_NFOS is not set");
+
+    let a = format!("{}/", fire_nfo_path.as_str());
+    let b = format!("Album_ID_List.json");
+    let outpath = a + &b;
+
+    std::fs::write(outpath, albidlistserial).unwrap();
 
     albid_list
 }
