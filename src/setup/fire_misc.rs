@@ -50,15 +50,15 @@ pub fn create_art_alb_list(alist: Vec<String>) -> (Vec<String>, Vec<String>) {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-pub struct Art_Id {
+pub struct ArtId {
     id: String,
     artist: String,
     artistid: String,
 }
 
-pub fn create_artistids(alist: Vec<String>) -> Vec<Art_Id> {
+pub fn create_artistids(alist: Vec<String>) -> Vec<ArtId> {
 
-    let mut art_id_list = Vec::new();
+    let mut artid_list = Vec::new();
     let mut count = 0;
     for a in alist {
         count = count + 1;
@@ -68,30 +68,30 @@ pub fn create_artistids(alist: Vec<String>) -> Vec<Art_Id> {
         };
         
         let artistid = crate::setup::fire_utils::FireUtils::get_md5(&af);
-        let artidstruc = Art_Id {
+        let artidstruc = ArtId {
             id: count.clone().to_string(),
             artist: a.clone(),
             artistid: artistid.clone()
         };
         
         
-        art_id_list.push(artidstruc);
+        artid_list.push(artidstruc);
         
     };
 
 
-    art_id_list
+    artid_list
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-pub struct Alb_Id {
+pub struct AlbId {
     id: String,
     album: String,
     albumid: String
 }
 
-pub fn create_albumids(alist: Vec<String>) -> Vec<Alb_Id> {
-    let mut alb_id_list = Vec::new();
+pub fn create_albumids(alist: Vec<String>) -> Vec<AlbId> {
+    let mut albid_list = Vec::new();
     let mut count = 0;
     for a in alist {
         count = count + 1;
@@ -101,19 +101,19 @@ pub fn create_albumids(alist: Vec<String>) -> Vec<Alb_Id> {
         };
         
         let albumid = crate::setup::fire_utils::FireUtils::get_md5(&af);
-        let albidstruc = Alb_Id {
+        let albidstruc = AlbId {
             id: count.clone().to_string(),
             album: a.clone(),
             albumid: albumid.clone()
         };
         
         
-        alb_id_list.push(albidstruc);
+        albid_list.push(albidstruc);
         
     };
 
 
-    alb_id_list
+    albid_list
 }
 // pub fn write_music_gzip_file() -> Result<(), std::io::Error> {
 //     let music_meta = env::var("MTV_MUSIC_METADATA_PATH").unwrap();

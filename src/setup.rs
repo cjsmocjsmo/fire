@@ -75,7 +75,7 @@ fn run_video_img_threads(alist: Vec<String>) {
     for t in rx.iter() {
         // Insert this into db
         let ifo = t;
-        println!("{}", ifo);
+        println!("{:#?}", ifo);
     }
 }
 

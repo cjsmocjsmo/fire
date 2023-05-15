@@ -1,7 +1,7 @@
 // use image::{self};
+use serde::{Serialize, Deserialize};
 
-
-use json::object;
+// use json::object;
 use std::env;
 use std::fs;
 
@@ -25,7 +25,17 @@ fn create_movie_thumbnail(x: String) -> String {
     out_fname
 }
 
-pub fn process_movie_posters(x: String, index: i32) -> String {
+#[derive(Serialize, Deserialize, Debug)]
+pub struct MovPosterInfo {
+    id: String,
+    path: String,
+    dims: String,
+    size: String,
+    name: String,
+    thumbpath: String
+}
+
+pub fn process_movie_posters(x: String, index: i32) -> MovPosterInfo {
     // let movie_posters_vec = crate::fire_walk_dirs::walk_posters2_dir();
     // let mut index = 0;
     // let mut bad_image_vec = vec![];
@@ -45,17 +55,29 @@ pub fn process_movie_posters(x: String, index: i32) -> String {
     let name = crate::setup::fire_utils::FireUtils::split_poster_name(&foobar2);
     let thumb_path = create_movie_thumbnail(x.clone());
 
-    let mov_img_obj = object! {
-        path: &*x,
+    // let mov_img_obj = object! {
+    //     path: &*x,
+    //     dims: dims_foo,
+    //     size: img_size.to_string(),
+    //     name: name,
+    //     thumbpath: thumb_path,
+    // };
+
+    // let mov_img_info = json::stringify(mov_img_obj.dump());
+
+    let mov_img_info = MovPosterInfo {
+        id: index.to_string(),
+        path: x,
         dims: dims_foo,
         size: img_size.to_string(),
         name: name,
-        thumbpath: thumb_path,
+        thumbpath: thumb_path
+
     };
 
-    let mov_img_info = json::stringify(mov_img_obj.dump());
+    println!("{:#?}", &mov_img_info);
 
-    println!("{}", &mov_img_info);
+    let mii = serde_json::to_string(&mov_img_info).unwrap();
 
     let fire_nfos_path =
         env::var("FIRE_NFOS").expect("$FIRE_NFOS is not set");
@@ -63,7 +85,7 @@ pub fn process_movie_posters(x: String, index: i32) -> String {
     let a = format!("{}/", fire_nfos_path.as_str());
     let b = format!("Movie_Image_{}_Info.json", index.to_string());
     let outpath = a + &b;
-    fs::write(outpath, mov_img_info.clone()).expect("Failed to write named incorrectly json file");
+    fs::write(outpath, &mii).expect("Failed to write named incorrectly json file");
    
     // else {
     //     bad_image_vec.push(x.clone());
