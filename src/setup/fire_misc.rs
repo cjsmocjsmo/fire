@@ -1,4 +1,5 @@
 use byte_unit::Byte;
+use serde::{Serialize, Deserialize};
 // use filesize::PathExt;
 // use flate2::write::GzEncoder;
 // use flate2::Compression;
@@ -48,7 +49,7 @@ pub fn create_art_alb_list(alist: Vec<String>) -> (Vec<String>, Vec<String>) {
     (art_vec, alb_vec)
 }
 
-#[derive(Debug)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Art_Id {
     id: String,
     artist: String,
@@ -82,7 +83,7 @@ pub fn create_artistids(alist: Vec<String>) -> Vec<Art_Id> {
     art_id_list
 }
 
-#[derive(Debug)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Alb_Id {
     id: String,
     album: String,
