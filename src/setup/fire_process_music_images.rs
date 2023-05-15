@@ -1,12 +1,10 @@
 use std::env;
-use json::object;
+use serde::{Serialize, Deserialize};
 
 fn create_music_thumbnail(x: &String, art: String, alb: String) -> String {
     let fire_music_metadata_path = env::var("FIRE_THUMBNAILS").expect("$FIRE_THUMBNAILS is not set");
     let new_fname = "/".to_string() + art.as_str() + "_-_" + alb.as_str() + ".jpg";
     let out_fname = fire_music_metadata_path + "/" + &new_fname;
-
-    println!("\n\nthis is fname {}\n\n", out_fname);
 
     let img = image::open(x).expect("ooooh fuck it didnt open");
     let thumbnail = img.resize(200, 200, image::imageops::FilterType::Lanczos3);
@@ -37,6 +35,21 @@ fn create_music_thumbnail(x: &String, art: String, alb: String) -> String {
 //     let dims = crate::setup::fire_image::get_image_dims(&x);
 //     dims
 //  }
+#[derive(Serialize, Deserialize, Debug)]
+pub struct MusicImageInfo {
+    id: String,
+    width: String,
+    height: String,
+    basedir: String,
+    filename: String,
+    extension: String,
+    artist: String,
+    album: String,
+    filesize: String,
+    fullpath: String,
+    thumbpath: String,
+    index: String,
+}
 
 
 pub fn process_music_images(x: String, index: i32) -> bool {
@@ -73,7 +86,7 @@ pub fn process_music_images(x: String, index: i32) -> bool {
 
         // let b64image = crate::setup::fire_image::to_base64_str(&thumb_path);
 
-        let music_image_info = object! {
+        let music_img_info = MusicImageInfo {
             id: id,
             width: width_r,
             height: height_r,
@@ -88,8 +101,8 @@ pub fn process_music_images(x: String, index: i32) -> bool {
             index: index.to_string(),
         };
 
-        let mii = json::stringify(music_image_info.dump());
-        println!("\n{:?}", mii);
+        let mii = serde_json::to_string(&music_img_info).unwrap();
+        println!("\n{:#?}", mii);
         let fire_music_metadata_path =
             env::var("FIRE_NFOS").expect("$FIRE_NFOS is not set");
 

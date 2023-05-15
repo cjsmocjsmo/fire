@@ -1,6 +1,7 @@
 use json::object;
 use std::env;
 use std::path::Path;
+use serde::{Serialize, Deserialize};
 
 fn get_poster_addr(x: String) -> String {
     let no_ext_name_res = x.split(".");
@@ -30,10 +31,28 @@ fn get_poster_addr(x: String) -> String {
     poster_addr
 }
 
+#[derive(Serialize, Deserialize, Debug)]
+struct MovieInfoStruc {
+    id: String,
+    fireid: String,
+    index: String,
+    name: String,
+    year: String,
+    size: String,
+    httpposterpath: String,
+    httpmoviepath: String
+}
+
 pub fn process_movies() -> String {
     let mut count = 0;
     for x in movies_vec {
         count = count + 1;
+
+        let foo = crate::setup::fire_utils::FireUtils {
+            apath: x
+        };
+
+        let fire_id = crate::setup::fire_utils::FireUtils::get_md5(&x);
 
         let mov_name = crate::setup::fire_utils::FireUtils::split_movie_name(&x);
         let mov_year = crate::setup::fire_utils::FireUtils::split_movie_year(&x);
@@ -42,17 +61,29 @@ pub fn process_movies() -> String {
         let fire_id = crate::setup::fire_utils::FireUtils::get_md5(&x);
         // let mov_file_exists = Path::new(&mov_poster_addr).exists();
 
-        let mov_js_obj = object! {
-            fireid: ,
-            index: count.to_string(),
+        // let mov_js_obj = object! {
+        //     fireid: ,
+        //     index: count.to_string(),
+        //     name: mov_name,
+        //     year: mov_year,
+        //     size: mov_size,
+        //     httpposterpath: mov_poster_addr,
+        //     httpmoviepath: mov_poster_addr
+        // };
+        
+        // let json_info = json::stringify(mov_js_obj.dump());
+        let mov_js_obj = MovieInfoStruc {
+            id: count.clone().to_string(),
+            fireid: fire_id,
+            index: count.clone().to_string(),
             name: mov_name,
             year: mov_year,
             size: mov_size,
             httpposterpath: mov_poster_addr,
-            httmmoviepath: mov_poster_addr
+            httpmoviepath: mov_poster_addr
         };
-        
-        let json_info = json::stringify(mov_js_obj.dump());
+
+        let json_info = serde_json::to_string(mov_js_obj).unwrap();
 
         let fire_movies_metadata_path =
             env::var("FIRE_NFOS").expect("$FIRE_NFOS is not set");

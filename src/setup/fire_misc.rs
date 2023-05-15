@@ -1,3 +1,4 @@
+use std::env;
 use byte_unit::Byte;
 use serde::{Serialize, Deserialize};
 // use filesize::PathExt;
@@ -79,6 +80,19 @@ pub fn create_artistids(alist: Vec<String>) -> Vec<ArtId> {
         
     };
 
+    let artidlistserial = serde_json::to_string(&artid_list).unwrap();
+
+    println!("{:#?}", artidlistserial);
+
+    let fire_nfo_path =
+        env::var("FIRE_NFOS").expect("$FIRE_NFOS is not set");
+
+    let a = format!("{}/", fire_nfo_path.as_str());
+    let b = format!("Artist_ID_List.json");
+    let outpath = a + &b;
+
+    std::fs::write(outpath, artidlistserial).unwrap();
+
 
     artid_list
 }
@@ -106,6 +120,19 @@ pub fn create_albumids(alist: Vec<String>) -> Vec<AlbId> {
             album: a.clone(),
             albumid: albumid.clone()
         };
+
+        let albidlistserial = serde_json::to_string(&albid_list).unwrap();
+
+        println!("{:#?}", albidlistserial);
+
+        let fire_nfo_path =
+            env::var("FIRE_NFOS").expect("$FIRE_NFOS is not set");
+
+        let a = format!("{}/", fire_nfo_path.as_str());
+        let b = format!("Album_ID_List.json");
+        let outpath = a + &b;
+
+        std::fs::write(outpath, albidlistserial).unwrap();
         
         
         albid_list.push(albidstruc);

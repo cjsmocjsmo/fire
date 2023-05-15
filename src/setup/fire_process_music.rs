@@ -90,7 +90,7 @@ pub fn process_mp3s(x: String, index: String, page: String) -> bool {
     };
 
     let mus_info = serde_json::to_string(&music_info).unwrap();
-    println!("{:?}", music_info);
+    println!("{:#?}", music_info);
     
     let fire_music_metadata_path =
         env::var("FIRE_NFOS").expect("$FIRE_NFOS is not set");

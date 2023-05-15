@@ -1,7 +1,19 @@
-use json::object;
+// use json::object;
 use std::env;
+use serde::{Serialize, Deserialize};
 
 
+#[derive(Serialize, Deserialize, Debug)]
+struct TVShowsStruc {
+    fireid: String,
+    index: String,
+    catagory: String,
+    name: String,
+    season: String,
+    episode: String,
+    size: String,
+    httppath: String
+}
 
 
 pub struct TVShowsUtils {
@@ -102,21 +114,21 @@ pub fn process_tvshows(tvshows_vec: Vec<String>) -> String {
 
 
 
-            let tvshows_obj = object! {
+            let tvshows_obj = TVShowsStruc {
                 
                 fireid: fire_id,
                 index: count.clone().to_string(),
                 catagory: catagory.clone(),
-                name: episodename.clone(),
+                name: episodename.clone().to_string(),
                 season: es.0,
                 episode: es.1,
                 size: file_size,
                 httppath: tv
             };
 
-            let tvshows_info = json::stringify(tvshows_obj.dump());
+            let tvshows_info = serde_json::to_string(&tvshows_obj).unwrap();
 
-            println!("{:?}", tvshows_info);
+            println!("{:#?}", tvshows_info);
 
             let fire_nfo_path =
                 env::var("FIRE_NFOS").expect("$FIRE_NFOS is not set");

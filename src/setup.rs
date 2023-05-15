@@ -131,12 +131,14 @@ pub fn run_setup() -> bool {
 
         let art_serial = serde_json::to_string(&artist_list).unwrap();
         let alb_serial = serde_json::to_string(&album_list);
+
+        println!("artistid_list; {:#?}\n", art_serial);
+        println!("albumid_list; {:#?}\n", alb_serial);
         
         println!("music: {}\n", media_lists.0.clone().len());
         println!("videos: {}\n", media_lists.1.clone().len());
         println!("images: {}\n", media_lists.2.clone().len());
-        println!("artistid_list; {:?}\n", art_serial);
-        println!("albumid_list; {:?}\n", alb_serial)
+        
 
     
     };
