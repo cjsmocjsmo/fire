@@ -1,5 +1,6 @@
 use std::env;
 use mongodb::Client;
+// use mongodb::bson::to_document;
 use std::sync::mpsc::channel;
 use threadpool::ThreadPool;
 // use serde::{Serialize, Deserialize};
@@ -16,7 +17,8 @@ pub mod fire_utils;
 pub mod fire_walk_dirs;
 pub mod fire_process_tvshows;
 
-fn run_music_threads(alist: Vec<String>) {
+
+fn run_music_threads(client: Client, alist: Vec<String>) -> bool {
     let pool = ThreadPool::new(num_cpus::get());
     let (tx, rx) = channel();
 
@@ -51,8 +53,14 @@ fn run_music_threads(alist: Vec<String>) {
     for t in rx.iter() {
         // Insert this into db
         let ifo = t;
-        println!("{:#?}", ifo);
-    }
+        // let database = client.database("fire");
+        //     let collection = database.collection("music_main");
+        //     let bson_document = to_document(&t)?;
+        //     collection.insert_one(bson_document, None).await?;
+        println!("this is music_info\n {:?}\n\t", ifo);
+    };
+
+    true
 }
 
 fn run_video_img_threads(alist: Vec<String>) {
@@ -118,7 +126,7 @@ pub fn run_setup(client: Client) -> bool {
     if scan_home_dir == "yes" {
         let media_lists = fire_walk_dirs::scan_all_sources();
 
-        // run_music_threads(media_lists.0.clone());
+        run_music_threads(client.clone(), media_lists.0.clone());
         // run_music_img_threads(media_lists.2.clone());
         // run_video_img_threads(media_lists.2.clone()); //needs work
         

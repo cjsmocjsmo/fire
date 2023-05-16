@@ -1,5 +1,7 @@
 use std::env;
 use std::clone::Clone;
+// use mongodb::Client;
+// use mongodb::bson::to_document;
 use serde::{Serialize, Deserialize};
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -21,7 +23,7 @@ pub struct MusicInfo {
     fsizeresults: String,
 }
 
-pub fn process_mp3s(x: String, index: String, page: String) -> bool {
+pub fn process_mp3s(x: String, index: String, page: String) -> MusicInfo {
     let tags = crate::setup::fire_mp3_info::get_tag_info(&x);
     let artist = tags.0;
     let album = tags.1;
@@ -59,9 +61,13 @@ pub fn process_mp3s(x: String, index: String, page: String) -> bool {
         fsizeresults: fsize_results,
     };
     write_music_nfos_to_file(music_info.clone(), index.clone());
-    println!("{:#?}", music_info);
+    // let database = client.database("fire");
+    //         let collection = database.collection("music_main");
+    //         let bson_document = to_document(&music_info)?;
+    //         collection.insert_one(bson_document, None).await?;
+    println!("{:#?}", music_info.clone());
 
-    true
+    music_info.clone()
 }
 
 fn write_music_nfos_to_file(mfo: MusicInfo, index: String) {
