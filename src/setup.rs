@@ -1,4 +1,5 @@
 use std::env;
+use mongodb::Client;
 use std::sync::mpsc::channel;
 use threadpool::ThreadPool;
 // use serde::{Serialize, Deserialize};
@@ -105,7 +106,7 @@ fn run_music_img_threads(alist: Vec<String>) {
     }
 }
 
-pub fn run_setup() -> bool {
+pub fn run_setup(client: Client) -> bool {
     // let paramaters = fire_env_vars::read_config();
 
     crate::setup::fire_create_dirs::create_dirs();
@@ -123,7 +124,7 @@ pub fn run_setup() -> bool {
         
 
         
-        crate::setup::fire_process_tvshows::process_tvshows(media_lists.1.clone());
+        let _tvshows = crate::setup::fire_process_tvshows::process_tvshows(client, media_lists.1.clone());
 
 
         let ab_list = crate::setup::fire_misc::create_art_alb_list(media_lists.0.clone());

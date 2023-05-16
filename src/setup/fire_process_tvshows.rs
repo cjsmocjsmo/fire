@@ -1,6 +1,8 @@
 use std::env;
-use serde::{Serialize, Deserialize};
+use mongodb::Client;
 use std::clone::Clone;
+use mongodb::bson::to_document;
+use serde::{Serialize, Deserialize};
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 struct TVShowsStruc {
@@ -86,7 +88,7 @@ fn write_tvshows_nfos(tvs: TVShowsStruc, count: i32) {
     std::fs::write(outpath, tvshows_info).unwrap();
 }
 
-pub fn process_tvshows(tvshows_vec: Vec<String>) -> String {
+pub async fn process_tvshows(client: Client, tvshows_vec: Vec<String>) -> Result<(), Box<dyn std::error::Error>> {
     let mut count = 0;
     for tv in tvshows_vec {
         if tv.contains("TVShows") {
@@ -119,10 +121,15 @@ pub fn process_tvshows(tvshows_vec: Vec<String>) -> String {
                 httppath: tv
             };
             write_tvshows_nfos(tvshows.clone(), count);
+            let database = client.database("fire");
+            let collection = database.collection("tvshows_main");
+            let bson_document = to_document(&tvshows.clone())?;
+            collection.insert_one(bson_document, None).await?;
             println!("{:#?}", tvshows.clone());
+
         }
     }
-
-    count.to_string()
+    Ok(())
+    // count.to_string()
 }
 
