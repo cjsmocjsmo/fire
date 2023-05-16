@@ -1,0 +1,65 @@
+version: "3.3"
+
+services:
+  db:
+    image: andresvidal/rpi3-mongodb3
+    networks:
+      - fire
+    ports:
+      - 27017:27017
+
+  fireserv:
+    image: fire:0.0.1
+    build: .
+    environment:
+      - AMP_PROGRAM_PATH=/usr/share/Ampnado
+      - AMP_AMPDB_ADDR=mongodb://db:27017/ampnadoDB
+      - AMP_VIEWSDB_ADDR=mongodb://db:27017/ampviewsDB
+      - AMP_PICDB_ADDR=mongodb://db:27017/picdb
+      - AMP_SETUP=1
+      - AMP_MEDIA_PATH=/usr/share/Ampnado/Music
+      - AMP_HTTP_THUMBNAIL_DIR_PATH=/static/images/thumbnails
+      - AMP_THUMBNAIL_DIR_PATH=/usr/share/Ampnado/static/images/thumbnails
+      - AMP_NO_ART_PIC_PATH=/usr/share/Ampnado/static/images/noartpic.jpg
+      - AMP_SERVER_ADDR=http://192.168.0.74
+      - AMP_SERVER_PORT=6795
+      - AMP_OFFSET_SIZE=45
+      - AMP_USERNAME=admin
+      - AMP_PASSWORD=ampnado
+    networks:
+      - fire
+    ports:
+      - 6795:6795
+    volumes:
+      - firevol:/usr/share/Ampnado/Music
+      # - firebackupvol:/usr/share/Ampnado/AmpBackup
+      - firepicvol:/usr/share/Ampnado/static/images/thumbnails
+    depends_on:
+      - db
+
+networks:
+  fire:
+
+volumes:
+  firevol:
+    driver: local
+    driver_opts:
+      type: none
+#THIS NEEDS TO BE CHANGE TO THE CORRECT PATH ON THE PI
+      device: /home/pi/Music
+      o: bind
+
+#   firebackupvol:
+#     driver: local
+#     driver_opts:
+#       type: none
+# #THIS NEEDS TO BE CHANGE TO THE CORRECT PATH ON THE PI
+#       device: /home/pi/AmpBackup
+#       o: bind
+
+  firepicvol:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/pi/Thumbnails
+      o: bind

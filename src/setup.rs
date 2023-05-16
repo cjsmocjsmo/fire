@@ -63,7 +63,7 @@ fn run_music_threads(client: Client, alist: Vec<String>) -> bool {
 }
 
 async fn insert_music_info(client: Client, musicinfo: MusicInfo) -> Result<(), Box<dyn std::error::Error>> {
-    let database = client.database("fire");
+    let database = client.database("firedb");
     let collection = database.collection("music_main");
     let bson_document = to_document(&musicinfo)?;
     collection.insert_one(bson_document, None).await?;
