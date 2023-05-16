@@ -10,7 +10,6 @@ glob = "0.3.1"
 walkdir = "2.3.2"
 simple-home-dir = "0.1.2"
 image = "0.24.5"
-json = "0.12.4"
 md-5 = "0.10.5"
 byte-unit = "4.0.18"
 flate2 = "1.0.25"
@@ -23,3 +22,5 @@ mp3-duration = "0.1.10"
 dotenvy = "0.15"
 serde = { version = "1.0.126", features = ["derive"] }
 serde_json = "1.0.64"
+mongodb = "1.2.0"
+tokio = { version = "0.2", features = ["full"] }

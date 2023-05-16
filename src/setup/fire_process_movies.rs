@@ -1,6 +1,6 @@
-use json::object;
 use std::env;
 use std::path::Path;
+use std::clone::Clone;
 use serde::{Serialize, Deserialize};
 
 fn get_poster_addr(x: String) -> String {
@@ -31,7 +31,7 @@ fn get_poster_addr(x: String) -> String {
     poster_addr
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 struct MovieInfoStruc {
     id: String,
     fireid: String,
@@ -47,32 +47,16 @@ pub fn process_movies() -> String {
     let mut count = 0;
     for x in movies_vec {
         count = count + 1;
-
         let foo = crate::setup::fire_utils::FireUtils {
             apath: x
         };
-
         let fire_id = crate::setup::fire_utils::FireUtils::get_md5(&x);
-
         let mov_name = crate::setup::fire_utils::FireUtils::split_movie_name(&x);
         let mov_year = crate::setup::fire_utils::FireUtils::split_movie_year(&x);
         let mov_poster_addr = get_poster_addr(&x);
         let mov_size = crate::setup::fire_utils::FireUtils::get_file_size(&x);
         let fire_id = crate::setup::fire_utils::FireUtils::get_md5(&x);
-        // let mov_file_exists = Path::new(&mov_poster_addr).exists();
-
-        // let mov_js_obj = object! {
-        //     fireid: ,
-        //     index: count.to_string(),
-        //     name: mov_name,
-        //     year: mov_year,
-        //     size: mov_size,
-        //     httpposterpath: mov_poster_addr,
-        //     httpmoviepath: mov_poster_addr
-        // };
-        
-        // let json_info = json::stringify(mov_js_obj.dump());
-        let mov_js_obj = MovieInfoStruc {
+        let mov_info = MovieInfoStruc {
             id: count.clone().to_string(),
             fireid: fire_id,
             index: count.clone().to_string(),
@@ -82,18 +66,19 @@ pub fn process_movies() -> String {
             httpposterpath: mov_poster_addr,
             httpmoviepath: mov_poster_addr
         };
-
-        let json_info = serde_json::to_string(mov_js_obj).unwrap();
-
-        let fire_movies_metadata_path =
-            env::var("FIRE_NFOS").expect("$FIRE_NFOS is not set");
-
-        let a = format!("{}/", fire_movies_metadata_path.as_str());
-        let b = format!("Movie_Meta_{}.json", &count);
-        let outpath = a + &b;
-
-        std::fs::write(outpath, json_info).unwrap();
+        write_mov_meta_to_file(mov_info)
+        
     }
 
     count.to_string()
+}
+
+fn write_mov_meta_to_file(mi: MovieInfoStruc, count: i32) {
+    let json_info = serde_json::to_string(mi).unwrap();
+    let fire_movies_metadata_path =
+        env::var("FIRE_NFOS").expect("$FIRE_NFOS is not set");
+    let a = format!("{}/", fire_movies_metadata_path.as_str());
+    let b = format!("Movie_Meta_{}.json", count);
+    let outpath = a + &b;
+    std::fs::write(outpath, json_info).unwrap();
 }

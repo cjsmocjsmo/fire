@@ -1,9 +1,8 @@
-// use json::object;
 use std::env;
 use serde::{Serialize, Deserialize};
+use std::clone::Clone;
 
-
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 struct TVShowsStruc {
     fireid: String,
     index: String,
@@ -15,14 +14,11 @@ struct TVShowsStruc {
     httppath: String
 }
 
-
 pub struct TVShowsUtils {
     apath: String
 }
 
 impl TVShowsUtils {
-
-
     fn get_tv_catagory(&self) -> String {
 
         let foo12 = crate::setup::fire_utils::FireUtils {
@@ -51,9 +47,6 @@ impl TVShowsUtils {
 
         bar.to_string()
     }
-
-
-
     fn get_tv_episode_season(&self) -> (String, String) {
         let foo1 = crate::setup::fire_utils::FireUtils {
             apath: self.apath.to_string()
@@ -76,34 +69,38 @@ impl TVShowsUtils {
 
         results
     }
-
 }
 
+fn write_tvshows_nfos(tvs: TVShowsStruc, count: i32) {
+    let tvshows_info = serde_json::to_string(&tvs).unwrap();
 
+    println!("{:#?}", tvshows_info);
+
+    let fire_nfo_path =
+        env::var("FIRE_NFOS").expect("$FIRE_NFOS is not set");
+
+    let a = format!("{}/", fire_nfo_path.as_str());
+    let b = format!("TVShows_Meta_{}.json", count.to_string());
+    let outpath = a + &b;
+
+    std::fs::write(outpath, tvshows_info).unwrap();
+}
 
 pub fn process_tvshows(tvshows_vec: Vec<String>) -> String {
-    
-
     let mut count = 0;
     for tv in tvshows_vec {
         if tv.contains("TVShows") {
             count = count + 1;
-
             let tvshows = crate::setup::fire_utils::FireUtils {
                 apath: tv.clone()
             };
             let tvshows2 = crate::setup::fire_process_tvshows::TVShowsUtils {
                 apath: tv.clone()
             };
-
             let file_size = crate::setup::fire_utils::FireUtils::get_file_size(&tvshows);
             let catagory = crate::setup::fire_process_tvshows::TVShowsUtils::get_tv_catagory(&tvshows2);
             let es = crate::setup::fire_process_tvshows::TVShowsUtils::get_tv_episode_season(&tvshows2);
-            
-            
-
             let fire_id = crate::setup::fire_utils::FireUtils::get_md5(&tvshows);
-
             let fname = crate::setup::fire_utils::FireUtils::split_filename(&tvshows);
             let mut fnsplit_vec = Vec::new();
             let fnsplit = fname.split(" ");
@@ -111,11 +108,7 @@ pub fn process_tvshows(tvshows_vec: Vec<String>) -> String {
                 fnsplit_vec.push(f.clone());
             };
             let episodename = fnsplit_vec.pop().unwrap();
-
-
-
-            let tvshows_obj = TVShowsStruc {
-                
+            let tvshows = TVShowsStruc {
                 fireid: fire_id,
                 index: count.clone().to_string(),
                 catagory: catagory.clone(),
@@ -125,28 +118,11 @@ pub fn process_tvshows(tvshows_vec: Vec<String>) -> String {
                 size: file_size,
                 httppath: tv
             };
-
-            let tvshows_info = serde_json::to_string(&tvshows_obj).unwrap();
-
-            println!("{:#?}", tvshows_info);
-
-            let fire_nfo_path =
-                env::var("FIRE_NFOS").expect("$FIRE_NFOS is not set");
-
-            let a = format!("{}/", fire_nfo_path.as_str());
-            let b = format!("TVShows_{}_Meta.json", count.to_string());
-            let outpath = a + &b;
-
-            std::fs::write(outpath, tvshows_info).unwrap();
-
-            
-            
-            
-
-            
-            
+            write_tvshows_nfos(tvshows.clone(), count);
+            println!("{:#?}", tvshows.clone());
         }
     }
+
     count.to_string()
 }
 

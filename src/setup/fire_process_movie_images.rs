@@ -1,31 +1,9 @@
-// use image::{self};
+use std::fs;
+use std::env;
+use std::clone::Clone;
 use serde::{Serialize, Deserialize};
 
-// use json::object;
-use std::env;
-use std::fs;
-
-fn create_movie_thumbnail(x: String) -> String {
-    let foobar = crate::setup::fire_utils::FireUtils {
-        apath: x.clone()
-    };
-
-    let fire_movie_metadata_path =
-        env::var("FIRE_THUMBNAILS").expect("$FIRE_THUMBNAILS is not set");
-    let old_fname = crate::setup::fire_utils::FireUtils::split_poster_name(&foobar);
-    let out_fname = fire_movie_metadata_path + "/" + &old_fname;
-
-    let img = image::open(&x).expect(&x);
-    let thumbnail = img.resize(230, 345, image::imageops::FilterType::Lanczos3);
-    thumbnail
-        .save(out_fname.clone())
-        .expect("Saving image failed");
-
-    println!("\n\nthis is moive fname\n{}\n\n", out_fname);
-    out_fname
-}
-
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct MovPosterInfo {
     id: String,
     path: String,
@@ -35,7 +13,24 @@ pub struct MovPosterInfo {
     thumbpath: String
 }
 
-pub fn process_movie_posters(x: String, index: i32) -> MovPosterInfo {
+fn create_movie_thumbnail(x: String) -> String {
+    let foobar = crate::setup::fire_utils::FireUtils {
+        apath: x.clone()
+    };
+    let fire_movie_metadata_path =
+        env::var("FIRE_THUMBNAILS").expect("$FIRE_THUMBNAILS is not set");
+    let old_fname = crate::setup::fire_utils::FireUtils::split_poster_name(&foobar);
+    let out_fname = fire_movie_metadata_path + "/" + &old_fname;
+    let img = image::open(&x).expect(&x);
+    let thumbnail = img.resize(230, 345, image::imageops::FilterType::Lanczos3);
+    thumbnail
+        .save(out_fname.clone())
+        .expect("Saving image failed");
+
+    out_fname
+}
+
+pub fn process_movie_posters(x: String, index: i32) -> bool {
     // let movie_posters_vec = crate::fire_walk_dirs::walk_posters2_dir();
     // let mut index = 0;
     // let mut bad_image_vec = vec![];
@@ -55,16 +50,6 @@ pub fn process_movie_posters(x: String, index: i32) -> MovPosterInfo {
     let name = crate::setup::fire_utils::FireUtils::split_poster_name(&foobar2);
     let thumb_path = create_movie_thumbnail(x.clone());
 
-    // let mov_img_obj = object! {
-    //     path: &*x,
-    //     dims: dims_foo,
-    //     size: img_size.to_string(),
-    //     name: name,
-    //     thumbpath: thumb_path,
-    // };
-
-    // let mov_img_info = json::stringify(mov_img_obj.dump());
-
     let mov_img_info = MovPosterInfo {
         id: index.to_string(),
         path: x,
@@ -74,18 +59,10 @@ pub fn process_movie_posters(x: String, index: i32) -> MovPosterInfo {
         thumbpath: thumb_path
 
     };
-
-    println!("{:#?}", &mov_img_info);
-
-    let mii = serde_json::to_string(&mov_img_info).unwrap();
-
-    let fire_nfos_path =
-        env::var("FIRE_NFOS").expect("$FIRE_NFOS is not set");
-
-    let a = format!("{}/", fire_nfos_path.as_str());
-    let b = format!("Movie_Image_{}_Info.json", index.to_string());
-    let outpath = a + &b;
-    fs::write(outpath, &mii).expect("Failed to write named incorrectly json file");
+    
+    write_mov_img_to_file(mov_img_info.clone(), index.clone());
+    println!("{:#?}", mov_img_info.clone());
+    
    
     // else {
     //     bad_image_vec.push(x.clone());
@@ -107,5 +84,17 @@ pub fn process_movie_posters(x: String, index: i32) -> MovPosterInfo {
     // }
 
     // (bad_image_count.to_string(), index.to_string())
-    mov_img_info
+    true
+}
+
+fn write_mov_img_to_file(movstrct: MovPosterInfo, idx: i32) {
+    let mii = serde_json::to_string(&movstrct).unwrap();
+
+    let fire_nfos_path =
+        env::var("FIRE_NFOS").expect("$FIRE_NFOS is not set");
+
+    let a = format!("{}/", fire_nfos_path.as_str());
+    let b = format!("Movie_Image_Info_{}.json", idx.to_string());
+    let outpath = a + &b;
+    fs::write(outpath, &mii).expect("Failed to write named incorrectly json file");
 }

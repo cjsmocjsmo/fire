@@ -1,11 +1,11 @@
 use std::env;
+use std::clone::Clone;
 use serde::{Serialize, Deserialize};
 
 fn create_music_thumbnail(x: &String, art: String, alb: String) -> String {
     let fire_music_metadata_path = env::var("FIRE_THUMBNAILS").expect("$FIRE_THUMBNAILS is not set");
     let new_fname = "/".to_string() + art.as_str() + "_-_" + alb.as_str() + ".jpg";
     let out_fname = fire_music_metadata_path + "/" + &new_fname;
-
     let img = image::open(x).expect("ooooh fuck it didnt open");
     let thumbnail = img.resize(200, 200, image::imageops::FilterType::Lanczos3);
     thumbnail
@@ -15,27 +15,7 @@ fn create_music_thumbnail(x: &String, art: String, alb: String) -> String {
     out_fname.to_string()
 }
 
-
-
-
-
-
-// pub fn set_id(x: String) -> String {
-//     let foobar = crate::setup::fire_utils::FireUtils {
-//         apath: x
-//     };
-//     let id = crate::setup::fire_utils::FireUtils::get_md5(&foobar);
-//     id
-//  }
-
-// pub fn get_dims(x: String) -> (u32, u32) {
-//     let foobar = crate::setup::fire_utils::FireUtils {
-//         apath: x
-//     };
-//     let dims = crate::setup::fire_image::get_image_dims(&x);
-//     dims
-//  }
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct MusicImageInfo {
     id: String,
     width: String,
@@ -51,12 +31,7 @@ pub struct MusicImageInfo {
     index: String,
 }
 
-
 pub fn process_music_images(x: String, index: i32) -> bool {
-    // let foo = MusicImageInfo{
-    //     imgpath: x.clone()
-    // };
-
     let foo2 = crate::setup::fire_utils::FireUtils {
         apath: x.clone()
     };
@@ -74,7 +49,6 @@ pub fn process_music_images(x: String, index: i32) -> bool {
         let file_name = crate::setup::fire_utils::FireUtils::split_filename(&foo2);
 
         let ext = crate::setup::fire_utils::FireUtils::split_ext(&foo2);
-        // let ext = MusicImageInfo::get_ext(&foo);
 
         let artist_results = crate::setup::fire_utils::FireUtils::image_split_artist(&foo2);
         let album_results = crate::setup::fire_utils::FireUtils::image_split_album(&foo2);
@@ -101,18 +75,20 @@ pub fn process_music_images(x: String, index: i32) -> bool {
             index: index.to_string(),
         };
 
-        let mii = serde_json::to_string(&music_img_info).unwrap();
-        println!("\n{:#?}", mii);
-        let fire_music_metadata_path =
-            env::var("FIRE_NFOS").expect("$FIRE_NFOS is not set");
-
-        let a = format!("{}/", fire_music_metadata_path.as_str());
-        let b = format!("Music_Image_Meta_{}.json", &index);
-        let outpath = a + &b;
-
-        std::fs::write(outpath, mii).unwrap();
+        write_music_img_to_file(music_img_info.clone(), index);
+        println!("{:#?}", music_img_info.clone());
     };
 
-    // music_image_info
     true
+}
+
+fn write_music_img_to_file(miinfo: MusicImageInfo, index: i32) {
+    let mii = serde_json::to_string(&miinfo).unwrap();
+    let fire_music_metadata_path =
+        env::var("FIRE_NFOS").expect("$FIRE_NFOS is not set");
+    let a = format!("{}/", fire_music_metadata_path.as_str());
+    let b = format!("Music_Image_Meta_{}.json", &index);
+    let outpath = a + &b;
+    std::fs::write(outpath, mii.clone()).unwrap();
+    println!("\n{:#?}", mii.clone());
 }
