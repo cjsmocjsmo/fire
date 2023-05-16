@@ -124,7 +124,7 @@ pub fn run_setup(client: Client) -> bool {
         
 
         
-        let _tvshows = crate::setup::fire_process_tvshows::process_tvshows(client, media_lists.1.clone());
+        let tvshows = crate::setup::fire_process_tvshows::process_tvshows(client, media_lists.1.clone());
 
 
         // let ab_list = crate::setup::fire_misc::create_art_alb_list(media_lists.0.clone());
