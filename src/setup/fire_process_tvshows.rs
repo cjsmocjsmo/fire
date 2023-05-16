@@ -125,7 +125,7 @@ pub async fn process_tvshows(client: Client, tvshows_vec: Vec<String>) -> Result
             let collection = database.collection("tvshows_main");
             let bson_document = to_document(&tvshows.clone())?;
             collection.insert_one(bson_document, None).await?;
-            println!("{:#?}", tvshows.clone());
+            println!("tvshows: \n\t{:#?}", tvshows.clone());
 
         }
     }
