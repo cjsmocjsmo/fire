@@ -1,8 +1,10 @@
 use std::env;
 use mongodb::Client;
-// use mongodb::bson::to_document;
+use mongodb::bson::to_document;
 use std::sync::mpsc::channel;
 use threadpool::ThreadPool;
+
+use self::fire_process_music::MusicInfo;
 // use serde::{Serialize, Deserialize};
 
 
@@ -53,14 +55,20 @@ fn run_music_threads(client: Client, alist: Vec<String>) -> bool {
     for t in rx.iter() {
         // Insert this into db
         let ifo = t;
-        // let database = client.database("fire");
-        //     let collection = database.collection("music_main");
-        //     let bson_document = to_document(&t)?;
-        //     collection.insert_one(bson_document, None).await?;
-        println!("this is music_info\n {:?}\n\t", ifo);
+        let _imi = insert_music_info(client.clone(), ifo.clone());
+        println!("this is music_info\n {:?}\n\t", ifo.clone());
     };
 
     true
+}
+
+async fn insert_music_info(client: Client, musicinfo: MusicInfo) -> Result<(), Box<dyn std::error::Error>> {
+    let database = client.database("fire");
+    let collection = database.collection("music_main");
+    let bson_document = to_document(&musicinfo)?;
+    collection.insert_one(bson_document, None).await?;
+
+    Ok({})
 }
 
 fn run_video_img_threads(alist: Vec<String>) {
