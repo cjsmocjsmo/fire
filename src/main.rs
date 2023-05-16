@@ -6,7 +6,7 @@ pub mod setup;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let client = Client::with_uri_str("mongodb://localhost:27017").await?;
+    let client = Client::with_uri_str("mongodb://localhost:27017/fire").await?;
     let start = Instant::now();
     dotenv().ok();
     let setup_result = setup::run_setup(client);
