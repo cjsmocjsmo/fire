@@ -50,22 +50,24 @@ RUN chmod -R +rwx /root
 WORKDIR /root/
 
 RUN \
+  mkdir ./fire && \
+  mkdir ./fire/nfos && \
+  mkdir ./fire/thumbnails && \
   mkdir ./movies && \
   mkdir ./tvshows && \
   mkdir ./music && \
-  mkdir ./thumbnails && \
-  mkdir ./nfos && \
   mkdir ./USB1 && \
   mkdir ./USB2 && \ 
   mkdir ./USB3 && \
   mkdir ./USB4
 
 RUN \
+  chmod -R +rwx ./fire && \
+  chmod -R +rwx ./fire/nfos && \ 
+  chmod -R +rwx ./fire/thumbnails && \ 
   chmod -R +rwx ./movies && \
   chmod -R +rwx ./tvshows && \
   chmod -R +rwx ./music && \
-  chmod -R +rwx ./thumbnails && \ 
-  chmod -R +rwx ./nfos && \ 
   chmod -R +rwx ./USB1 && \
   chmod -R +rwx ./USB2 && \
   chmod -R +rwx ./USB3 && \
@@ -74,5 +76,5 @@ RUN \
 
 STOPSIGNAL SIGINT
 
-# CMD ["tail", "-f", "/dev/null"]
-CMD ["firecore"]
+CMD ["tail", "-f", "/dev/null"]
+# CMD ["firecore"]

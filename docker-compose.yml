@@ -13,10 +13,13 @@ services:
     build: .
     environment:
       - FIRE_SCAN_HOME="yes"
-      - FIRE_PROGRAM_PATH=/root/fire
+      - FIRE_CWD=/root/fire
       - FIRE_DB_ADDR=mongodb://db:27017/ampnadoDB
-      - FIRE_NFOS=/root/nfos 
-      - FIRE_THUNMBNAILS=/root/thumbnails 
+      - FIRE_DOCKER=nodocker
+
+      - FIRE_NFOS=/root/fire/nfos 
+      - FIRE_THUNMBNAILS=/root/fire/thumbnails 
+
       - FIRE_TVSHOWS=/root/tvshows 
       - FIRE_MUSIC=/root/music 
       - FIRE_MOVIES=/root/movies
@@ -33,8 +36,8 @@ services:
     volumes:
       - fire_movies_vol:/root/movies/
       - fire_tvshows_vol:/root/tvshows/
-      - fire_thumbnails_vol:/root/thumbnails/
-      - fire_nfos_vol:/root/nfos
+      - fire_thumbnails_vol:/root/fire/thumbnails/
+      - fire_nfos_vol:/root/fire/nfos
       - fire_usb1_vol:/root/USB1 
       - fire_usb2_vol:/root/USB2 
       - fire_usb3_vol:/root/USB3 
