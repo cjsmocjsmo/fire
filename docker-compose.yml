@@ -19,10 +19,10 @@ services:
       - FIRE_TVSHOWS=/root/tvshows 
       - FIRE_MUSIC=/root/music 
       - FIRE_MOVIES=/root/movies
-      - FIRE_USB1="None"
-      - FIRE_USB2="None"
-      - FIRE_USB3="None"
-      - FIRE_USB4="None"
+      - FIRE_USB1=/root/USB1
+      - FIRE_USB2=/root/USB2
+      - FIRE_USB3=/root/USB3
+      # - FIRE_USB4="None"
       - FIRE_PAGINATION=45
       
     networks:
@@ -68,14 +68,14 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /home/pi/Thumbnails
+      device: /home/pi/Pictures/Thumbnails
       o: bind
 
   fire_nfos_vol:
     driver: local
     driver_opts:
       type: none
-      device: /home/pi/Thumbnails
+      device: /home/pi/Pictures/NFOS
       o: bind
 
   fire_usb1_vol:
