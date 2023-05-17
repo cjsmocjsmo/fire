@@ -9,9 +9,10 @@ services:
       - 27017:27017
 
   fireserv:
-    image: fire:0.0.2
+    image: fire:0.0.4
     build: .
     environment:
+      - FIRE_SCAN_HOME="yes"
       - FIRE_PROGRAM_PATH=/root/fire
       - FIRE_DB_ADDR=mongodb://db:27017/ampnadoDB
       - FIRE_NFOS=/root/nfos 
