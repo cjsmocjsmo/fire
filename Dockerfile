@@ -35,7 +35,7 @@ WORKDIR /root/fire
 RUN cargo install --path .
 
 # FROM ubuntu:22.04
-FROM debian:bookworm
+FROM debian:buster
 
 RUN \
   apt-get update && \
