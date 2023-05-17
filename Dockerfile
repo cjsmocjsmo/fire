@@ -1,30 +1,36 @@
 FROM rust:buster AS builder
 
-RUN mkdir /root/fire
+RUN \
+  mkdir /root/fire && \
+  mkdir /root/fire/src && \
+  mkdir /root/fire/src/setup
+
 
 WORKDIR /root/fire
 
-COPY main.rs .
-COPY setup.rs .
 COPY Cargo.lock .
 COPY Cargo.toml .
 
-RUN mkdir /root/fire/setup
+WORKDIR /root/fire/src
 
-WORKDIR /root/fire/setup
+COPY src/main.rs .
+COPY src/setup.rs .
+ 
+WORKDIR /root/fire/src/setup
 
-COPY fire_create_dirs.rs .
-COPY fire_image.rs .
-COPY fire_misc.rs .
-COPY fire_mp3_info.rs .
-COPY fire_process_movie_images.rs .
-COPY fire_process_movies.rs .
-COPY fire_process_music_images.rs .
-COPY fire_process_music.rs .
-COPY fire_process_tvshows.rs .
-COPY fire_utils.rs .
-COPY fire_walk_dirs.rs .
+COPY src/setup/fire_create_dirs.rs .
+COPY src/setup/fire_image.rs .
+COPY src/setup/fire_misc.rs .
+COPY src/setup/fire_mp3_info.rs .
+COPY src/setup/fire_process_movie_images.rs .
+COPY src/setup/fire_process_movies.rs .
+COPY src/setup/fire_process_music_images.rs .
+COPY src/setup/fire_process_music.rs .
+COPY src/setup/fire_process_tvshows.rs .
+COPY src/setup/fire_utils.rs .
+COPY src/setup/fire_walk_dirs.rs .
 
+WORKDIR /root/fire
 
 RUN cargo install --path .
 
@@ -37,7 +43,7 @@ RUN \
   apt-get -y autoclean && \
   apt-get -y autoremove
 
-COPY --from=builder /root/fire/target/release/fire /usr/local/bin/fire
+COPY --from=builder /root/fire/target/release/firecore /usr/local/bin/firecore
 
 RUN chmod -R +rwx /root
 
@@ -48,16 +54,18 @@ RUN \
   mkdir ./tvshows && \
   mkdir ./music && \
   mkdir ./thumbnails && \
+  mkdir ./nfos && \
   mkdir ./USB1 && \
   mkdir ./USB2 && \ 
   mkdir ./USB3 && \
-  mkdir ./USB
+  mkdir ./USB4
 
 RUN \
   chmod -R +rwx ./movies && \
   chmod -R +rwx ./tvshows && \
   chmod -R +rwx ./music && \
   chmod -R +rwx ./thumbnails && \ 
+  chmod -R +rwx ./nfos && \ 
   chmod -R +rwx ./USB1 && \
   chmod -R +rwx ./USB2 && \
   chmod -R +rwx ./USB3 && \
@@ -67,4 +75,4 @@ RUN \
 STOPSIGNAL SIGINT
 
 # CMD ["tail", "-f", "/dev/null"]
-CMD ["fire"]
+CMD ["firecore"]

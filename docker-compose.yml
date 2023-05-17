@@ -12,28 +12,33 @@ services:
     image: fire:0.0.1
     build: .
     environment:
-      - AMP_PROGRAM_PATH=/usr/share/Ampnado
-      - AMP_AMPDB_ADDR=mongodb://db:27017/ampnadoDB
-      - AMP_VIEWSDB_ADDR=mongodb://db:27017/ampviewsDB
-      - AMP_PICDB_ADDR=mongodb://db:27017/picdb
-      - AMP_SETUP=1
-      - AMP_MEDIA_PATH=/usr/share/Ampnado/Music
-      - AMP_HTTP_THUMBNAIL_DIR_PATH=/static/images/thumbnails
-      - AMP_THUMBNAIL_DIR_PATH=/usr/share/Ampnado/static/images/thumbnails
-      - AMP_NO_ART_PIC_PATH=/usr/share/Ampnado/static/images/noartpic.jpg
-      - AMP_SERVER_ADDR=http://192.168.0.74
-      - AMP_SERVER_PORT=6795
-      - AMP_OFFSET_SIZE=45
-      - AMP_USERNAME=admin
-      - AMP_PASSWORD=ampnado
+      - FIRE_PROGRAM_PATH=/root/fire
+      - FIRE_DB_ADDR=mongodb://db:27017/ampnadoDB
+      - FIRE_NFOS=/root/nfos 
+      - FIRE_THUNMBNAILS=/root/thumbnails 
+      - FIRE_TVSHOWS=/root/tvshows 
+      - FIRE_MUSIC=/root/music 
+      - FIRE_MOVIES=/root/movies
+      - FIRE_USB1="None"
+      - FIRE_USB2="None"
+      - FIRE_USB3="None"
+      - FIRE_USB4="None"
+      - FIRE_PAGINATION=45
+      
     networks:
       - fire
     ports:
       - 6795:6795
     volumes:
-      - firevol:/usr/share/Ampnado/Music
-      # - firebackupvol:/usr/share/Ampnado/AmpBackup
-      - firepicvol:/usr/share/Ampnado/static/images/thumbnails
+      - fire_movies_vol:/root/movies/
+      - fire_tvshows_vol:/root/tvshows/
+      - fire_thumbnails_vol:/root/thumbnails/
+      - fire_nfos_vol:/root/nfos
+      - fire_usb1_vol:/root/USB1 
+      - fire_usb2_vol:/root/USB2 
+      - fire_usb3_vol:/root/USB3 
+      # - fire_usb4_vol:/root/USB4
+      
     depends_on:
       - db
 
@@ -41,25 +46,62 @@ networks:
   fire:
 
 volumes:
-  firevol:
+  fire_movies_vol:
     driver: local
     driver_opts:
       type: none
 #THIS NEEDS TO BE CHANGE TO THE CORRECT PATH ON THE PI
-      device: /home/pi/Music
+      device: /home/pi/Video/Movies
       o: bind
 
-#   firebackupvol:
-#     driver: local
-#     driver_opts:
-#       type: none
-# #THIS NEEDS TO BE CHANGE TO THE CORRECT PATH ON THE PI
-#       device: /home/pi/AmpBackup
-#       o: bind
+      # need posters volume
 
-  firepicvol:
+  fire_tvshows_vol:
+    driver: local
+    driver_opts:
+      type: none
+#THIS NEEDS TO BE CHANGE TO THE CORRECT PATH ON THE PI
+      device: /home/pi/Video/TVShows
+      o: bind
+
+  fire_thumbnails_vol:
     driver: local
     driver_opts:
       type: none
       device: /home/pi/Thumbnails
       o: bind
+
+  fire_nfos_vol:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/pi/Thumbnails
+      o: bind
+
+  fire_usb1_vol:
+    driver: local
+    driver_opts:
+      type: none
+      device: /media/pi/FOO/media
+      o: bind
+
+  fire_usb2_vol:
+    driver: local
+    driver_opts:
+      type: none
+      device: /media/pi/USB2/media
+      o: bind
+
+  fire_usb3_vol:
+    driver: local
+    driver_opts:
+      type: none
+      device: /media/pi/USB3/media
+      o: bind
+
+  # fire_usb4_vol:
+    # driver: local
+    # driver_opts:
+      # type: none
+      # device: /media/pi/
+      # o: bind

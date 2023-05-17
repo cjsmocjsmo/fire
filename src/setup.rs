@@ -68,7 +68,7 @@ async fn insert_music_info(client: Client, musicinfo: MusicInfo) -> Result<(), B
     let bson_document = to_document(&musicinfo)?;
     collection.insert_one(bson_document, None).await?;
 
-    Ok({})
+    Ok(())
 }
 
 fn run_video_img_threads(alist: Vec<String>) {
