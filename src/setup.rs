@@ -1,10 +1,10 @@
 use std::env;
-use mongodb::Client;
-use mongodb::bson::to_document;
+// use mongodb::Client;
+// use mongodb::bson::to_document;
 use std::sync::mpsc::channel;
 use threadpool::ThreadPool;
 
-use self::fire_process_music::MusicInfo;
+// use self::fire_process_music::MusicInfo;
 // use serde::{Serialize, Deserialize};
 
 
@@ -20,7 +20,7 @@ pub mod fire_walk_dirs;
 pub mod fire_process_tvshows;
 
 
-fn run_music_threads(client: Client, alist: Vec<String>) -> bool {
+fn run_music_threads(alist: Vec<String>) -> bool {
     let pool = ThreadPool::new(num_cpus::get());
     let (tx, rx) = channel();
 
@@ -55,21 +55,21 @@ fn run_music_threads(client: Client, alist: Vec<String>) -> bool {
     for t in rx.iter() {
         // Insert this into db
         let ifo = t;
-        let _imi = insert_music_info(client.clone(), ifo.clone());
+        // let _imi = insert_music_info(client.clone(), ifo.clone());
         println!("this is music_info\n {:?}\n\t", ifo.clone());
     };
 
     true
 }
 
-async fn insert_music_info(client: Client, musicinfo: MusicInfo) -> Result<(), Box<dyn std::error::Error>> {
-    let database = client.database("firedb");
-    let collection = database.collection("music_main");
-    let bson_document = to_document(&musicinfo)?;
-    collection.insert_one(bson_document, None).await?;
+// async fn insert_music_info(client: Client, musicinfo: MusicInfo) -> Result<(), Box<dyn std::error::Error>> {
+//     let database = client.database("firedb");
+//     let collection = database.collection("music_main");
+//     let bson_document = to_document(&musicinfo)?;
+//     collection.insert_one(bson_document, None).await?;
 
-    Ok(())
-}
+//     Ok(())
+// }
 
 fn run_video_img_threads(alist: Vec<String>) {
     let pool = ThreadPool::new(num_cpus::get());
@@ -122,7 +122,7 @@ fn run_music_img_threads(alist: Vec<String>) {
     }
 }
 
-pub fn run_setup(client: Client) -> bool {
+pub fn run_setup() -> bool {
     // let paramaters = fire_env_vars::read_config();
 
     // crate::setup::fire_create_dirs::create_dirs();
@@ -134,24 +134,24 @@ pub fn run_setup(client: Client) -> bool {
     if scan_home_dir == "yes" {
         let media_lists = fire_walk_dirs::scan_all_sources();
 
-        // run_music_threads(client.clone(), media_lists.0.clone());
+        run_music_threads(media_lists.0.clone());
         run_music_img_threads(media_lists.2.clone());
         run_video_img_threads(media_lists.2.clone()); //needs work
         
 
         
-        let _tvshows = crate::setup::fire_process_tvshows::process_tvshows(client, media_lists.1.clone());
+        let _tvshows = crate::setup::fire_process_tvshows::process_tvshows(media_lists.1.clone());
 
 
-        // let ab_list = crate::setup::fire_misc::create_art_alb_list(media_lists.0.clone());
-        // let artist_list = crate::setup::fire_misc::create_artistids(ab_list.0);
-        // let album_list = crate::setup::fire_misc::create_albumids(ab_list.1);
+        let ab_list = crate::setup::fire_misc::create_art_alb_list(media_lists.0.clone());
+        let artist_list = crate::setup::fire_misc::create_artistids(ab_list.0);
+        let album_list = crate::setup::fire_misc::create_albumids(ab_list.1);
 
-        // let art_serial = serde_json::to_string(&artist_list).unwrap();
-        // let alb_serial = serde_json::to_string(&album_list);
+        let art_serial = serde_json::to_string(&artist_list).unwrap();
+        let alb_serial = serde_json::to_string(&album_list);
 
-        // println!("artistid_list; {:#?}\n", art_serial);
-        // println!("albumid_list; {:#?}\n", alb_serial);
+        println!("artistid_list; {:#?}\n", art_serial);
+        println!("albumid_list; {:#?}\n", alb_serial);
 
         println!("music: {}\n", media_lists.0.clone().len());
         println!("videos: {}\n", media_lists.1.clone().len());
