@@ -134,9 +134,9 @@ pub fn run_setup(client: Client) -> bool {
     if scan_home_dir == "yes" {
         let media_lists = fire_walk_dirs::scan_all_sources();
 
-        run_music_threads(client.clone(), media_lists.0.clone());
-        // run_music_img_threads(media_lists.2.clone());
-        // run_video_img_threads(media_lists.2.clone()); //needs work
+        // run_music_threads(client.clone(), media_lists.0.clone());
+        run_music_img_threads(media_lists.2.clone());
+        run_video_img_threads(media_lists.2.clone()); //needs work
         
 
         
