@@ -76,7 +76,7 @@ pub fn process_music_images(x: String, index: i32) -> bool {
         };
 
         write_music_img_to_file(music_img_info.clone(), index);
-        println!("{:#?}", music_img_info.clone());
+        // println!("{:#?}", music_img_info.clone());
     };
 
     true

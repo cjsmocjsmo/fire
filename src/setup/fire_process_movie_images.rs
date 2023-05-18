@@ -61,7 +61,7 @@ pub fn process_movie_posters(x: String, index: i32) -> bool {
     };
     
     write_mov_img_to_file(mov_img_info.clone(), index.clone());
-    println!("{:#?}", mov_img_info.clone());
+    // println!("{:#?}", mov_img_info.clone());
     
    
     // else {

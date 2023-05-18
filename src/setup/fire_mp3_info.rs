@@ -15,7 +15,7 @@ use std::time::Duration;
 // }
 
 pub fn get_tag_info(x: &String) -> (String, String, String) {
-    let tag = Tag::read_from_path(x).unwrap();
+    let tag = Tag::read_from_path(x).expect(x);
     let artist = tag.artist().expect(x);
     let album = tag.album().expect(x);
     let song = tag.title().expect(x);

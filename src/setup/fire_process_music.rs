@@ -65,7 +65,7 @@ pub fn process_mp3s(x: String, index: String, page: String) -> MusicInfo {
     //         let collection = database.collection("music_main");
     //         let bson_document = to_document(&music_info)?;
     //         collection.insert_one(bson_document, None).await?;
-    println!("{:#?}", music_info.clone());
+    // println!("{:#?}", music_info.clone());
 
     music_info.clone()
 }
