@@ -76,5 +76,5 @@ RUN \
 
 STOPSIGNAL SIGINT
 
-CMD ["tail", "-f", "/dev/null"]
-# CMD ["firecore"]
+# CMD ["tail", "-f", "/dev/null"]
+CMD ["/usr/local/bin/firecore"]

@@ -1,5 +1,5 @@
 use std::time::Instant;
-// use dotenvy::dotenv;
+use dotenvy::dotenv;
 use mongodb::Client;
 
 pub mod setup;
@@ -10,7 +10,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let client = Client::with_uri_str("mongodb://db:27017/firedb").await?;
     
     let start = Instant::now();
-    // dotenv().ok();
+    dotenv().ok();
     let setup_result = setup::run_setup(client);
     let duration = start.elapsed();
     println!("\nSetup is Complete! {:?} {}", duration, setup_result);
