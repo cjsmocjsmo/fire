@@ -140,14 +140,14 @@ fn write_tvshow_to_db(tvs: TVShowsStruc) -> Result<()> {
             season TEXT NOT NULL,
             episode TEXT NOT NULL,
             size TEXT NOT NULL,
-            httppath TEXT NOT NULL, 
+            httppath TEXT NOT NULL
 
         )",
         (),
     )?;
 
     conn.execute(
-        "INSERT INTO tvshow (fireid, idx, catagory, name, season, episode, size, httppath)
+        "INSERT INTO tvshows (fireid, idx, catagory, name, season, episode, size, httppath)
             VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8)",
             (&tvs.fireid, &tvs.idx, &tvs.catagory, &tvs.name, &tvs.season, &tvs.episode, &tvs.size, &tvs.httppath),
     )?;
