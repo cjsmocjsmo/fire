@@ -1,8 +1,8 @@
 use std::env;
 use std::clone::Clone;
-// use mongodb::Client;
-// use mongodb::bson::to_document;
 use serde::{Serialize, Deserialize};
+use rusqlite::{Connection, Result};
+
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct MusicInfo {
@@ -21,6 +21,16 @@ pub struct MusicInfo {
     index: String,
     page: String,
     fsizeresults: String,
+}
+
+fn write_music_nfos_to_file(mfo: MusicInfo, index: String) {
+    let mus_info = serde_json::to_string(&mfo).unwrap();
+    let fire_music_metadata_path =
+        env::var("FIRE_NFOS").expect("$FIRE_NFOS is not set");
+    let a = format!("{}/", fire_music_metadata_path.as_str());
+    let b = format!("Music_Meta_{}.json", index.to_string());
+    let outpath = a + &b;
+    std::fs::write(outpath, mus_info).unwrap();
 }
 
 pub fn process_mp3s(x: String, index: String, page: String) -> MusicInfo {
@@ -61,21 +71,43 @@ pub fn process_mp3s(x: String, index: String, page: String) -> MusicInfo {
         fsizeresults: fsize_results,
     };
     write_music_nfos_to_file(music_info.clone(), index.clone());
-    // let database = client.database("fire");
-    //         let collection = database.collection("music_main");
-    //         let bson_document = to_document(&music_info)?;
-    //         collection.insert_one(bson_document, None).await?;
-    // println!("{:#?}", music_info.clone());
+    
 
     music_info.clone()
 }
 
-fn write_music_nfos_to_file(mfo: MusicInfo, index: String) {
-    let mus_info = serde_json::to_string(&mfo).unwrap();
-    let fire_music_metadata_path =
-        env::var("FIRE_NFOS").expect("$FIRE_NFOS is not set");
-    let a = format!("{}/", fire_music_metadata_path.as_str());
-    let b = format!("Music_Meta_{}.json", index.to_string());
-    let outpath = a + &b;
-    std::fs::write(outpath, mus_info).unwrap();
+fn write_music_to_db(music_info: MusicInfo)  -> Result<()> {
+    let conn = Connection::open("fire.db").unwrap();
+    conn.execute(
+        "CREATE TABLE IF NOT EXISTS music (
+            id INTEGER PRIMARY KEY,
+            imgurl TEXT NOT NULL,
+            artist TEXT NOT NULL,
+            album TEXT NOT NULL,
+            song TEXT NOT NULL,
+            filenameresults TEXT NOT NULL,
+            musicartistresults TEXT NOT NULL,
+            musicalbumresults TEXT NOT NULL,
+            durationresults TEXT NOT NULL,
+            fullpath TEXT NOT NULL,
+            extension TEXT NOT NULL,
+            index TEXT NOT NULL,
+            page TEXT NOT NULL,
+            fsizeresults TEXT NOT NULL
+
+        )",
+        (),
+    )?;
+
+    conn.execute(
+        "INSERT INTO music (imgurl, artist, album, song, filenameresults, musicartistresults, musicealbumresults, durationresults, fullpath, extension, index, page, fsizeresults)
+            VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13)",
+            (&music_info.imgurl, &music_info.artist, &music_info.album, &music_info.song, &music_info.filenameresults,
+            &music_info.musicartistresults, &music_info.musicalbumresults, &music_info.durationresults, &music_info.fullpath,
+        &music_info.extension, &music_info.index, &music_info.page, &music_info.fsizeresults),
+    )?;
+
+    Ok(())
 }
+
+
