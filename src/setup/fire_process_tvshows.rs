@@ -121,7 +121,7 @@ pub fn process_tvshows(tvshows_vec: Vec<String>) -> bool {
                 httppath: tv
             };
             write_tvshows_nfos(tvshows.clone(), count);
-            write_tvshow_to_db(tvshows.clone());
+            write_tvshow_to_db(tvshows.clone()).expect("tvshows write to db failed");
 
         }
     }
