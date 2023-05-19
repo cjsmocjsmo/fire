@@ -1,8 +1,8 @@
 use std::env;
-// use mongodb::Client;
 use std::clone::Clone;
-// use mongodb::bson::to_document;
 use serde::{Serialize, Deserialize};
+use rusqlite::{Connection, Result};
+
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 struct TVShowsStruc {
@@ -88,7 +88,7 @@ fn write_tvshows_nfos(tvs: TVShowsStruc, count: i32) {
     std::fs::write(outpath, tvshows_info).unwrap();
 }
 
-pub fn process_tvshows(tvshows_vec: Vec<String>) -> Result<(), Box<dyn std::error::Error>> {
+pub fn process_tvshows(tvshows_vec: Vec<String>) -> bool {
     let mut count = 0;
     for tv in tvshows_vec {
         if tv.contains("TVShows") {
@@ -121,15 +121,37 @@ pub fn process_tvshows(tvshows_vec: Vec<String>) -> Result<(), Box<dyn std::erro
                 httppath: tv
             };
             write_tvshows_nfos(tvshows.clone(), count);
-            // let database = client.database("fire");
-            // let collection = database.collection("tvshows_main");
-            // let bson_document = to_document(&tvshows.clone())?;
-            // collection.insert_one(bson_document, None).await?;
-            // println!("tvshows: \n\t{:#?}", tvshows.clone());
+            write_tvshow_to_db(tvshows.clone());
 
         }
     }
+    true
+}
+
+fn write_tvshow_to_db(tvs: TVShowsStruc) -> Result<()> {
+    let conn = Connection::open("fire.db").unwrap();
+    conn.execute(
+        "CREATE TABLE tvshows (
+            id INTEGER PRIMARY KEY,
+            fireid TEXT NOT NULL,
+            index TEXT NOT NULL,
+            catagory TEXT NOT NULL,
+            name TEXT NOT NULL,
+            season TEXT NOT NULL,
+            episode TEXT NOT NULL,
+            size TEXT NOT NULL,
+            httppath TEXT NOT NULL, 
+
+        )",
+        (),
+    )?;
+
+    conn.execute(
+        "INSERT INTO tvshow (fireid, index, catagory, name, season, episode, size, httppath)
+            VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8)",
+            (&tvs.fireid, &tvs.index, &tvs.catagory, &tvs.name, &tvs.season, &tvs.episode, &tvs.size, &tvs.httppath),
+    )?;
+
     Ok(())
-    // count.to_string()
 }
 

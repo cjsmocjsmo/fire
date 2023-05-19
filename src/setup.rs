@@ -1,6 +1,4 @@
 use std::env;
-// use mongodb::Client;
-// use mongodb::bson::to_document;
 use std::sync::mpsc::channel;
 use threadpool::ThreadPool;
 
@@ -55,21 +53,11 @@ fn run_music_threads(alist: Vec<String>) -> bool {
     for t in rx.iter() {
         // Insert this into db
         let ifo = t;
-        // let _imi = insert_music_info(client.clone(), ifo.clone());
         println!("this is music_info\n {:?}\n\t", ifo.clone());
     };
 
     true
 }
-
-// async fn insert_music_info(client: Client, musicinfo: MusicInfo) -> Result<(), Box<dyn std::error::Error>> {
-//     let database = client.database("firedb");
-//     let collection = database.collection("music_main");
-//     let bson_document = to_document(&musicinfo)?;
-//     collection.insert_one(bson_document, None).await?;
-
-//     Ok(())
-// }
 
 fn run_video_img_threads(alist: Vec<String>) {
     let pool = ThreadPool::new(num_cpus::get());
