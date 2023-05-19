@@ -18,7 +18,7 @@ pub struct MusicInfo {
     durationresults: String,
     fullpath: String,
     extension: String,
-    index: String,
+    idx: String,
     page: String,
     fsizeresults: String,
 }
@@ -66,7 +66,7 @@ pub fn process_mp3s(x: String, index: String, page: String) -> MusicInfo {
         durationresults: duration_results,
         fullpath: fullpath.to_string(),
         extension: format!("{:?}", ext),
-        index: idx,
+        idx: idx,
         page: page.to_string(),
         fsizeresults: fsize_results,
     };
@@ -92,7 +92,7 @@ fn write_music_to_db(music_info: MusicInfo)  -> Result<()> {
             durationresults TEXT NOT NULL,
             fullpath TEXT NOT NULL,
             extension TEXT NOT NULL,
-            index TEXT NOT NULL,
+            idx TEXT NOT NULL,
             page TEXT NOT NULL,
             fsizeresults TEXT NOT NULL
 
@@ -101,9 +101,9 @@ fn write_music_to_db(music_info: MusicInfo)  -> Result<()> {
     )?;
 
     conn.execute(
-        "INSERT INTO music (imgurl, artist, album, song, filenameresults, musicartistresults, musicealbumresults, durationresults, fullpath, extension, index, page, fsizeresults)
+        "INSERT INTO music (imgurl, artist, album, song, filenameresults, musicartistresults, musicealbumresults, durationresults, fullpath, extension, idx, page, fsizeresults)
             VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13)",
-            (&music_info.imgurl, &music_info.artist, &music_info.album, &music_info.song, &music_info.filenameresults, &music_info.musicartistresults, &music_info.musicalbumresults, &music_info.durationresults, &music_info.fullpath, &music_info.extension, &music_info.index, &music_info.page, &music_info.fsizeresults),
+            (&music_info.imgurl, &music_info.artist, &music_info.album, &music_info.song, &music_info.filenameresults, &music_info.musicartistresults, &music_info.musicalbumresults, &music_info.durationresults, &music_info.fullpath, &music_info.extension, &music_info.idx, &music_info.page, &music_info.fsizeresults),
     )?;
 
     Ok(())
