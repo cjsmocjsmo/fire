@@ -101,7 +101,7 @@ fn write_music_to_db(music_info: MusicInfo)  -> Result<()> {
     )?;
 
     conn.execute(
-        "INSERT INTO music (imgurl, artist, album, song, filenameresults, musicartistresults, musicealbumresults, durationresults, fullpath, extension, idx, page, fsizeresults)
+        "INSERT INTO music (imgurl, artist, album, song, filenameresults, musicartistresults, musicalbumresults, durationresults, fullpath, extension, idx, page, fsizeresults)
             VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13)",
             (&music_info.imgurl, &music_info.artist, &music_info.album, &music_info.song, &music_info.filenameresults, &music_info.musicartistresults, &music_info.musicalbumresults, &music_info.durationresults, &music_info.fullpath, &music_info.extension, &music_info.idx, &music_info.page, &music_info.fsizeresults),
     )?;
