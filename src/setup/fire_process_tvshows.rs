@@ -131,7 +131,7 @@ pub fn process_tvshows(tvshows_vec: Vec<String>) -> bool {
 fn write_tvshow_to_db(tvs: TVShowsStruc) -> Result<()> {
     let conn = Connection::open("fire.db").unwrap();
     conn.execute(
-        "CREATE TABLE tvshows (
+        "CREATE TABLE IF NOT EXISTS tvshows (
             id INTEGER PRIMARY KEY,
             fireid TEXT NOT NULL,
             idx TEXT NOT NULL,
