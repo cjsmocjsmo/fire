@@ -7,7 +7,7 @@ use rusqlite::{Connection, Result};
 #[derive(Serialize, Deserialize, Debug, Clone)]
 struct TVShowsStruc {
     fireid: String,
-    index: String,
+    idx: String,
     catagory: String,
     name: String,
     season: String,
@@ -112,7 +112,7 @@ pub fn process_tvshows(tvshows_vec: Vec<String>) -> bool {
             let episodename = fnsplit_vec.pop().unwrap();
             let tvshows = TVShowsStruc {
                 fireid: fire_id,
-                index: count.clone().to_string(),
+                idx: count.clone().to_string(),
                 catagory: catagory.clone(),
                 name: episodename.clone().to_string(),
                 season: es.0,
@@ -134,7 +134,7 @@ fn write_tvshow_to_db(tvs: TVShowsStruc) -> Result<()> {
         "CREATE TABLE tvshows (
             id INTEGER PRIMARY KEY,
             fireid TEXT NOT NULL,
-            index TEXT NOT NULL,
+            idx TEXT NOT NULL,
             catagory TEXT NOT NULL,
             name TEXT NOT NULL,
             season TEXT NOT NULL,
@@ -147,9 +147,9 @@ fn write_tvshow_to_db(tvs: TVShowsStruc) -> Result<()> {
     )?;
 
     conn.execute(
-        "INSERT INTO tvshow (fireid, index, catagory, name, season, episode, size, httppath)
+        "INSERT INTO tvshow (fireid, idx, catagory, name, season, episode, size, httppath)
             VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8)",
-            (&tvs.fireid, &tvs.index, &tvs.catagory, &tvs.name, &tvs.season, &tvs.episode, &tvs.size, &tvs.httppath),
+            (&tvs.fireid, &tvs.idx, &tvs.catagory, &tvs.name, &tvs.season, &tvs.episode, &tvs.size, &tvs.httppath),
     )?;
 
     Ok(())
