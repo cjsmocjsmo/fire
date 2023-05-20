@@ -158,7 +158,7 @@ impl FireUtils {
             fsplit_vec.push(f);
         }
 
-        println!("this is split_vec{:?}", fsplit_vec.clone());
+        // println!("this is split_vec{:?}", fsplit_vec.clone());
 
         let fsplit2 = fsplit_vec[1].split(")");
         let mut fsplit_vec2 = vec![];
