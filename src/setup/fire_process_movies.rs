@@ -68,7 +68,7 @@ pub fn process_movies(movies_vec: Vec<String> ) -> String {
         println!("{}", fire_id.clone());
         println!("{}", mov_name.clone());
         println!("{}", mov_size.clone());
-        // println!("{}", );
+        println!("{}", mov_year.clone());
         // println!("{}", );
         // let mov_info = MovieInfoStruc {
         //     id: count.clone().to_string(),
