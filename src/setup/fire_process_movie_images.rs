@@ -54,7 +54,6 @@ pub fn process_movie_posters(x: String, index: i32) -> bool {
 
     let dims = crate::setup::fire_image::get_image_dims(&x);
     let dims_foo = format!("{:?}", dims);
-    println!("{}", index);
 
     let foobar2 = crate::setup::fire_utils::FireUtils {
         apath: x.clone()
@@ -75,7 +74,7 @@ pub fn process_movie_posters(x: String, index: i32) -> bool {
 
 
     };
-    println!("{:?}", mov_img_info.clone());
+    println!("\n{:?}\n", mov_img_info.clone());
     write_mov_img_to_file(mov_img_info.clone(), index.clone());
     write_movie_images_to_db(mov_img_info).expect("movies image db insertion failed");
     
@@ -121,32 +120,3 @@ fn write_movie_images_to_db(mov_img_info: MovPosterInfo) -> Result<()> {
 }
 
 
-
-
-
-
-
-
-// println!("{:#?}", mov_img_info.clone());
-    
-   
-    // else {
-    //     bad_image_vec.push(x.clone());
-
-    //     println!("this is a bad image:\n\t {}", x.clone());
-    // }
-    
-    // let bad_image_count = bad_image_vec.clone().len();
-
-    // if bad_image_count != 0 {
-    //     let fire_movie_metadata_path =
-    //         env::var("fire_MOVIES_METADATA_PATH").expect("$fire_MOVIES_METADATA_PATH is not set");
-
-    //     let a = format!("{}/", fire_movie_metadata_path.as_str());
-    //     let b = format!("Bad_Movies_Images.json");
-    //     let outpath = a + &b;
-    //     fs::write(outpath, bad_image_vec.join("\n"))
-    //         .expect("Failed to write sized incorrectly json file");
-    // }
-
-    // (bad_image_count.to_string(), index.to_string())
