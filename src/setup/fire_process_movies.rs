@@ -2,7 +2,6 @@ use rusqlite::{Connection, Result};
 use serde::{Deserialize, Serialize};
 use std::clone::Clone;
 use std::env;
-use gethostname::gethostname;
 // use std::path::Path;
 
 fn get_poster_addr(x: String) -> String {
@@ -31,8 +30,10 @@ fn get_poster_addr(x: String) -> String {
     // let hostaddr = gethostname();
 
     println!("{}", x.clone());
+    let addr = env::var("FIRE_HTTP_ADDR").unwrap().to_string();
+    let port = env::var("FIRE_HTTP_PORT").unwrap().to_string();
 
-    let poster_addr = format!("{:?}", gethostname()) + &"Posters2/".to_string() + p2_split_vec[1];
+    let poster_addr = addr + &port + &"Posters2/".to_string() + p2_split_vec[1];
 
     poster_addr
 }
