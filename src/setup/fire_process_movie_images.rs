@@ -104,7 +104,7 @@ fn write_movie_images_to_db(mov_img_info: MovPosterInfo) -> Result<()> {
                 name,
                 thumbpath
             )
-            VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7)",
+            VALUES (?1, ?2, ?3, ?4, ?5)",
         (
             &mov_img_info.path,
             &mov_img_info.dims,

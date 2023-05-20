@@ -9,6 +9,8 @@ use serde::{Serialize, Deserialize};
 // use std::fs::File;
 // use std::path::Path;
 use walkdir::WalkDir;
+use rusqlite::{Connection, Result};
+use std::clone::Clone;
 
 pub fn media_total_size(addr: String) -> String {
     let total_size = WalkDir::new(addr)
@@ -50,7 +52,7 @@ pub fn create_art_alb_list(alist: Vec<String>) -> (Vec<String>, Vec<String>) {
     (art_vec, alb_vec)
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct ArtId {
     id: String,
     artist: String,
@@ -74,9 +76,11 @@ pub fn create_artistids(alist: Vec<String>) -> Vec<ArtId> {
             artist: a.clone(),
             artistid: artistid.clone()
         };
+
+        write_artist_ids_to_db(artidstruc.clone()).expect("artistids insert has failed");
         
         
-        artid_list.push(artidstruc);
+        artid_list.push(artidstruc.clone());
         
     };
 
@@ -97,7 +101,62 @@ pub fn create_artistids(alist: Vec<String>) -> Vec<ArtId> {
     artid_list
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+fn write_artist_ids_to_db(artidstruc: ArtId) -> Result<()> {
+    let conn = Connection::open("fire.db").unwrap();
+    conn.execute(
+        "CREATE TABLE IF NOT EXISTS artistids (
+            id INTEGER PRIMARY KEY,
+            artist TEXT NOT NULL,
+            artistid TEXT NOT NULL
+        )",
+        (),
+    )?;
+
+    conn.execute(
+        "INSERT INTO artistids (
+                artist, 
+                artistid,
+            )
+            VALUES (?1, ?2)",
+        (
+            &artidstruc.artist,
+            &artidstruc.artistid,
+        ),
+    )?;
+
+    Ok(())
+}
+
+fn write_album_ids_to_db(albidstruc: AlbId) -> Result<()> {
+    let conn = Connection::open("fire.db").unwrap();
+    conn.execute(
+        "CREATE TABLE IF NOT EXISTS albumids (
+            id INTEGER PRIMARY KEY,
+            album TEXT NOT NULL,
+            albumid TEXT NOT NULL
+        )",
+        (),
+    )?;
+
+    conn.execute(
+        "INSERT INTO albumids (
+                album, 
+                albumid,
+            )
+            VALUES (?1, ?2)",
+        (
+            &albidstruc.album,
+            &albidstruc.albumid,
+        ),
+    )?;
+
+    Ok(())
+}
+
+
+
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct AlbId {
     id: String,
     album: String,
@@ -120,7 +179,7 @@ pub fn create_albumids(alist: Vec<String>) -> Vec<AlbId> {
             album: a.clone(),
             albumid: albumid.clone()
         };
-
+        write_album_ids_to_db(albidstruc.clone()).expect("albumid db insertion has failed");
         
         
         
@@ -142,6 +201,12 @@ pub fn create_albumids(alist: Vec<String>) -> Vec<AlbId> {
 
     albid_list
 }
+
+
+
+
+
+
 // pub fn write_music_gzip_file() -> Result<(), std::io::Error> {
 //     let music_meta = env::var("MTV_MUSIC_METADATA_PATH").unwrap();
 //     let static_path = env::var("MTV_GZIP_PATH").unwrap();
