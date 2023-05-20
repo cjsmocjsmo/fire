@@ -83,7 +83,7 @@ pub fn process_movies() -> String {
 fn write_movies_to_db(mov_info: MovieInfoStruc) -> Result<()> {
     let conn = Connection::open("fire.db").unwrap();
     conn.execute(
-        "CREATE TABLE IF NOT EXISTS music_images (
+        "CREATE TABLE IF NOT EXISTS movies (
             id INTEGER PRIMARY KEY,
             fireid TEXT NOT NULL,
             idx TEXT NOT NULL,
@@ -97,7 +97,7 @@ fn write_movies_to_db(mov_info: MovieInfoStruc) -> Result<()> {
     )?;
 
     conn.execute(
-        "INSERT INTO music_images (
+        "INSERT INTO movies (
                 fireid, 
                 idx,
                 name,

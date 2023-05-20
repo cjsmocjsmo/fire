@@ -85,7 +85,7 @@ pub fn process_movie_posters(x: String, index: i32) -> bool {
 fn write_movie_images_to_db(mov_img_info: MovPosterInfo) -> Result<()> {
     let conn = Connection::open("fire.db").unwrap();
     conn.execute(
-        "CREATE TABLE IF NOT EXISTS music_images (
+        "CREATE TABLE IF NOT EXISTS movies_images (
             id INTEGER PRIMARY KEY,
             path TEXT NOT NULL,
             dims TEXT NOT NULL,
@@ -98,7 +98,7 @@ fn write_movie_images_to_db(mov_img_info: MovPosterInfo) -> Result<()> {
     )?;
 
     conn.execute(
-        "INSERT INTO music_images (
+        "INSERT INTO movies_images (
                 path, 
                 dims,
                 size,
