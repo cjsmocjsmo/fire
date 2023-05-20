@@ -91,7 +91,8 @@ fn write_movie_images_to_db(mov_img_info: MovPosterInfo) -> Result<()> {
             dims TEXT NOT NULL,
             size TEXT NOT NULL,
             name TEXT NOT NULL,
-            thumbpath TEXT NOT NULL
+            thumbpath TEXT NOT NULL,
+            idx TEXT NOT NULL
         )",
         (),
     )?;
@@ -102,15 +103,17 @@ fn write_movie_images_to_db(mov_img_info: MovPosterInfo) -> Result<()> {
                 dims,
                 size,
                 name,
-                thumbpath
+                thumbpath,
+                idx
             )
-            VALUES (?1, ?2, ?3, ?4, ?5)",
+            VALUES (?1, ?2, ?3, ?4, ?5, ?6)",
         (
             &mov_img_info.path,
             &mov_img_info.dims,
             &mov_img_info.size,
             &mov_img_info.name,
-            &mov_img_info.thumbpath
+            &mov_img_info.thumbpath,
+            &mov_img_info.idx
         ),
     )?;
 
