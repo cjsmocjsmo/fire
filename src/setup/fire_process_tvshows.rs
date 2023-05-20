@@ -34,9 +34,7 @@ impl TVShowsUtils {
         }
 
         let idx = n_split_vec.len() - 2;
-
         let mut newname_vec = vec![];
-
         let foo = n_split_vec.drain(0..idx);
 
         for f in foo {
@@ -59,12 +57,11 @@ impl TVShowsUtils {
         for n in n_split {
             n_split_vec.push(n);
         }
+
         let idx = &n_split_vec.len() - 2;
         let parts: Vec<char> = n_split_vec[idx.clone()].chars().collect();
-
         let season = parts[1].to_string() + &parts[2].to_string();
         let episode = parts[4].to_string() + &parts[5].to_string();
-
         let results = (season, episode);
 
         results
@@ -73,15 +70,10 @@ impl TVShowsUtils {
 
 fn write_tvshows_nfos(tvs: TVShowsStruc, count: i32) {
     let tvshows_info = serde_json::to_string(&tvs).unwrap();
-
-    println!("{:#?}", tvshows_info);
-
     let fire_nfo_path = env::var("FIRE_NFOS").expect("$FIRE_NFOS is not set");
-
     let a = format!("{}/", fire_nfo_path.as_str());
     let b = format!("TVShows_Meta_{}.json", count.to_string());
     let outpath = a + &b;
-
     std::fs::write(outpath, tvshows_info).unwrap();
 }
 

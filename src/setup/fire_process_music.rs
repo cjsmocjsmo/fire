@@ -46,12 +46,9 @@ pub fn process_mp3s(x: String, index: String, page: String) -> MusicInfo {
     let art_alb = crate::setup::fire_utils::FireUtils::music_split_artist(&fu);
     let music_artist_results = art_alb.0;
     let music_album_results = art_alb.1;
-    
-    // let music_album_results = crate::setup::fire_utils::FireUtils::music_split_album(&fu);
     let ext = crate::setup::fire_utils::FireUtils::split_ext(&fu);
     let idx = index.to_string();
     let fsize_results = crate::setup::fire_utils::FireUtils::get_file_size(&fu).to_string();
-
     let music_info = MusicInfo {
         id: id,
         imgurl: voodoo.to_string(),
@@ -93,7 +90,6 @@ fn write_music_to_db(music_info: MusicInfo) -> Result<()> {
             idx TEXT NOT NULL,
             page TEXT NOT NULL,
             fsizeresults TEXT NOT NULL
-
         )",
         (),
     )?;

@@ -23,7 +23,6 @@ fn write_music_img_to_file(miinfo: MusicImageInfo, index: i32) {
     let b = format!("Music_Image_Meta_{}.json", &index);
     let outpath = a + &b;
     std::fs::write(outpath, mii.clone()).unwrap();
-    println!("\n{:#?}", mii.clone());
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -54,22 +53,14 @@ pub fn process_music_images(x: String, index: i32) -> bool {
         let newdims = crate::setup::fire_image::normalize_music_image(dims);
         let width_r = newdims.0.to_string();
         let height_r = newdims.1.to_string();
-
         let base_dir = crate::setup::fire_utils::FireUtils::split_base_dir(&foo2);
-
         let file_name = crate::setup::fire_utils::FireUtils::split_filename(&foo2);
-
         let ext = crate::setup::fire_utils::FireUtils::split_ext(&foo2);
-
         let artist_results = crate::setup::fire_utils::FireUtils::image_split_artist(&foo2);
         let album_results = crate::setup::fire_utils::FireUtils::image_split_album(&foo2);
-
         let fsize_results = crate::setup::fire_utils::FireUtils::get_file_size(&foo2).to_string();
         let full_path = &x.to_string();
-
         let thumb_path = create_music_thumbnail(&x, artist_results.clone(), album_results.clone());
-
-        // let b64image = crate::setup::fire_image::to_base64_str(&thumb_path);
 
         let music_img_info = MusicImageInfo {
             id: id,
@@ -85,10 +76,8 @@ pub fn process_music_images(x: String, index: i32) -> bool {
             thumbpath: thumb_path,
             idx: index.to_string(),
         };
-
         write_music_img_to_file(music_img_info.clone(), index);
         write_music_img_to_db(music_img_info.clone()).expect("music image db insertion failed")
-        // println!("{:#?}", music_img_info.clone());
     };
 
     true

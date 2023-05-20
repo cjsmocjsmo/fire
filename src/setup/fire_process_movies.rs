@@ -63,19 +63,14 @@ struct MovieInfoStruc {
 pub fn process_movies(movies_vec: Vec<String> ) -> String {
     let mut count = 0;
     for x in movies_vec {
-        if x.clone().contains("Movies") || x.clone().contains("movies") {
-
-        
+        if x.clone().contains("Movies") {
             count = count + 1;
             let foo = crate::setup::fire_utils::FireUtils { apath: x.clone() };
             let fire_id = crate::setup::fire_utils::FireUtils::get_md5(&foo);
             let mov_name = crate::setup::fire_utils::FireUtils::split_movie_name(&foo);
             let mov_size = crate::setup::fire_utils::FireUtils::get_file_size(&foo);
-            
             let mov_year = crate::setup::fire_utils::FireUtils::split_movie_year(&foo);
             let mov_poster_addr = get_poster_addr(x.clone(), mov_name.clone());
-            
-            
             let mov_info = MovieInfoStruc {
                 id: count.clone().to_string(),
                 fireid: fire_id,

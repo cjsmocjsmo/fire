@@ -2,11 +2,7 @@ use std::env;
 use std::sync::mpsc::channel;
 use threadpool::ThreadPool;
 
-// use self::fire_process_music::MusicInfo;
-// use serde::{Serialize, Deserialize};
 
-
-pub mod fire_create_dirs;
 pub mod fire_image;
 pub mod fire_misc;
 pub mod fire_mp3_info;
@@ -113,8 +109,6 @@ fn run_music_img_threads(alist: Vec<String>) {
 pub fn run_setup() -> bool {
     // let paramaters = fire_env_vars::read_config();
 
-    // crate::setup::fire_create_dirs::create_dirs();
-
     let scan_home_dir = 
         env::var("FIRE_SCAN_HOME")
         .expect("$FIRE_SCAN_HOME is not set");
@@ -122,18 +116,18 @@ pub fn run_setup() -> bool {
     if scan_home_dir == "yes" {
         let media_lists = fire_walk_dirs::scan_all_sources();
 
-        // run_music_threads(media_lists.0.clone());
-        // run_music_img_threads(media_lists.2.clone());
-        run_video_img_threads(media_lists.2.clone()); //needs work
+        run_music_threads(media_lists.0.clone());
+        run_music_img_threads(media_lists.2.clone());
+        run_video_img_threads(media_lists.2.clone());
         
 
-        // let _movies = crate::setup::fire_process_movies::process_movies(media_lists.1.clone());
-        // let _tvshows = crate::setup::fire_process_tvshows::process_tvshows(media_lists.1.clone());
+        let _movies = crate::setup::fire_process_movies::process_movies(media_lists.1.clone());
+        let _tvshows = crate::setup::fire_process_tvshows::process_tvshows(media_lists.1.clone());
 
 
-        // let ab_list = crate::setup::fire_misc::create_art_alb_list(media_lists.0.clone());
-        // let _artist_list = crate::setup::fire_misc::create_artistids(ab_list.0);
-        // let _album_list = crate::setup::fire_misc::create_albumids(ab_list.1);
+        let ab_list = crate::setup::fire_misc::create_art_alb_list(media_lists.0.clone());
+        let _artist_list = crate::setup::fire_misc::create_artistids(ab_list.0);
+        let _album_list = crate::setup::fire_misc::create_albumids(ab_list.1);
 
         // let art_serial = serde_json::to_string(&artist_list).unwrap();
         // let alb_serial = serde_json::to_string(&album_list);
