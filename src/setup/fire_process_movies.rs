@@ -4,7 +4,7 @@ use std::clone::Clone;
 use std::env;
 // use std::path::Path;
 
-fn get_poster_addr(x: String) -> String {
+fn get_poster_addr(x: String, mname: String) -> String {
     let no_ext_name_res = x.split(".");
     let mut no_ext_name_vec = vec![];
 
@@ -19,7 +19,7 @@ fn get_poster_addr(x: String) -> String {
     for jpg in new_jpg_name_split {
         new_jpg_name_split_vec.push(jpg);
     }
-    let p1 = new_jpg_name_split_vec[0];
+    // let p1 = new_jpg_name_split_vec[0];
     let p2 = new_jpg_name_split_vec[1];
     let p2_split = p2.split("/");
     let mut p2_split_vec = vec![];
@@ -33,7 +33,7 @@ fn get_poster_addr(x: String) -> String {
     let addr = env::var("FIRE_HTTP_ADDR").unwrap().to_string();
     let port = env::var("FIRE_HTTP_PORT").unwrap().to_string();
 
-    let poster_addr = addr + &port + &"Posters2/".to_string() + p2_split_vec[1];
+    let poster_addr = addr + &port + &"/Posters2/".to_string() + p2_split_vec[1] + "/" + &mname + ".jpg";
 
     poster_addr
 }
@@ -72,7 +72,7 @@ pub fn process_movies(movies_vec: Vec<String> ) -> String {
             let mov_size = crate::setup::fire_utils::FireUtils::get_file_size(&foo);
             
             let mov_year = crate::setup::fire_utils::FireUtils::split_movie_year(&foo);
-            let mov_poster_addr = get_poster_addr(x.clone());
+            let mov_poster_addr = get_poster_addr(x.clone(), mov_name.clone());
             
             // println!("{}", fire_id.clone());
             // println!("{}", mov_name.clone());
@@ -83,11 +83,11 @@ pub fn process_movies(movies_vec: Vec<String> ) -> String {
                 id: count.clone().to_string(),
                 fireid: fire_id,
                 idx: count.clone().to_string(),
-                name: mov_name,
+                name: mov_name.clone(),
                 year: mov_year,
                 size: mov_size,
                 httpposterpath: mov_poster_addr.clone(),
-                httpmoviepath: mov_poster_addr.clone(),
+                httpmoviepath: x.clone(),
             };
             println!("{:?}", mov_info.clone());
             // write_mov_meta_to_file(mov_info.clone(), count.clone());
