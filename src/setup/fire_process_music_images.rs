@@ -98,7 +98,7 @@ pub fn process_music_images(x: String, index: i32) -> bool {
 fn write_music_img_to_db(music_img_info: MusicImageInfo)  -> Result<()> {
     let conn = Connection::open("fire.db").unwrap();
     conn.execute(
-        "CREATE TABLE IF NOT EXISTS music (
+        "CREATE TABLE IF NOT EXISTS music_images (
             id INTEGER PRIMARY KEY,
             width TEXT NOT NULL,
             height TEXT NOT NULL,
@@ -116,7 +116,7 @@ fn write_music_img_to_db(music_img_info: MusicImageInfo)  -> Result<()> {
     )?;
 
     conn.execute(
-        "INSERT INTO music (
+        "INSERT INTO music_images (
                 width, 
                 height,
                 basedir,
