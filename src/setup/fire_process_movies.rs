@@ -66,13 +66,13 @@ pub fn process_movies(movies_vec: Vec<String> ) -> String {
             let mov_size = crate::setup::fire_utils::FireUtils::get_file_size(&foo);
             
             let mov_year = crate::setup::fire_utils::FireUtils::split_movie_year(&foo);
-            // let mov_poster_addr = get_poster_addr(x.clone());
+            let mov_poster_addr = get_poster_addr(x.clone());
             
             println!("{}", fire_id.clone());
             println!("{}", mov_name.clone());
             println!("{}", mov_size.clone());
             println!("{}", mov_year.clone());
-            // println!("{}", );
+            println!("{}", mov_poster_addr);
             // let mov_info = MovieInfoStruc {
             //     id: count.clone().to_string(),
             //     fireid: fire_id,
