@@ -1,8 +1,7 @@
 use std::env;
 use std::clone::Clone;
-use serde::{Serialize, Deserialize};
 use rusqlite::{Connection, Result};
-
+use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 struct TVShowsStruc {
@@ -13,18 +12,17 @@ struct TVShowsStruc {
     season: String,
     episode: String,
     size: String,
-    httppath: String
+    httppath: String,
 }
 
 pub struct TVShowsUtils {
-    apath: String
+    apath: String,
 }
 
 impl TVShowsUtils {
     fn get_tv_catagory(&self) -> String {
-
         let foo12 = crate::setup::fire_utils::FireUtils {
-            apath: self.apath.to_string()
+            apath: self.apath.to_string(),
         };
 
         let name = crate::setup::fire_utils::FireUtils::split_movie_name(&foo12);
@@ -51,7 +49,7 @@ impl TVShowsUtils {
     }
     fn get_tv_episode_season(&self) -> (String, String) {
         let foo1 = crate::setup::fire_utils::FireUtils {
-            apath: self.apath.to_string()
+            apath: self.apath.to_string(),
         };
 
         let name = crate::setup::fire_utils::FireUtils::split_movie_name(&foo1);
@@ -78,8 +76,7 @@ fn write_tvshows_nfos(tvs: TVShowsStruc, count: i32) {
 
     println!("{:#?}", tvshows_info);
 
-    let fire_nfo_path =
-        env::var("FIRE_NFOS").expect("$FIRE_NFOS is not set");
+    let fire_nfo_path = env::var("FIRE_NFOS").expect("$FIRE_NFOS is not set");
 
     let a = format!("{}/", fire_nfo_path.as_str());
     let b = format!("TVShows_Meta_{}.json", count.to_string());
@@ -93,22 +90,20 @@ pub fn process_tvshows(tvshows_vec: Vec<String>) -> bool {
     for tv in tvshows_vec {
         if tv.contains("TVShows") {
             count = count + 1;
-            let tvshows = crate::setup::fire_utils::FireUtils {
-                apath: tv.clone()
-            };
-            let tvshows2 = crate::setup::fire_process_tvshows::TVShowsUtils {
-                apath: tv.clone()
-            };
+            let tvshows = crate::setup::fire_utils::FireUtils { apath: tv.clone() };
+            let tvshows2 = crate::setup::fire_process_tvshows::TVShowsUtils { apath: tv.clone() };
             let file_size = crate::setup::fire_utils::FireUtils::get_file_size(&tvshows);
-            let catagory = crate::setup::fire_process_tvshows::TVShowsUtils::get_tv_catagory(&tvshows2);
-            let es = crate::setup::fire_process_tvshows::TVShowsUtils::get_tv_episode_season(&tvshows2);
+            let catagory =
+                crate::setup::fire_process_tvshows::TVShowsUtils::get_tv_catagory(&tvshows2);
+            let es =
+                crate::setup::fire_process_tvshows::TVShowsUtils::get_tv_episode_season(&tvshows2);
             let fire_id = crate::setup::fire_utils::FireUtils::get_md5(&tvshows);
             let fname = crate::setup::fire_utils::FireUtils::split_filename(&tvshows);
             let mut fnsplit_vec = Vec::new();
             let fnsplit = fname.split(" ");
             for f in fnsplit {
                 fnsplit_vec.push(f.clone());
-            };
+            }
             let episodename = fnsplit_vec.pop().unwrap();
             let tvshows = TVShowsStruc {
                 fireid: fire_id,
@@ -118,11 +113,10 @@ pub fn process_tvshows(tvshows_vec: Vec<String>) -> bool {
                 season: es.0,
                 episode: es.1,
                 size: file_size,
-                httppath: tv
+                httppath: tv,
             };
             write_tvshows_nfos(tvshows.clone(), count);
             write_tvshow_to_db(tvshows.clone()).expect("tvshows write to db failed");
-
         }
     }
     true
@@ -141,17 +135,33 @@ fn write_tvshow_to_db(tvs: TVShowsStruc) -> Result<()> {
             episode TEXT NOT NULL,
             size TEXT NOT NULL,
             httppath TEXT NOT NULL
-
         )",
         (),
     )?;
 
     conn.execute(
-        "INSERT INTO tvshows (fireid, idx, catagory, name, season, episode, size, httppath)
+        "INSERT INTO tvshows (
+                fireid, 
+                idx, 
+                catagory, 
+                name, 
+                season, 
+                episode, 
+                size, 
+                httppath
+            )
             VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8)",
-            (&tvs.fireid, &tvs.idx, &tvs.catagory, &tvs.name, &tvs.season, &tvs.episode, &tvs.size, &tvs.httppath),
+        (
+            &tvs.fireid,
+            &tvs.idx,
+            &tvs.catagory,
+            &tvs.name,
+            &tvs.season,
+            &tvs.episode,
+            &tvs.size,
+            &tvs.httppath,
+        ),
     )?;
 
     Ok(())
 }
-

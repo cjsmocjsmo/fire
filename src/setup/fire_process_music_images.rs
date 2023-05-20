@@ -1,6 +1,7 @@
 use std::env;
 use std::clone::Clone;
 use serde::{Serialize, Deserialize};
+use rusqlite::{Connection, Result};
 
 fn create_music_thumbnail(x: &String, art: String, alb: String) -> String {
     let fire_music_metadata_path = env::var("FIRE_THUMBNAILS").expect("$FIRE_THUMBNAILS is not set");
@@ -13,6 +14,17 @@ fn create_music_thumbnail(x: &String, art: String, alb: String) -> String {
         .expect("Saving image failed");
 
     out_fname.to_string()
+}
+
+fn write_music_img_to_file(miinfo: MusicImageInfo, index: i32) {
+    let mii = serde_json::to_string(&miinfo).unwrap();
+    let fire_music_metadata_path =
+        env::var("FIRE_NFOS").expect("$FIRE_NFOS is not set");
+    let a = format!("{}/", fire_music_metadata_path.as_str());
+    let b = format!("Music_Image_Meta_{}.json", &index);
+    let outpath = a + &b;
+    std::fs::write(outpath, mii.clone()).unwrap();
+    println!("\n{:#?}", mii.clone());
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -28,7 +40,7 @@ pub struct MusicImageInfo {
     filesize: String,
     fullpath: String,
     thumbpath: String,
-    index: String,
+    idx: String,
 }
 
 pub fn process_music_images(x: String, index: i32) -> bool {
@@ -72,23 +84,69 @@ pub fn process_music_images(x: String, index: i32) -> bool {
             filesize: fsize_results,
             fullpath: full_path.to_string(),
             thumbpath: thumb_path,
-            index: index.to_string(),
+            idx: index.to_string(),
         };
 
         write_music_img_to_file(music_img_info.clone(), index);
+        write_music_img_to_db(music_img_info.clone()).expect("music image db insertion failed")
         // println!("{:#?}", music_img_info.clone());
     };
 
     true
 }
 
-fn write_music_img_to_file(miinfo: MusicImageInfo, index: i32) {
-    let mii = serde_json::to_string(&miinfo).unwrap();
-    let fire_music_metadata_path =
-        env::var("FIRE_NFOS").expect("$FIRE_NFOS is not set");
-    let a = format!("{}/", fire_music_metadata_path.as_str());
-    let b = format!("Music_Image_Meta_{}.json", &index);
-    let outpath = a + &b;
-    std::fs::write(outpath, mii.clone()).unwrap();
-    println!("\n{:#?}", mii.clone());
+fn write_music_img_to_db(music_img_info: MusicImageInfo)  -> Result<()> {
+    let conn = Connection::open("fire.db").unwrap();
+    conn.execute(
+        "CREATE TABLE IF NOT EXISTS music (
+            id INTEGER PRIMARY KEY,
+            width TEXT NOT NULL,
+            height TEXT NOT NULL,
+            basedir TEXT NOT NULL,
+            filename TEXT NOT NULL,
+            extension TEXT NOT NULL,
+            artist TEXT NOT NULL,
+            album TEXT NOT NULL,
+            filesize TEXT NOT NULL,
+            fullpath TEXT NOT NULL,
+            thumbpath TEXT NOT NULL,
+            idx TEXT NOT NULL
+        )",
+        (),
+    )?;
+
+    conn.execute(
+        "INSERT INTO music (
+                width, 
+                height,
+                basedir,
+                filename,
+                extension,
+                artist,
+                album,
+                filesize,
+                fullpath,
+                thumbpath,
+                idx
+            )
+            VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11)",
+        (
+            &music_img_info.width,
+            &music_img_info.height,
+            &music_img_info.basedir,
+            &music_img_info.filename,
+            &music_img_info.extension,
+            &music_img_info.artist,
+            &music_img_info.album,
+            &music_img_info.filesize,
+            &music_img_info.fullpath,
+            &music_img_info.thumbpath,
+            &music_img_info.idx
+        ),
+    )?;
+
+
+    Ok(())
 }
+
+
