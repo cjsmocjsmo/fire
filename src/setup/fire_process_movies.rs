@@ -34,7 +34,7 @@ fn get_poster_addr(x: String, mname: String) -> String {
     let addr = env::var("FIRE_HTTP_ADDR").unwrap().to_string();
     let port = env::var("FIRE_HTTP_PORT").unwrap().to_string();
 
-    let poster_addr = addr + &port + &"/thumbnails/".to_string() + "/" + &mname + ".jpg";
+    let poster_addr = addr + &port + &"/thumbnails/".to_string() + &mname + ".jpg";
 
     poster_addr
 }
@@ -57,7 +57,7 @@ struct MovieInfoStruc {
     year: String,
     size: String,
     httpposterpath: String,
-    httpmoviepath: String,
+    path: String,
 }
 
 pub fn process_movies(movies_vec: Vec<String> ) -> String {
@@ -75,11 +75,7 @@ pub fn process_movies(movies_vec: Vec<String> ) -> String {
             let mov_year = crate::setup::fire_utils::FireUtils::split_movie_year(&foo);
             let mov_poster_addr = get_poster_addr(x.clone(), mov_name.clone());
             
-            // println!("{}", fire_id.clone());
-            // println!("{}", mov_name.clone());
-            // println!("{}", mov_size.clone());
-            // println!("{}", mov_year.clone());
-            // println!("{}", mov_poster_addr);
+            
             let mov_info = MovieInfoStruc {
                 id: count.clone().to_string(),
                 fireid: fire_id,
@@ -88,11 +84,11 @@ pub fn process_movies(movies_vec: Vec<String> ) -> String {
                 year: mov_year,
                 size: mov_size,
                 httpposterpath: mov_poster_addr.clone(),
-                httpmoviepath: x.clone(),
+                path: x.clone(),
             };
             println!("\n{:?}\n", mov_info.clone());
-            // write_mov_meta_to_file(mov_info.clone(), count.clone());
-            // write_movies_to_db(mov_info.clone()).expect("movies db insert has failed");
+            write_mov_meta_to_file(mov_info.clone(), count.clone());
+            write_movies_to_db(mov_info.clone()).expect("movies db insert has failed");
         }
     }
 
@@ -110,7 +106,7 @@ fn write_movies_to_db(mov_info: MovieInfoStruc) -> Result<()> {
             year TEXT NOT NULL,
             size TEXT NOT NULL,
             httpposterpath TEXT NOT NULL,
-            httpmoviepath TEXT NOT NULL
+            path TEXT NOT NULL
         )",
         (),
     )?;
@@ -123,7 +119,7 @@ fn write_movies_to_db(mov_info: MovieInfoStruc) -> Result<()> {
                 year,
                 size,
                 httposterpath,
-                httpmoviepath
+                path
             )
             VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7)",
         (
@@ -133,7 +129,7 @@ fn write_movies_to_db(mov_info: MovieInfoStruc) -> Result<()> {
             &mov_info.year,
             &mov_info.size,
             &mov_info.httpposterpath,
-            &mov_info.httpmoviepath
+            &mov_info.path
         ),
     )?;
 
