@@ -115,12 +115,12 @@ fn write_artist_ids_to_db(artidstruc: ArtId) -> Result<()> {
     conn.execute(
         "INSERT INTO artistids (
                 artist, 
-                artistid,
+                artistid
             )
             VALUES (?1, ?2)",
         (
             &artidstruc.artist,
-            &artidstruc.artistid,
+            &artidstruc.artistid
         ),
     )?;
 
