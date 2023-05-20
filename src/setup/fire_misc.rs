@@ -141,12 +141,12 @@ fn write_album_ids_to_db(albidstruc: AlbId) -> Result<()> {
     conn.execute(
         "INSERT INTO albumids (
                 album, 
-                albumid,
+                albumid
             )
             VALUES (?1, ?2)",
         (
             &albidstruc.album,
-            &albidstruc.albumid,
+            &albidstruc.albumid
         ),
     )?;
 

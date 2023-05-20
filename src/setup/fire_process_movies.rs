@@ -2,7 +2,7 @@ use rusqlite::{Connection, Result};
 use serde::{Deserialize, Serialize};
 use std::clone::Clone;
 use std::env;
-use std::path::Path;
+// use std::path::Path;
 
 fn get_poster_addr(x: String) -> String {
     let no_ext_name_res = x.split(".");
@@ -33,7 +33,7 @@ fn get_poster_addr(x: String) -> String {
 }
 
 fn write_mov_meta_to_file(mi: MovieInfoStruc, count: i32) {
-    let json_info = serde_json::to_string(mi).unwrap();
+    let json_info = serde_json::to_string(&mi).unwrap();
     let fire_movies_metadata_path = env::var("FIRE_NFOS").expect("$FIRE_NFOS is not set");
     let a = format!("{}/", fire_movies_metadata_path.as_str());
     let b = format!("Movie_Meta_{}.json", count);
@@ -53,17 +53,16 @@ struct MovieInfoStruc {
     httpmoviepath: String,
 }
 
-pub fn process_movies() -> String {
+pub fn process_movies(movies_vec: Vec<String> ) -> String {
     let mut count = 0;
     for x in movies_vec {
         count = count + 1;
-        let foo = crate::setup::fire_utils::FireUtils { apath: x };
-        let fire_id = crate::setup::fire_utils::FireUtils::get_md5(&x);
-        let mov_name = crate::setup::fire_utils::FireUtils::split_movie_name(&x);
-        let mov_year = crate::setup::fire_utils::FireUtils::split_movie_year(&x);
-        let mov_poster_addr = get_poster_addr(&x);
-        let mov_size = crate::setup::fire_utils::FireUtils::get_file_size(&x);
-        let fire_id = crate::setup::fire_utils::FireUtils::get_md5(&x);
+        let foo = crate::setup::fire_utils::FireUtils { apath: x.clone() };
+        let fire_id = crate::setup::fire_utils::FireUtils::get_md5(&foo);
+        let mov_name = crate::setup::fire_utils::FireUtils::split_movie_name(&foo);
+        let mov_year = crate::setup::fire_utils::FireUtils::split_movie_year(&foo);
+        let mov_poster_addr = get_poster_addr(x.clone());
+        let mov_size = crate::setup::fire_utils::FireUtils::get_file_size(&foo);
         let mov_info = MovieInfoStruc {
             id: count.clone().to_string(),
             fireid: fire_id,
@@ -71,10 +70,11 @@ pub fn process_movies() -> String {
             name: mov_name,
             year: mov_year,
             size: mov_size,
-            httpposterpath: mov_poster_addr,
-            httpmoviepath: mov_poster_addr,
+            httpposterpath: mov_poster_addr.clone(),
+            httpmoviepath: mov_poster_addr.clone(),
         };
-        write_mov_meta_to_file(mov_info)
+        write_mov_meta_to_file(mov_info.clone(), count.clone());
+        write_movies_to_db(mov_info.clone()).expect("movies db insert has failed");
     }
 
     count.to_string()
@@ -113,9 +113,11 @@ fn write_movies_to_db(mov_info: MovieInfoStruc) -> Result<()> {
             &mov_info.name,
             &mov_info.year,
             &mov_info.size,
-            &mov_info.httposterpath,
+            &mov_info.httpposterpath,
             &mov_info.httpmoviepath
         ),
     )?;
+
+    Ok(())
 }
 

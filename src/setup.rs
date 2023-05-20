@@ -16,6 +16,7 @@ pub mod fire_process_music_images;
 pub mod fire_utils;
 pub mod fire_walk_dirs;
 pub mod fire_process_tvshows;
+pub mod fire_process_movies;
 
 
 fn run_music_threads(alist: Vec<String>) -> bool {
@@ -123,23 +124,23 @@ pub fn run_setup() -> bool {
         let media_lists = fire_walk_dirs::scan_all_sources();
 
         // run_music_threads(media_lists.0.clone());
-        run_music_img_threads(media_lists.2.clone());
-        run_video_img_threads(media_lists.2.clone()); //needs work
+        // run_music_img_threads(media_lists.2.clone());
+        // run_video_img_threads(media_lists.2.clone()); //needs work
         
 
-        
-        let _tvshows = crate::setup::fire_process_tvshows::process_tvshows(media_lists.1.clone());
+        let _movies = crate::setup::fire_process_movies::process_movies(media_lists.1.clone());
+        // let _tvshows = crate::setup::fire_process_tvshows::process_tvshows(media_lists.1.clone());
 
 
-        let ab_list = crate::setup::fire_misc::create_art_alb_list(media_lists.0.clone());
-        let artist_list = crate::setup::fire_misc::create_artistids(ab_list.0);
-        let album_list = crate::setup::fire_misc::create_albumids(ab_list.1);
+        // let ab_list = crate::setup::fire_misc::create_art_alb_list(media_lists.0.clone());
+        // let _artist_list = crate::setup::fire_misc::create_artistids(ab_list.0);
+        // let _album_list = crate::setup::fire_misc::create_albumids(ab_list.1);
 
-        let art_serial = serde_json::to_string(&artist_list).unwrap();
-        let alb_serial = serde_json::to_string(&album_list);
+        // let art_serial = serde_json::to_string(&artist_list).unwrap();
+        // let alb_serial = serde_json::to_string(&album_list);
 
-        println!("artistid_list; {:#?}\n", art_serial);
-        println!("albumid_list; {:#?}\n", alb_serial);
+        // println!("artistid_list; {:#?}\n", art_serial);
+        // println!("albumid_list; {:#?}\n", alb_serial);
 
         println!("music: {}\n", media_lists.0.clone().len());
         println!("videos: {}\n", media_lists.1.clone().len());

@@ -3,7 +3,8 @@ use dotenvy::dotenv;
 
 pub mod setup;
 
-fn main() {
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // let client = Client::with_uri_str("mongodb://localhost:27017/fire").await?;
     // let client = Client::with_uri_str("mongodb://db:27017/firedb").await?;
     
@@ -13,5 +14,5 @@ fn main() {
     let duration = start.elapsed();
     println!("\nSetup is Complete! {:?} {}", duration, setup_result);
 
-    
+    Ok(())
 }
