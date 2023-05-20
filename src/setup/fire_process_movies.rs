@@ -13,19 +13,20 @@ fn get_poster_addr(x: String, mname: String) -> String {
     }
 
     let new_jpg_name = no_ext_name_vec[0].to_owned() + ".jpg";
-    let new_jpg_name_split = new_jpg_name.split("Movies");
-    let mut new_jpg_name_split_vec = vec![];
+    println!("{}", new_jpg_name);
+    // let new_jpg_name_split = new_jpg_name.split("Movies");
+    // let mut new_jpg_name_split_vec = vec![];
 
-    for jpg in new_jpg_name_split {
-        new_jpg_name_split_vec.push(jpg);
-    }
-    // let p1 = new_jpg_name_split_vec[0];
-    let p2 = new_jpg_name_split_vec[1];
-    let p2_split = p2.split("/");
-    let mut p2_split_vec = vec![];
-    for p in p2_split {
-        p2_split_vec.push(p);
-    }
+    // for jpg in new_jpg_name_split {
+    //     new_jpg_name_split_vec.push(jpg);
+    // }
+    // // let p1 = new_jpg_name_split_vec[0];
+    // let p2 = new_jpg_name_split_vec[1];
+    // let p2_split = p2.split("/");
+    // let mut p2_split_vec = vec![];
+    // for p in p2_split {
+    //     p2_split_vec.push(p);
+    // }
 
     // let hostaddr = gethostname();
 
@@ -33,7 +34,7 @@ fn get_poster_addr(x: String, mname: String) -> String {
     let addr = env::var("FIRE_HTTP_ADDR").unwrap().to_string();
     let port = env::var("FIRE_HTTP_PORT").unwrap().to_string();
 
-    let poster_addr = addr + &port + &"/Posters2/".to_string() + p2_split_vec[1] + "/" + &mname + ".jpg";
+    let poster_addr = addr + &port + &"/thumbnails/".to_string() + "/" + &mname + ".jpg";
 
     poster_addr
 }
@@ -89,7 +90,7 @@ pub fn process_movies(movies_vec: Vec<String> ) -> String {
                 httpposterpath: mov_poster_addr.clone(),
                 httpmoviepath: x.clone(),
             };
-            println!("{:?}", mov_info.clone());
+            println!("\n{:?}\n", mov_info.clone());
             // write_mov_meta_to_file(mov_info.clone(), count.clone());
             // write_movies_to_db(mov_info.clone()).expect("movies db insert has failed");
         }
