@@ -56,7 +56,7 @@ impl FireUtils {
 
         artist
     }
-    pub fn music_split_artist(&self) -> String {
+    pub fn music_split_artist(&self) -> (String, String) {
         let filesplit = self.apath.split("/");
         let mut filenamevec = vec![];
         for file in filesplit {
@@ -68,7 +68,10 @@ impl FireUtils {
             fin.push(f);
         }
         
-        String::from(fin[2])
+        let artist = String::from(fin[5]);
+        let album = String::from(fin[6]);
+
+        (artist, album)
     }
     pub fn image_split_album(&self) -> String {
         let filesplit = self.apath.split("/");
@@ -86,22 +89,22 @@ impl FireUtils {
 
         album
     }
-    pub fn music_split_album(&self) -> String {
-        let filesplit = self.apath.split("/");
-        let mut filenamevec = vec![];
-        for file in filesplit {
-            filenamevec.push(file);
-        }
+    // pub fn music_split_album(&self) -> String {
+    //     let filesplit = self.apath.split("/");
+    //     let mut filenamevec = vec![];
+    //     for file in filesplit {
+    //         filenamevec.push(file);
+    //     }
 
-        let count = &filenamevec.len() - 2;
-        filenamevec.drain(0..count);
-        let mut album = "";
-        for f in filenamevec {
-            album = f;
-        }
+    //     let count = &filenamevec.len() - 2;
+    //     filenamevec.drain(0..count);
+    //     let mut album = "";
+    //     for f in filenamevec {
+    //         album = f;
+    //     }
 
-        String::from(album)
-    }
+    //     String::from(album)
+    // }
     pub fn split_filename(&self) -> String {
         let filesplit = self.apath.split("/");
         let mut filenamevec = vec![];
