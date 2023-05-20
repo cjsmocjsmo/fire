@@ -12,7 +12,6 @@ fn create_music_thumbnail(x: &String, art: String, alb: String) -> String {
     thumbnail
         .save(out_fname.clone())
         .expect("Saving image failed");
-
     out_fname.to_string()
 }
 
