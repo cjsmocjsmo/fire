@@ -160,13 +160,15 @@ impl FireUtils {
 
         println!("this is split_vec{:?}", fsplit_vec.clone());
 
-        let fsplit2 = fsplit_vec[1].split(")");
-        let mut fsplit_vec2 = vec![];
-        for f2 in fsplit2 {
-            fsplit_vec2.push(f2);
-        }
+        // let fsplit2 = fsplit_vec[1].split(")");
+        // let mut fsplit_vec2 = vec![];
+        // for f2 in fsplit2 {
+        //     fsplit_vec2.push(f2);
+        // }
 
-        fsplit_vec2[0].to_string()
+        // fsplit_vec2[0].to_string()
+        fsplit_vec[0].clone().to_string()
+
     }
     pub fn split_poster_name(&self) -> String {
         let filesplit = self.apath.split("/");
