@@ -22,14 +22,17 @@ fn get_poster_addr(x: String) -> String {
     let p1 = new_jpg_name_split_vec[0];
     let p2 = new_jpg_name_split_vec[1];
     let p2_split = p2.split("/");
-    let mut p2_split_vec = vec![];
-    for p in p2_split {
-        p2_split_vec.push(p);
-    }
+    println!("{:?}", p2_split);
+    // let mut p2_split_vec = vec![];
+    // for p in p2_split {
+    //     p2_split_vec.push(p);
+    // }
 
-    let poster_addr = p1.to_string() + &"Posters2/".to_string() + p2_split_vec[2];
+    // let poster_addr = p1.to_string() + &"Posters2/".to_string() + p2_split_vec[2];
 
-    poster_addr
+    // poster_addr
+    "fuck".to_string()
+
 }
 
 fn write_mov_meta_to_file(mi: MovieInfoStruc, count: i32) {
