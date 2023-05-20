@@ -60,7 +60,7 @@ pub fn process_movies(movies_vec: Vec<String> ) -> String {
         let foo = crate::setup::fire_utils::FireUtils { apath: x.clone() };
         let fire_id = crate::setup::fire_utils::FireUtils::get_md5(&foo);
         let mov_name = crate::setup::fire_utils::FireUtils::split_movie_name(&foo);
-        let mov_year = crate::setup::fire_utils::FireUtils::split_movie_year(&foo);
+        // let mov_year = crate::setup::fire_utils::FireUtils::split_movie_year(&foo);
         let mov_poster_addr = get_poster_addr(x.clone());
         let mov_size = crate::setup::fire_utils::FireUtils::get_file_size(&foo);
         let mov_info = MovieInfoStruc {
@@ -68,11 +68,12 @@ pub fn process_movies(movies_vec: Vec<String> ) -> String {
             fireid: fire_id,
             idx: count.clone().to_string(),
             name: mov_name,
-            year: mov_year,
+            year: "1999".to_string(),
             size: mov_size,
             httpposterpath: mov_poster_addr.clone(),
             httpmoviepath: mov_poster_addr.clone(),
         };
+        println!("{:?}", mov_info.clone());
         write_mov_meta_to_file(mov_info.clone(), count.clone());
         write_movies_to_db(mov_info.clone()).expect("movies db insert has failed");
     }
