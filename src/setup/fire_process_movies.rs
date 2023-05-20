@@ -118,7 +118,7 @@ fn write_movies_to_db(mov_info: MovieInfoStruc) -> Result<()> {
                 name,
                 year,
                 size,
-                httposterpath,
+                httpposterpath,
                 path
             )
             VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7)",
