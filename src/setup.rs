@@ -73,7 +73,6 @@ fn run_video_img_threads(alist: Vec<String>) {
                 let img_info =
                     fire_process_movie_images::process_movie_posters(i.clone(), img_index);
                 tx.send(img_info).expect("Could not send data");
-                println!("{}", i.clone());
             });
         }
     }
