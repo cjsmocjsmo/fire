@@ -1,6 +1,7 @@
 use std::fs;
 use std::env;
 use std::clone::Clone;
+use rusqlite::{Connection, Result};
 use serde::{Serialize, Deserialize};
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -10,7 +11,8 @@ pub struct MovPosterInfo {
     dims: String,
     size: String,
     name: String,
-    thumbpath: String
+    thumbpath: String,
+    idx: String
 }
 
 fn create_movie_thumbnail(x: String) -> String {
@@ -20,14 +22,26 @@ fn create_movie_thumbnail(x: String) -> String {
     let fire_movie_metadata_path =
         env::var("FIRE_THUMBNAILS").expect("$FIRE_THUMBNAILS is not set");
     let old_fname = crate::setup::fire_utils::FireUtils::split_poster_name(&foobar);
-    let out_fname = fire_movie_metadata_path + "/" + &old_fname;
+    let out_fsize = fire_movie_metadata_path + "/" + &old_fname;
     let img = image::open(&x).expect(&x);
     let thumbnail = img.resize(230, 345, image::imageops::FilterType::Lanczos3);
     thumbnail
-        .save(out_fname.clone())
+        .save(out_fsize.clone())
         .expect("Saving image failed");
 
-    out_fname
+    out_fsize
+}
+
+fn write_mov_img_to_file(movstrct: MovPosterInfo, dims: i32) {
+    let mii = serde_json::to_string(&movstrct).unwrap();
+
+    let fire_nfos_path =
+        env::var("FIRE_NFOS").expect("$FIRE_NFOS is not set");
+
+    let a = format!("{}/", fire_nfos_path.as_str());
+    let b = format!("Movie_Image_Info_{}.json", dims.to_string());
+    let outpath = a + &b;
+    fs::write(outpath, &mii).expect("Failed to write sized incorrectly json file");
 }
 
 pub fn process_movie_posters(x: String, index: i32) -> bool {
@@ -56,12 +70,61 @@ pub fn process_movie_posters(x: String, index: i32) -> bool {
         dims: dims_foo,
         size: img_size.to_string(),
         name: name,
-        thumbpath: thumb_path
+        thumbpath: thumb_path,
+        idx: index.to_string()
+
 
     };
     
     write_mov_img_to_file(mov_img_info.clone(), index.clone());
-    // println!("{:#?}", mov_img_info.clone());
+    write_movie_images_to_db(mov_img_info).expect("movies image db insertion failed");
+    
+    true
+}
+
+fn write_movie_images_to_db(mov_img_info: MovPosterInfo) -> Result<()> {
+    let conn = Connection::open("fire.db").unwrap();
+    conn.execute(
+        "CREATE TABLE IF NOT EXISTS music_images (
+            id INTEGER PRIMARY KEY,
+            path TEXT NOT NULL,
+            dims TEXT NOT NULL,
+            size TEXT NOT NULL,
+            name TEXT NOT NULL,
+            thumbpath TEXT NOT NULL
+        )",
+        (),
+    )?;
+
+    conn.execute(
+        "INSERT INTO music_images (
+                path, 
+                dims,
+                size,
+                name,
+                thumbpath
+            )
+            VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7)",
+        (
+            &mov_img_info.path,
+            &mov_img_info.dims,
+            &mov_img_info.size,
+            &mov_img_info.name,
+            &mov_img_info.thumbpath
+        ),
+    )?;
+
+    Ok(())
+}
+
+
+
+
+
+
+
+
+// println!("{:#?}", mov_img_info.clone());
     
    
     // else {
@@ -80,21 +143,7 @@ pub fn process_movie_posters(x: String, index: i32) -> bool {
     //     let b = format!("Bad_Movies_Images.json");
     //     let outpath = a + &b;
     //     fs::write(outpath, bad_image_vec.join("\n"))
-    //         .expect("Failed to write named incorrectly json file");
+    //         .expect("Failed to write sized incorrectly json file");
     // }
 
     // (bad_image_count.to_string(), index.to_string())
-    true
-}
-
-fn write_mov_img_to_file(movstrct: MovPosterInfo, idx: i32) {
-    let mii = serde_json::to_string(&movstrct).unwrap();
-
-    let fire_nfos_path =
-        env::var("FIRE_NFOS").expect("$FIRE_NFOS is not set");
-
-    let a = format!("{}/", fire_nfos_path.as_str());
-    let b = format!("Movie_Image_Info_{}.json", idx.to_string());
-    let outpath = a + &b;
-    fs::write(outpath, &mii).expect("Failed to write named incorrectly json file");
-}

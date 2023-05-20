@@ -1,7 +1,8 @@
+use rusqlite::{Connection, Result};
+use serde::{Deserialize, Serialize};
+use std::clone::Clone;
 use std::env;
 use std::path::Path;
-use std::clone::Clone;
-use serde::{Serialize, Deserialize};
 
 fn get_poster_addr(x: String) -> String {
     let no_ext_name_res = x.split(".");
@@ -31,25 +32,32 @@ fn get_poster_addr(x: String) -> String {
     poster_addr
 }
 
+fn write_mov_meta_to_file(mi: MovieInfoStruc, count: i32) {
+    let json_info = serde_json::to_string(mi).unwrap();
+    let fire_movies_metadata_path = env::var("FIRE_NFOS").expect("$FIRE_NFOS is not set");
+    let a = format!("{}/", fire_movies_metadata_path.as_str());
+    let b = format!("Movie_Meta_{}.json", count);
+    let outpath = a + &b;
+    std::fs::write(outpath, json_info).unwrap();
+}
+
 #[derive(Serialize, Deserialize, Debug, Clone)]
 struct MovieInfoStruc {
     id: String,
     fireid: String,
-    index: String,
+    idx: String,
     name: String,
     year: String,
     size: String,
     httpposterpath: String,
-    httpmoviepath: String
+    httpmoviepath: String,
 }
 
 pub fn process_movies() -> String {
     let mut count = 0;
     for x in movies_vec {
         count = count + 1;
-        let foo = crate::setup::fire_utils::FireUtils {
-            apath: x
-        };
+        let foo = crate::setup::fire_utils::FireUtils { apath: x };
         let fire_id = crate::setup::fire_utils::FireUtils::get_md5(&x);
         let mov_name = crate::setup::fire_utils::FireUtils::split_movie_name(&x);
         let mov_year = crate::setup::fire_utils::FireUtils::split_movie_year(&x);
@@ -59,26 +67,55 @@ pub fn process_movies() -> String {
         let mov_info = MovieInfoStruc {
             id: count.clone().to_string(),
             fireid: fire_id,
-            index: count.clone().to_string(),
+            idx: count.clone().to_string(),
             name: mov_name,
             year: mov_year,
             size: mov_size,
             httpposterpath: mov_poster_addr,
-            httpmoviepath: mov_poster_addr
+            httpmoviepath: mov_poster_addr,
         };
         write_mov_meta_to_file(mov_info)
-        
     }
 
     count.to_string()
 }
 
-fn write_mov_meta_to_file(mi: MovieInfoStruc, count: i32) {
-    let json_info = serde_json::to_string(mi).unwrap();
-    let fire_movies_metadata_path =
-        env::var("FIRE_NFOS").expect("$FIRE_NFOS is not set");
-    let a = format!("{}/", fire_movies_metadata_path.as_str());
-    let b = format!("Movie_Meta_{}.json", count);
-    let outpath = a + &b;
-    std::fs::write(outpath, json_info).unwrap();
+fn write_movies_to_db(mov_info: MovieInfoStruc) -> Result<()> {
+    let conn = Connection::open("fire.db").unwrap();
+    conn.execute(
+        "CREATE TABLE IF NOT EXISTS music_images (
+            id INTEGER PRIMARY KEY,
+            fireid TEXT NOT NULL,
+            idx TEXT NOT NULL,
+            name TEXT NOT NULL,
+            year TEXT NOT NULL,
+            size TEXT NOT NULL,
+            httpposterpath TEXT NOT NULL,
+            httpmoviepath TEXT NOT NULL
+        )",
+        (),
+    )?;
+
+    conn.execute(
+        "INSERT INTO music_images (
+                fireid, 
+                idx,
+                name,
+                year,
+                size,
+                httposterpath,
+                httpmoviepath
+            )
+            VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7)",
+        (
+            &mov_info.fireid,
+            &mov_info.idx,
+            &mov_info.name,
+            &mov_info.year,
+            &mov_info.size,
+            &mov_info.httposterpath,
+            &mov_info.httpmoviepath
+        ),
+    )?;
 }
+
