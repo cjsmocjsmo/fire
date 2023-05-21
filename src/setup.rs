@@ -116,8 +116,8 @@ pub fn run_setup() -> bool {
     if scan_home_dir == "yes" {
         let media_lists = fire_walk_dirs::scan_all_sources();
 
-        run_music_threads(media_lists.0.clone());
-        run_music_img_threads(media_lists.2.clone());
+        // run_music_threads(media_lists.0.clone());
+        // run_music_img_threads(media_lists.2.clone());
         run_video_img_threads(media_lists.2.clone());
         
 
@@ -125,9 +125,9 @@ pub fn run_setup() -> bool {
         let _tvshows = crate::setup::fire_process_tvshows::process_tvshows(media_lists.1.clone());
 
 
-        let ab_list = crate::setup::fire_misc::create_art_alb_list(media_lists.0.clone());
-        let _artist_list = crate::setup::fire_misc::create_artistids(ab_list.0);
-        let _album_list = crate::setup::fire_misc::create_albumids(ab_list.1);
+        // let ab_list = crate::setup::fire_misc::create_art_alb_list(media_lists.0.clone());
+        // let _artist_list = crate::setup::fire_misc::create_artistids(ab_list.0);
+        // let _album_list = crate::setup::fire_misc::create_albumids(ab_list.1);
 
         // let art_serial = serde_json::to_string(&artist_list).unwrap();
         // let alb_serial = serde_json::to_string(&album_list);
