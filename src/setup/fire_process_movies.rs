@@ -189,7 +189,7 @@ fn write_movies_to_db(mov_info: MovieInfoStruc) -> Result<()> {
                 httpposterpath,
                 path,
                 category,
-                vidtype,
+                vidtype
             )
             VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9)",
         (
