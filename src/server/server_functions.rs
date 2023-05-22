@@ -41,10 +41,12 @@ struct MovInfoSt {
 
 async fn get_action_movs() -> Result<Vec<MovInfoSt>> {
     let db = Connection::open("fire.db")?;
+    // let category = String::from("Action");
     let mut stmt  = db.prepare("
         SELECT id, fireid, idx, name, year, size, httpposterpath, path, category, vidtype FROM movies
-        WHERE category = Action;
+        WHERE category = 'Action';
     ")?;
+    
     let action_movs_iter = stmt.query_map([], |row| {
         Ok(MovInfoSt {
             id: row.get(0)?,
