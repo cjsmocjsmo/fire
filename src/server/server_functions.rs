@@ -27,7 +27,7 @@ async fn echo(req_body: String) -> impl Responder {
 
 #[derive(Serialize, Debug)]
 struct MovInfoSt {
-    id: String,
+    id: i32,
     fireid: String,
     idx: String,
     name: String,
