@@ -43,7 +43,7 @@ async fn get_indianajones_movs() -> Result<Vec<MovInfoSt>> {
     let db = Connection::open("fire.db")?;
     let mut stmt  = db.prepare("
         SELECT id, fireid, idx, name, year, size, httpposterpath, path, category, vidtype FROM movies
-        WHERE category = IndianaJones;
+        WHERE category = 'IndianaJones';
     ")?;
 
     // stmt.bind((":category", "Action"))?;
