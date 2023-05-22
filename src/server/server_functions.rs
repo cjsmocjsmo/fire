@@ -69,6 +69,8 @@ async fn get_action_movs() -> Result<Vec<MovInfoSt>> {
         mov_vec.push(m);
     }
 
+    println!("{:?}", mov_vec);
+
 
     Ok(mov_vec)
 }
