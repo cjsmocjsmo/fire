@@ -152,7 +152,8 @@ pub fn process_movies(movies_vec: Vec<String> ) -> String {
                 category: mov_category(x.clone()),
                 vidtype: String::from("Movie"),
             };
-            println!("\n{:?}\n", mov_info.clone());
+            println!("\nthis is mov info \n{:?}\n", mov_info.clone());
+            println!("{}", x.clone());
             write_mov_meta_to_file(mov_info.clone(), count.clone());
             write_movies_to_db(mov_info.clone()).expect("movies db insert has failed");
         }
