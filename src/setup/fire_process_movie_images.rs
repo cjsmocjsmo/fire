@@ -44,7 +44,7 @@ fn write_mov_img_to_file(movstrct: MovPosterInfo, dims: i32) {
     fs::write(outpath, &mii).expect("Failed to write sized incorrectly json file");
 }
 
-pub fn process_movie_posters(x: String, index: i32) -> bool {
+pub fn process_movie_posters(x: String, index: i32) -> i32 {
     // let movie_posters_vec = crate::fire_walk_dirs::walk_posters2_dir();
     // let mut index = 0;
     // let mut bad_image_vec = vec![];
@@ -78,7 +78,7 @@ pub fn process_movie_posters(x: String, index: i32) -> bool {
     write_mov_img_to_file(mov_img_info.clone(), index.clone());
     write_movie_images_to_db(mov_img_info).expect("movies image db insertion failed");
     
-    true
+    index
 }
 
 fn write_movie_images_to_db(mov_img_info: MovPosterInfo) -> Result<()> {

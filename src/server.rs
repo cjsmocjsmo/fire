@@ -1,9 +1,9 @@
-use actix_web::{web, App, HttpServer};
-use std::env;
 use actix_files as fs;
+use actix_web::{web, App, HttpServer};
+// use rusqlite::{Connection};
+use std::env;
 
 pub mod server_functions;
-
 
 // #[get("/")]
 // async fn hello() -> impl Responder {
@@ -22,12 +22,17 @@ pub mod server_functions;
 #[actix_web::main]
 pub async fn fire_server_main() -> std::io::Result<()> {
     let img_path = env::var("FIRE_THUMBNAILS").unwrap();
+
     HttpServer::new(move || {
         App::new()
             .service(crate::server::server_functions::hello)
             .service(crate::server::server_functions::echo)
-            .route("/hey", web::get().to(crate::server::server_functions::manual_hello))
+            .service(crate::server::server_functions::action)
             .service(fs::Files::new("/img", img_path.clone()).show_files_listing())
+            .route(
+                "/hey",
+                web::get().to(crate::server::server_functions::manual_hello),
+            )
     })
     .bind(("192.168.0.61", 8080))?
     .run()

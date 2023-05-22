@@ -41,7 +41,7 @@ pub struct MusicImageInfo {
     idx: String,
 }
 
-pub fn process_music_images(x: String, index: i32) -> bool {
+pub fn process_music_images(x: String, index: i32) -> i32 {
     let foo2 = crate::setup::fire_utils::FireUtils {
         apath: x.clone()
     };
@@ -80,7 +80,7 @@ pub fn process_music_images(x: String, index: i32) -> bool {
         write_music_img_to_db(music_img_info.clone()).expect("music image db insertion failed")
     };
 
-    true
+    index
 }
 
 fn write_music_img_to_db(music_img_info: MusicImageInfo) -> Result<()> {
