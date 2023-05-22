@@ -14,31 +14,49 @@ async fn echo(req_body: String) -> impl Responder {
     HttpResponse::Ok().body(req_body)
 }
 
+// #[derive(Serialize, Debug)]
+// struct MPI {
+//     id: i32,
+//     path: String,
+//     dims: String,
+//     size: String,
+//     name: String,
+//     thumbpath: String,
+//     idx: String
+// }
+
 #[derive(Serialize, Debug)]
-struct MPI {
-    id: i32,
-    path: String,
-    dims: String,
-    size: String,
+struct MovInfoSt {
+    id: String,
+    fireid: String,
+    idx: String,
     name: String,
-    thumbpath: String,
-    idx: String
+    year: String,
+    size: String,
+    httpposterpath: String,
+    path: String,
+    category: String,
+    vidtype: String
 }
 
-async fn get_action_movs() -> Result<Vec<MPI>> {
+async fn get_action_movs() -> Result<Vec<MovInfoSt>> {
     let db = Connection::open("fire.db")?;
     let mut stmt  = db.prepare("
-        SELECT id, path, dims, size, name, thumbpath, idx FROM movies_images
+        SELECT id, fireid, idx, name, year, size, httpposterpath, path, category, vidtype FROM movies
+        WHERE category = Action;
     ")?;
     let action_movs_iter = stmt.query_map([], |row| {
-        Ok(MPI {
+        Ok(MovInfoSt {
             id: row.get(0)?,
-            path: row.get(1)?,
-            dims: row.get(2)?,
-            size: row.get(3)?,
-            name: row.get(4)?,
-            thumbpath: row.get(5)?,
-            idx: row.get(6)?,
+            fireid: row.get(1)?,
+            idx: row.get(2)?,
+            name: row.get(3)?,
+            year: row.get(4)?,
+            size: row.get(5)?,
+            httpposterpath: row.get(6)?,
+            path: row.get(6)?,
+            category: row.get(7)?,
+            vidtype: row.get(8)?,
         })
     })?;
 
