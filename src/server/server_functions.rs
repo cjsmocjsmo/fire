@@ -39,11 +39,11 @@ struct MovInfoSt {
     vidtype: String
 }
 
-async fn get_action_movs() -> Result<Vec<MovInfoSt>> {
+async fn get_indianajones_movs() -> Result<Vec<MovInfoSt>> {
     let db = Connection::open("fire.db")?;
     let mut stmt  = db.prepare("
         SELECT id, fireid, idx, name, year, size, httpposterpath, path, category, vidtype FROM movies
-        WHERE category = Action;
+        WHERE category = IndianaJones;
     ")?;
 
     // stmt.bind((":category", "Action"))?;
@@ -76,10 +76,10 @@ async fn get_action_movs() -> Result<Vec<MovInfoSt>> {
     Ok(mov_vec)
 }
 
-#[get("/action")]
-async fn action() -> impl Responder  {
-    let act_mov = get_action_movs().await.unwrap();
-    HttpResponse::Ok().json(act_mov)
+#[get("/indianajones")]
+async fn indianajones() -> impl Responder  {
+    let indy_mov = get_indianajones_movs().await.unwrap();
+    HttpResponse::Ok().json(indy_mov)
     
 
 }
