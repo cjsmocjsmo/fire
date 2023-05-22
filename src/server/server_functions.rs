@@ -16,7 +16,7 @@ async fn echo(req_body: String) -> impl Responder {
 
 #[derive(Serialize, Debug)]
 struct MPI {
-    id: String,
+    id: i32,
     path: String,
     dims: String,
     size: String,
