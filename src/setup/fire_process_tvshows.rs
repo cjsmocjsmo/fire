@@ -13,6 +13,7 @@ struct TVShowsStruc {
     episode: String,
     size: String,
     httppath: String,
+    vidtype: String,
 }
 
 pub struct TVShowsUtils {
@@ -45,6 +46,7 @@ impl TVShowsUtils {
 
         bar.to_string()
     }
+
     fn get_tv_episode_season(&self) -> (String, String) {
         let foo1 = crate::setup::fire_utils::FireUtils {
             apath: self.apath.to_string(),
@@ -106,6 +108,7 @@ pub fn process_tvshows(tvshows_vec: Vec<String>) -> bool {
                 episode: es.1,
                 size: file_size,
                 httppath: tv,
+                vidtype: String::from("tvshow")
             };
             write_tvshows_nfos(tvshows.clone(), count);
             write_tvshow_to_db(tvshows.clone()).expect("tvshows write to db failed");
@@ -126,7 +129,8 @@ fn write_tvshow_to_db(tvs: TVShowsStruc) -> Result<()> {
             season TEXT NOT NULL,
             episode TEXT NOT NULL,
             size TEXT NOT NULL,
-            httppath TEXT NOT NULL
+            httppath TEXT NOT NULL,
+            vidtype TEXT NOT NULL
         )",
         (),
     )?;
@@ -140,9 +144,10 @@ fn write_tvshow_to_db(tvs: TVShowsStruc) -> Result<()> {
                 season, 
                 episode, 
                 size, 
-                httppath
+                httppath,
+                vidtype
             )
-            VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8)",
+            VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9)",
         (
             &tvs.fireid,
             &tvs.idx,
@@ -152,6 +157,7 @@ fn write_tvshow_to_db(tvs: TVShowsStruc) -> Result<()> {
             &tvs.episode,
             &tvs.size,
             &tvs.httppath,
+            &tvs.vidtype,
         ),
     )?;
 
