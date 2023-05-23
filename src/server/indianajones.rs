@@ -33,9 +33,9 @@ pub async fn indianajones_movs() -> Result<Vec<MovInfoSt>> {
             year: row.get(4)?,
             size: row.get(5)?,
             httpposterpath: row.get(6)?,
-            path: row.get(6)?,
-            category: row.get(7)?,
-            vidtype: row.get(8)?,
+            path: row.get(7)?,
+            category: row.get(8)?,
+            vidtype: row.get(9)?,
         })
     })?;
 
