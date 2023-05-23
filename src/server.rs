@@ -4,23 +4,11 @@ use actix_web::{web, App, HttpServer};
 use std::env;
 
 pub mod server_functions;
+pub mod action;
+pub mod arnold;
+pub mod brucewillis;
 pub mod cartoons;
 pub mod indianajones;
-
-
-// #[get("/")]
-// async fn hello() -> impl Responder {
-//     HttpResponse::Ok().body("Hello world!")
-// }
-
-// #[post("/echo")]
-// async fn echo(req_body: String) -> impl Responder {
-//     HttpResponse::Ok().body(req_body)
-// }
-
-// async fn manual_hello() -> impl Responder {
-//     HttpResponse::Ok().body("Hey there!")
-// }
 
 #[actix_web::main]
 pub async fn fire_server_main() -> std::io::Result<()> {
@@ -30,10 +18,14 @@ pub async fn fire_server_main() -> std::io::Result<()> {
         App::new()
             .service(crate::server::server_functions::hello)
             .service(crate::server::server_functions::echo)
+            .service(crate::server::server_functions::action)
+            .service(crate::server::server_functions::arnold)
+            .service(crate::server::server_functions::brucewillis)
+
             .service(crate::server::server_functions::cartoons)
             .service(crate::server::server_functions::indianajones)
-
-            .service(fs::Files::new("/thumbnails", img_path.clone()).show_files_listing())
+            .service(fs::Files::new("/thumbnails", img_path.clone()))
+            // .service(fs::Files::new("/thumbnails", img_path.clone()).show_files_listing())
             .route(
                 "/hey",
                 web::get().to(crate::server::server_functions::manual_hello),
