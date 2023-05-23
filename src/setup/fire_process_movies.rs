@@ -4,7 +4,7 @@ use std::clone::Clone;
 use std::env;
 // use std::path::Path;
 
-fn get_poster_addr(x: String, mname: String) -> String {
+fn get_poster_addr(x: String, mname: String, myear: String) -> String {
     let no_ext_name_res = x.split(".");
     let mut no_ext_name_vec = vec![];
 
@@ -12,8 +12,8 @@ fn get_poster_addr(x: String, mname: String) -> String {
         no_ext_name_vec.push(n);
     }
 
-    let new_jpg_name = no_ext_name_vec[0].to_owned() + ".jpg";
-    println!("{}", new_jpg_name);
+    let new_jpg_name = no_ext_name_vec[0].to_owned() + " (" + &myear + ")" + ".jpg";
+    println!("new_jpg_name \n\t{}", new_jpg_name);
     // let new_jpg_name_split = new_jpg_name.split("Movies");
     // let mut new_jpg_name_split_vec = vec![];
 
@@ -139,7 +139,7 @@ pub fn process_movies(movies_vec: Vec<String> ) -> String {
             let mov_name = crate::setup::fire_utils::FireUtils::split_movie_name(&foo);
             let mov_size = crate::setup::fire_utils::FireUtils::get_file_size(&foo);
             let mov_year = crate::setup::fire_utils::FireUtils::split_movie_year(&foo);
-            let mov_poster_addr = get_poster_addr(x.clone(), mov_name.clone());
+            let mov_poster_addr = get_poster_addr(x.clone(), mov_name.clone(), mov_year.clone());
             let mov_info = MovieInfoStruc {
                 id: count.clone().to_string(),
                 fireid: fire_id,
