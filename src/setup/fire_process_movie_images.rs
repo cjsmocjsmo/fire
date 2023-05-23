@@ -76,7 +76,7 @@ pub fn process_movie_posters(x: String, index: i32) -> i32 {
 
 
     };
-    // println!("\n{:?}\n", mov_img_info.clone());
+    println!("\n{:?}\n", mov_img_info.clone());
     write_mov_img_to_file(mov_img_info.clone(), index.clone());
     write_movie_images_to_db(mov_img_info).expect("movies image db insertion failed");
     

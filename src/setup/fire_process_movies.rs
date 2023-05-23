@@ -5,30 +5,24 @@ use std::env;
 // use std::path::Path;
 
 fn get_poster_addr(x: String) -> String {
-    let no_ext_name_res = x.split(".");
-    let mut no_ext_name_vec = vec![];
+    // let no_ext_name_res = x.split(".");
+    // let mut no_ext_name_vec = vec![];
 
-    for n in no_ext_name_res {
-        no_ext_name_vec.push(n);
-    }
-
-    let new_jpg_name = no_ext_name_vec[0].to_owned() + ".jpg";
-    println!("new_jpg_name \n\t{}", new_jpg_name);
-    // let new_jpg_name_split = new_jpg_name.split("Movies");
-    // let mut new_jpg_name_split_vec = vec![];
-
-    // for jpg in new_jpg_name_split {
-    //     new_jpg_name_split_vec.push(jpg);
-    // }
-    // // let p1 = new_jpg_name_split_vec[0];
-    // let p2 = new_jpg_name_split_vec[1];
-    // let p2_split = p2.split("/");
-    // let mut p2_split_vec = vec![];
-    // for p in p2_split {
-    //     p2_split_vec.push(p);
+    // for n in no_ext_name_res {
+    //     no_ext_name_vec.push(n);
     // }
 
-    // let hostaddr = gethostname();
+    // let new_jpg_name = no_ext_name_vec[0].to_owned() + ".jpg";
+    // println!("new_jpg_name \n\t{}", new_jpg_name);
+
+    let asplit = x.split("/");
+    let mut splt_vec1 = Vec::new();
+    for a in asplit {
+        splt_vec1.push(a);
+    };
+    let foo = splt_vec1.len();
+    let new_jpg_name = splt_vec1[foo - 4];
+    
 
     
     let addr = env::var("FIRE_HTTP_ADDR").unwrap().to_string();
