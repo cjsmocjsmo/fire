@@ -30,7 +30,9 @@ pub async fn fire_server_main() -> std::io::Result<()> {
         App::new()
             .service(crate::server::server_functions::hello)
             .service(crate::server::server_functions::echo)
+            .service(crate::server::server_functions::cartoons)
             .service(crate::server::server_functions::indianajones)
+
             .service(fs::Files::new("/img", img_path.clone()).show_files_listing())
             .route(
                 "/hey",
