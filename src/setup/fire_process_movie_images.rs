@@ -22,6 +22,8 @@ fn create_movie_thumbnail(x: String) -> String {
     let fire_movie_metadata_path =
         env::var("FIRE_THUMBNAILS").expect("$FIRE_THUMBNAILS is not set");
     let old_fname = crate::setup::fire_utils::FireUtils::split_poster_name(&foobar);
+    println!("old_fname {}", old_fname);
+    println!("this is x {}", x.clone());
     let out_fsize = fire_movie_metadata_path + "/" + &old_fname;
     let img = image::open(&x).expect(&x);
     let thumbnail = img.resize(230, 345, image::imageops::FilterType::Lanczos3);
