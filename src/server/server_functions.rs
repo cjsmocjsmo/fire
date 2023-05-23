@@ -42,6 +42,42 @@ async fn cartoons() -> impl Responder  {
     HttpResponse::Ok().json(cartoon_mov)
 }
 
+#[get("/comedy")]
+async fn comedy() -> impl Responder  {
+    let comedy_mov = crate::server::comedy::comedy_movs().await.unwrap();
+    HttpResponse::Ok().json(comedy_mov)
+}
+
+#[get("/documentary")]
+async fn documentary() -> impl Responder  {
+    let documentary_mov = crate::server::documentary::documentary_movs().await.unwrap();
+    HttpResponse::Ok().json(documentary_mov)
+}
+
+#[get("/drama")]
+async fn drama() -> impl Responder  {
+    let drama_mov = crate::server::drama::drama_movs().await.unwrap();
+    HttpResponse::Ok().json(drama_mov)
+}
+
+#[get("/fantasy")]
+async fn fantasy() -> impl Responder  {
+    let fantasy_mov = crate::server::fantasy::fantasy_movs().await.unwrap();
+    HttpResponse::Ok().json(fantasy_mov)
+}
+
+#[get("/godzilla")]
+async fn godzilla() -> impl Responder  {
+    let godzilla_mov = crate::server::godzilla::godzilla_movs().await.unwrap();
+    HttpResponse::Ok().json(godzilla_mov)
+}
+
+#[get("/harrypotter")]
+async fn harrypotter() -> impl Responder  {
+    let harrypotter_mov = crate::server::harrypotter::harrypotter_movs().await.unwrap();
+    HttpResponse::Ok().json(harrypotter_mov)
+}
+
 #[get("/indianajones")]
 async fn indianajones() -> impl Responder  {
     let indy_mov = crate::server::indianajones::indianajones_movs().await.unwrap();

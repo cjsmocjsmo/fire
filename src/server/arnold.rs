@@ -1,5 +1,3 @@
-// use actix_web::{get, post};
-// use actix_web::web::Json;
 use rusqlite::{Connection, Result};
 use serde::Serialize;
 

@@ -2,34 +2,13 @@ use rusqlite::{Connection, Result};
 use serde::{Deserialize, Serialize};
 use std::clone::Clone;
 use std::env;
-// use std::path::Path;
 
-fn get_poster_addr(x: String, mname: String, myear: String) -> String {
-    // let no_ext_name_res = x.split(".");
-    // let mut no_ext_name_vec = vec![];
-
-    // for n in no_ext_name_res {
-    //     no_ext_name_vec.push(n);
-    // }
-
-    // let new_jpg_name = no_ext_name_vec[0].to_owned() + ".jpg";
-    // println!("new_jpg_name \n\t{}", new_jpg_name);
-
-    // let asplit = x.split("/");
-    // let mut splt_vec1 = Vec::new();
-    // for a in asplit {
-    //     splt_vec1.push(a);
-    // };
-    // let foo = splt_vec1.len();
-    // let new_jpg_name = splt_vec1[foo - 4];
-    
-
-    
+fn get_poster_addr(mname: String, myear: String) -> String {
     let addr = env::var("FIRE_HTTP_ADDR").unwrap().to_string();
     let port = env::var("FIRE_HTTP_PORT").unwrap().to_string();
-
     let poster_addr = addr + &port + &"/thumbnails/".to_string() + &mname + " (" + &myear + ").jpg";
     println!("poster_addr \n\t{}", poster_addr.clone());
+
     poster_addr
 }
 
@@ -39,6 +18,7 @@ fn write_mov_meta_to_file(mi: MovieInfoStruc, count: i32) {
     let a = format!("{}/", fire_movies_metadata_path.as_str());
     let b = format!("Movie_Meta_{}.json", count);
     let outpath = a + &b;
+
     std::fs::write(outpath, json_info).unwrap();
 }
 
@@ -121,8 +101,6 @@ struct MovieInfoStruc {
     vidtype: String
 }
 
-
-
 pub fn process_movies(movies_vec: Vec<String> ) -> String {
     let mut count = 0;
     for x in movies_vec {
@@ -133,7 +111,7 @@ pub fn process_movies(movies_vec: Vec<String> ) -> String {
             let mov_name = crate::setup::fire_utils::FireUtils::split_movie_name(&foo);
             let mov_size = crate::setup::fire_utils::FireUtils::get_file_size(&foo);
             let mov_year = crate::setup::fire_utils::FireUtils::split_movie_year(&foo);
-            let mov_poster_addr = get_poster_addr(x.clone(), mov_name.clone(), mov_year.clone());
+            let mov_poster_addr = get_poster_addr(mov_name.clone(), mov_year.clone());
             let mov_info = MovieInfoStruc {
                 id: count.clone().to_string(),
                 fireid: fire_id,
