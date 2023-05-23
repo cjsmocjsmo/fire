@@ -4,6 +4,9 @@ use actix_web::{web, App, HttpServer};
 use std::env;
 
 pub mod server_functions;
+pub mod cartoons;
+pub mod indianajones;
+
 
 // #[get("/")]
 // async fn hello() -> impl Responder {
