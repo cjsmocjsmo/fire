@@ -31,6 +31,13 @@ fn write_music_nfos_to_file(mfo: MusicInfo, index: String) {
     std::fs::write(outpath, mus_info).unwrap();
 }
 
+// fn create_thumb_path(art: String, alb: String, ext: String) -> String {
+//     let prefix = env::var("FIRE_THUMBNAILS").expect("$FIRE_THUMBNAILS is not set");
+
+
+//     String::from("foo")
+// }
+
 pub fn process_mp3s(x: String, index: String, page: String) -> MusicInfo {
     let tags = crate::setup::fire_mp3_info::get_tag_info(&x);
     let artist = tags.0;
