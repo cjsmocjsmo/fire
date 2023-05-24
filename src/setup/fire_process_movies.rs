@@ -50,6 +50,8 @@ fn mov_category(x: String) -> String{
         mov_category = String::from("JamesBond");
     } else if x.contains("JohnWayne") {
         mov_category = String::from("JohnWayne");
+    } else if x.contains("JohnWick") {
+        mov_category = String::from("JohnWick");
     } else if x.contains("JurassicPark") {
         mov_category = String::from("JurassicPark");
     } else if x.contains("KingsMen") {
@@ -67,7 +69,7 @@ fn mov_category(x: String) -> String{
     } else if x.contains("StarWars") {
         mov_category = String::from("StarWars");
     } else if x.contains("StarTrek") {
-        mov_category = String::from("StarTrek");
+        mov_category = String::from("StarTreck");
     } else if x.contains("SuperHeroes") {
         mov_category = String::from("SuperHeroes");
     } else if x.contains("SciFi") {
