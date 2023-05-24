@@ -31,19 +31,18 @@ fn write_music_nfos_to_file(mfo: MusicInfo, index: String) {
     std::fs::write(outpath, mus_info).unwrap();
 }
 
-// fn create_thumb_path(art: String, alb: String, ext: String) -> String {
-//     let prefix = env::var("FIRE_THUMBNAILS").expect("$FIRE_THUMBNAILS is not set");
+fn create_thumb_path(art: String, alb: String, ext: String) -> String {
+    let prefix = env::var("FIRE_THUMBNAILS").expect("$FIRE_THUMBNAILS is not set");
+    let newpath = prefix + "/" + &art + "_-_" + &alb + &ext;
 
-
-//     String::from("foo")
-// }
+    newpath
+}
 
 pub fn process_mp3s(x: String, index: String, page: String) -> MusicInfo {
     let tags = crate::setup::fire_mp3_info::get_tag_info(&x);
     let artist = tags.0;
     let album = tags.1;
     let song = tags.2;
-    let voodoo: &String = &"None".to_string();
     let fu = crate::setup::fire_utils::FireUtils { apath: x.clone() };
     let id = crate::setup::fire_utils::FireUtils::get_md5(&fu);
     let duration_results = crate::setup::fire_mp3_info::get_duration(&x);
@@ -58,17 +57,17 @@ pub fn process_mp3s(x: String, index: String, page: String) -> MusicInfo {
     let fsize_results = crate::setup::fire_utils::FireUtils::get_file_size(&fu).to_string();
     let music_info = MusicInfo {
         id: id,
-        imgurl: voodoo.to_string(),
+        imgurl: create_thumb_path(music_artist_results.clone(), music_album_results.clone(), ext.clone()),
         artist: artist,
         album: album,
         song: song,
         basedir: base_dir,
         filenameresults: filename_results,
-        musicartistresults: music_artist_results,
-        musicalbumresults: music_album_results,
+        musicartistresults: music_artist_results.clone(),
+        musicalbumresults: music_album_results.clone(),
         durationresults: duration_results,
         fullpath: fullpath.to_string(),
-        extension: format!("{:?}", ext),
+        extension: format!("{:?}", ext.clone()),
         idx: idx,
         page: page.to_string(),
         fsizeresults: fsize_results,
