@@ -32,8 +32,9 @@ fn write_music_nfos_to_file(mfo: MusicInfo, index: String) {
 }
 
 fn create_thumb_path(art: String, alb: String, ext: String) -> String {
-    let prefix = env::var("FIRE_THUMBNAILS").expect("$FIRE_THUMBNAILS is not set");
-    let newpath = prefix + "/" + &art + "_-_" + &alb + &ext;
+    let myhttpd = env::var("FIRE_HTTP_ADDR").expect("$FIRE_HTTP_ADDR is not set");
+    let myport = env::var("FIRE_HTTP_PORT").expect("$FIRE_HTTP_PORT is not set");
+    let newpath = myhttpd + &myport + "/thumbnails/" + &art + "_-_" + &alb + &ext;
 
     newpath
 }
