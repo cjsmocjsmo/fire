@@ -1,0 +1,32 @@
+
+pub mod action;
+pub mod arnold;
+pub mod brucewillis;
+pub mod cartoons;
+pub mod comedy;
+pub mod documentary;
+pub mod drama;
+pub mod fantasy;
+pub mod godzilla;
+pub mod harrypotter;
+pub mod indianajones;
+pub mod jamesbond;
+pub mod johnwayne;
+pub mod johnwick;
+pub mod jurassicpark;
+pub mod kingsmen;
+pub mod meninblack;
+pub mod misc;
+pub mod nicolascage;
+pub mod pirates;
+pub mod riddick;
+pub mod scifi;
+pub mod startreck;
+pub mod starwars;
+pub mod superheros;
+pub mod therock;
+pub mod tomcruize;
+pub mod transformers;
+pub mod tremors;
+pub mod xmen;
+

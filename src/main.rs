@@ -3,6 +3,7 @@ use dotenvy::dotenv;
 
 pub mod setup;
 pub mod server;
+pub mod movies;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
