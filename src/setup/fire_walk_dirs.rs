@@ -105,7 +105,8 @@ fn walk_posters2_dir(apath: String) -> Vec<String> {
 pub fn walk_additional_dir(apath: String) -> (Vec<String>,Vec<String>,Vec<String>) {
     let mut moviesvec = Vec::new();
     let mut tvshowsvec = Vec::new();
-    let mut posters2vec = Vec::new();
+    let mut mov_posters_vec = Vec::new();
+    let mut tv_posters_vec = Vec::new();
     let mut musicvec = Vec::new();
     let mut musicimgvec = Vec::new();
 
@@ -117,40 +118,40 @@ pub fn walk_additional_dir(apath: String) -> (Vec<String>,Vec<String>,Vec<String
         if e.metadata().unwrap().is_file() {
             let fname = e.path().to_string_lossy().to_string();
             if fname.ends_with(".jpg") {
-                if fname.contains("Posters2") {
-                    posters2vec.push(fname);
-                } else if fname.contains("Posters") {
-                    musicimgvec.push(fname);
+                if fname.contains("MovPosters") {
+                    mov_posters_vec.push(fname);
+                } else if fname.contains("TVPosters") {
+                    tv_posters_vec.push(fname);
                 } else if fname.contains("Music") {
                     musicimgvec.push(fname);
                 } else {
                     continue;
                 };
             } else if fname.ends_with(".jpeg") {
-                if fname.contains("Posters2") {
-                    posters2vec.push(fname);
-                } else if fname.contains("Posters") {
-                    musicimgvec.push(fname);
+                if fname.contains("MovPosters") {
+                    mov_posters_vec.push(fname);
+                } else if fname.contains("TVPosters") {
+                    tv_posters_vec.push(fname);
                 } else if fname.contains("Music") {
                     musicimgvec.push(fname);
                 } else {
                     continue;
                 };
             } else if fname.ends_with(".png") {
-                if fname.contains("Posters2") {
-                    posters2vec.push(fname);
-                } else if fname.contains("Posters") {
-                    musicimgvec.push(fname);
+                if fname.contains("MovPosters") {
+                    mov_posters_vec.push(fname);
+                } else if fname.contains("TVPosters") {
+                    tv_posters_vec.push(fname);
                 } else if fname.contains("Music") {
                     musicimgvec.push(fname);
                 } else {
                     continue;
                 };
             } else if fname.ends_with(".webp") {
-                if fname.contains("Posters2") {
-                    posters2vec.push(fname);
-                } else if fname.contains("Posters") {
-                    musicimgvec.push(fname);
+                if fname.contains("MovPosters") {
+                    mov_posters_vec.push(fname);
+                } else if fname.contains("TVPosters") {
+                    tv_posters_vec.push(fname);
                 } else if fname.contains("Music") {
                     musicimgvec.push(fname);
                 } else {
@@ -181,75 +182,124 @@ pub fn walk_additional_dir(apath: String) -> (Vec<String>,Vec<String>,Vec<String
     video_list.append(&mut tvshowsvec);
 
     let mut media_images = Vec::new();
-    media_images.append(&mut posters2vec);
+    media_images.append(&mut mov_posters_vec);
+    media_images.append(&mut tv_posters_vec);
     media_images.append(&mut musicimgvec);
 
     (video_list.clone(), media_images.clone(), musicvec.clone())
 }
 
-pub fn scan_all_sources() -> (Vec<String>, Vec<String>, Vec<String>) {
+fn scan_home_dir() -> (Vec<String>, Vec<String>, Vec<String>, Vec<String>) {
     let homedir = home_dir();
-    
     let music_dir = homedir.clone() + "/Music";
-    let mut music_list = walk_music_dir_music(music_dir.clone());
+    let music_list = walk_music_dir_music(music_dir.clone());
 
     let video_dir = homedir.clone() + "/Videos";
-    let mut video_list = walk_video_dir(video_dir.clone());
+    let video_list = walk_video_dir(video_dir.clone());
 
     let vid_posters_path = video_dir.clone() + "/MovPosters";
-    let mut vid_posters = fire_walk_dirs::walk_posters2_dir(vid_posters_path.clone());
+    let vid_posters = fire_walk_dirs::walk_posters2_dir(vid_posters_path.clone());
 
-    let mut music_images = fire_walk_dirs::walk_music_dir_images(music_dir.clone());
-    
-    println!("this is posters count: {}", vid_posters.len());
-    println!("this is music images: {}", music_images.len());
+    let music_images = fire_walk_dirs::walk_music_dir_images(music_dir.clone());
 
-    let mut media_images = Vec::new();
-    
-    media_images.append(&mut vid_posters);
-    media_images.append(&mut music_images);
+    (music_list, video_list, vid_posters, music_images)
+}
 
+fn scan_usb1() -> (Vec<String>, Vec<String>, Vec<String>) {
     let usb1 = env::var("FIRE_USB1").expect("$FIRE_USB1 is not set");
     let add_media = fire_walk_dirs::walk_additional_dir(usb1);
-    let mut add_video_list = add_media.0;
-    let mut add_media_img_list = add_media.1;
-    let mut add_music_list = add_media.2;
+    let add_video_list = add_media.0;
+    let add_media_img_list = add_media.1;
+    let add_music_list = add_media.2;
 
-    video_list.append(&mut add_video_list);
-    music_list.append(&mut add_music_list);
-    media_images.append(&mut add_media_img_list);
-    
+    (add_music_list, add_video_list, add_media_img_list)
+}
+
+fn scan_usb2() -> (Vec<String>, Vec<String>, Vec<String>) {
     let usb2 = env::var("FIRE_USB2").expect("$FIRE_USB2 is not set");
-    let add_media2 = fire_walk_dirs::walk_additional_dir(usb2);
-    let mut add_video_list2 = add_media2.0;
-    let mut add_media_img_list2 = add_media2.1;
-    let mut add_music_list2 = add_media2.2;
+    let add_media = fire_walk_dirs::walk_additional_dir(usb2);
+    let add_video_list = add_media.0;
+    let add_media_img_list = add_media.1;
+    let add_music_list = add_media.2;
 
-    video_list.append(&mut add_video_list2);
-    music_list.append(&mut add_music_list2);
-    media_images.append(&mut add_media_img_list2);
+    (add_music_list, add_video_list, add_media_img_list)
+}
 
-
+fn scan_usb3() -> (Vec<String>, Vec<String>, Vec<String>) {
     let usb3 = env::var("FIRE_USB3").expect("$FIRE_USB3 is not set");
-    let add_media3 = fire_walk_dirs::walk_additional_dir(usb3);
-    let mut add_video_list3 = add_media3.0;
-    let mut add_media_img_list3 = add_media3.1;
-    let mut add_music_list3 = add_media3.2;
+    let add_media = fire_walk_dirs::walk_additional_dir(usb3);
+    let add_video_list = add_media.0;
+    let add_media_img_list = add_media.1;
+    let add_music_list = add_media.2;
 
-    video_list.append(&mut add_video_list3);
-    music_list.append(&mut add_music_list3);
-    media_images.append(&mut add_media_img_list3);
+    (add_music_list, add_video_list, add_media_img_list)
+}
 
-
+fn scan_usb4() -> (Vec<String>, Vec<String>, Vec<String>) {
     let usb4 = env::var("FIRE_USB4").expect("$FIRE_USB4 is not set");
-    let add_media4 = fire_walk_dirs::walk_additional_dir(usb4);
-    let mut add_video_list4 = add_media4.0;
-    let mut add_media_img_list4 = add_media4.1;
-    let mut add_music_list4 = add_media4.2;
+    let add_media = fire_walk_dirs::walk_additional_dir(usb4);
+    let add_video_list = add_media.0;
+    let add_media_img_list = add_media.1;
+    let add_music_list = add_media.2;
 
-    video_list.append(&mut add_video_list4);
-    music_list.append(&mut add_music_list4);
-    media_images.append(&mut add_media_img_list4);
+    (add_music_list, add_video_list, add_media_img_list)
+}
+
+pub fn scan_all_sources() -> (Vec<String>, Vec<String>, Vec<String>) {
+    let hd = scan_home_dir();
+    let mut music_list = hd.0;
+    let mut video_list = hd.1;
+    let mut vid_posters = hd.2;
+    let mut music_images = hd.3;
+
+    let mut media_images = Vec::new();
+
+    media_images.append(&mut vid_posters);
+    media_images.append(&mut music_images);
+    
+    
+
+    let usb1 = scan_usb1();
+    let mut usb1_music_list = usb1.0;
+    let mut usb1_video_list = usb1.1;
+    let mut usb1_media_iamges = usb1.2;
+
+    music_list.append(&mut usb1_music_list);
+    video_list.append(&mut usb1_video_list);
+    media_images.append(&mut usb1_media_iamges);
+    
+    let usb2 = scan_usb2();
+    let mut usb2_music_list = usb2.0;
+    let mut usb2_video_list = usb2.1;
+    let mut usb2_media_iamges = usb2.2;
+
+    music_list.append(&mut usb2_music_list);
+    video_list.append(&mut usb2_video_list);
+    media_images.append(&mut usb2_media_iamges);
+
+
+    let usb3 = scan_usb3();
+    let mut usb3_music_list = usb3.0;
+    let mut usb3_video_list = usb3.1;
+    let mut usb3_media_iamges = usb3.2;
+
+    music_list.append(&mut usb3_music_list);
+    video_list.append(&mut usb3_video_list);
+    media_images.append(&mut usb3_media_iamges);
+    
+    
+    let usb4 = scan_usb4();
+    let mut usb4_music_list = usb4.0;
+    let mut usb4_video_list = usb4.1;
+    let mut usb4_media_iamges = usb4.2;
+
+    music_list.append(&mut usb4_music_list);
+    video_list.append(&mut usb4_video_list);
+    media_images.append(&mut usb4_media_iamges);
+
+    println!("this is media_list: {}", music_list.clone().len());
+    println!("this is video_list: {}", video_list.clone().len());
+    println!("this is media_images: {}", media_images.clone().len());
 
     (music_list, video_list, media_images)
 
