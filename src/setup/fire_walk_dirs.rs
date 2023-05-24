@@ -119,6 +119,8 @@ pub fn walk_additional_dir(apath: String) -> (Vec<String>,Vec<String>,Vec<String
             if fname.ends_with(".jpg") {
                 if fname.contains("Posters2") {
                     posters2vec.push(fname);
+                } else if fname.contains("Posters") {
+                    musicimgvec.push(fname);
                 } else if fname.contains("Music") {
                     musicimgvec.push(fname);
                 } else {
@@ -127,6 +129,8 @@ pub fn walk_additional_dir(apath: String) -> (Vec<String>,Vec<String>,Vec<String
             } else if fname.ends_with(".jpeg") {
                 if fname.contains("Posters2") {
                     posters2vec.push(fname);
+                } else if fname.contains("Posters") {
+                    musicimgvec.push(fname);
                 } else if fname.contains("Music") {
                     musicimgvec.push(fname);
                 } else {
@@ -135,6 +139,8 @@ pub fn walk_additional_dir(apath: String) -> (Vec<String>,Vec<String>,Vec<String
             } else if fname.ends_with(".png") {
                 if fname.contains("Posters2") {
                     posters2vec.push(fname);
+                } else if fname.contains("Posters") {
+                    musicimgvec.push(fname);
                 } else if fname.contains("Music") {
                     musicimgvec.push(fname);
                 } else {
@@ -143,6 +149,8 @@ pub fn walk_additional_dir(apath: String) -> (Vec<String>,Vec<String>,Vec<String
             } else if fname.ends_with(".webp") {
                 if fname.contains("Posters2") {
                     posters2vec.push(fname);
+                } else if fname.contains("Posters") {
+                    musicimgvec.push(fname);
                 } else if fname.contains("Music") {
                     musicimgvec.push(fname);
                 } else {
