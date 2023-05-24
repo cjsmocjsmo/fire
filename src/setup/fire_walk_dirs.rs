@@ -246,61 +246,75 @@ fn scan_usb4() -> (Vec<String>, Vec<String>, Vec<String>) {
 }
 
 pub fn scan_all_sources() -> (Vec<String>, Vec<String>, Vec<String>) {
-    let hd = scan_home_dir();
-    let mut music_list = hd.0;
-    let mut video_list = hd.1;
-    let mut vid_posters = hd.2;
-    let mut music_images = hd.3;
+    let mut master_music_list = Vec::new();
+    let mut master_video_list = Vec::new();
+    let mut master_img_list = Vec::new();
 
-    let mut media_images = Vec::new();
-
-    media_images.append(&mut vid_posters);
-    media_images.append(&mut music_images);
+    let scan_hd = env::var("FIRE_SCAN_HOME").expect("not set");
+    if scan_hd != "yes".to_string() {
+        let hd = scan_home_dir();
+        let mut music_list = hd.0;
+        let mut video_list = hd.1;
+        let mut vid_posters = hd.2;
+        let mut music_images = hd.3;
+        master_music_list.append(&mut music_list);
+        master_video_list.append(&mut video_list);
+        master_img_list.append(&mut vid_posters);
+        master_img_list.append(&mut music_images);
+    }
     
+    let usb1_var = env::var("FIRE_USB1").expect("Not set");
+    if usb1_var != "None".to_string() {
+        let usb1 = scan_usb1();
+        let mut usb1_music_list = usb1.0;
+        let mut usb1_video_list = usb1.1;
+        let mut usb1_media_images = usb1.2;
+        master_music_list.append(&mut usb1_music_list);
+        master_video_list.append(&mut usb1_video_list);
+        master_img_list.append(&mut usb1_media_images);
+    }
     
-
-    let usb1 = scan_usb1();
-    let mut usb1_music_list = usb1.0;
-    let mut usb1_video_list = usb1.1;
-    let mut usb1_media_iamges = usb1.2;
-
-    music_list.append(&mut usb1_music_list);
-    video_list.append(&mut usb1_video_list);
-    media_images.append(&mut usb1_media_iamges);
+    let usb2_var = env::var("FIRE_USE2").expect("not set");
+    if usb2_var != "None".to_string() {
+        let usb2 = scan_usb2();
+        let mut usb2_music_list = usb2.0;
+        let mut usb2_video_list = usb2.1;
+        let mut usb2_media_iamges = usb2.2;
+        master_music_list.append(&mut usb2_music_list);
+        master_video_list.append(&mut usb2_video_list);
+        master_img_list.append(&mut usb2_media_iamges);
+    }
     
-    let usb2 = scan_usb2();
-    let mut usb2_music_list = usb2.0;
-    let mut usb2_video_list = usb2.1;
-    let mut usb2_media_iamges = usb2.2;
+    let usb3_var = env::var("FIRE_USE3").expect("not set");
+    if usb3_var != "None".to_string() {
+        let usb3 = scan_usb3();
+        let mut usb3_music_list = usb3.0;
+        let mut usb3_video_list = usb3.1;
+        let mut usb3_media_iamges = usb3.2;
+        master_music_list.append(&mut usb3_music_list);
+        master_video_list.append(&mut usb3_video_list);
+        master_img_list.append(&mut usb3_media_iamges);
+    }
 
-    music_list.append(&mut usb2_music_list);
-    video_list.append(&mut usb2_video_list);
-    media_images.append(&mut usb2_media_iamges);
+    let usb4_var = env::var("FIRE_USE4").expect("not set");
+    if usb4_var != "None".to_string() {
 
 
-    let usb3 = scan_usb3();
-    let mut usb3_music_list = usb3.0;
-    let mut usb3_video_list = usb3.1;
-    let mut usb3_media_iamges = usb3.2;
+        let usb4 = scan_usb4();
+        let mut usb4_music_list = usb4.0;
+        let mut usb4_video_list = usb4.1;
+        let mut usb4_media_iamges = usb4.2;
 
-    music_list.append(&mut usb3_music_list);
-    video_list.append(&mut usb3_video_list);
-    media_images.append(&mut usb3_media_iamges);
-    
-    
-    let usb4 = scan_usb4();
-    let mut usb4_music_list = usb4.0;
-    let mut usb4_video_list = usb4.1;
-    let mut usb4_media_iamges = usb4.2;
+        master_music_list.append(&mut usb4_music_list);
+        master_video_list.append(&mut usb4_video_list);
+        master_img_list.append(&mut usb4_media_iamges);
 
-    music_list.append(&mut usb4_music_list);
-    video_list.append(&mut usb4_video_list);
-    media_images.append(&mut usb4_media_iamges);
+    }
 
-    println!("this is media_list: {}", music_list.clone().len());
-    println!("this is video_list: {}", video_list.clone().len());
-    println!("this is media_images: {}", media_images.clone().len());
+    println!("this is media_list: {}", master_music_list.clone().len());
+    println!("this is video_list: {}", master_video_list.clone().len());
+    println!("this is media_images: {}", master_img_list.clone().len());
 
-    (music_list, video_list, media_images)
+    (master_music_list, master_video_list, master_img_list)
 
 }
