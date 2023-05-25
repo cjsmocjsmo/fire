@@ -274,7 +274,7 @@ pub fn scan_all_sources() -> (Vec<String>, Vec<String>, Vec<String>) {
         master_img_list.append(&mut usb1_media_images);
     }
     
-    let usb2_var = env::var("FIRE_USE2").expect("not set");
+    let usb2_var = env::var("FIRE_USB2").expect("not set");
     if usb2_var != "None".to_string() {
         let usb2 = scan_usb2();
         let mut usb2_music_list = usb2.0;
@@ -285,7 +285,7 @@ pub fn scan_all_sources() -> (Vec<String>, Vec<String>, Vec<String>) {
         master_img_list.append(&mut usb2_media_iamges);
     }
     
-    let usb3_var = env::var("FIRE_USE3").expect("not set");
+    let usb3_var = env::var("FIRE_USB3").expect("not set");
     if usb3_var != "None".to_string() {
         let usb3 = scan_usb3();
         let mut usb3_music_list = usb3.0;
@@ -296,7 +296,7 @@ pub fn scan_all_sources() -> (Vec<String>, Vec<String>, Vec<String>) {
         master_img_list.append(&mut usb3_media_iamges);
     }
 
-    let usb4_var = env::var("FIRE_USE4").expect("not set");
+    let usb4_var = env::var("FIRE_USB4").expect("not set");
     if usb4_var != "None".to_string() {
 
 
