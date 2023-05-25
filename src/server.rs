@@ -48,7 +48,7 @@ pub async fn fire_server_main() -> std::io::Result<()> {
                 web::get().to(crate::server::server_functions::manual_hello),
             )
     })
-    .bind(("192.168.0.61", 8080))?
+    .bind(("192.168.0.26", 8080))?
     .run()
     .await
 }
