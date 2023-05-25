@@ -298,13 +298,10 @@ pub fn scan_all_sources() -> (Vec<String>, Vec<String>, Vec<String>) {
 
     let usb4_var = env::var("FIRE_USB4").expect("not set");
     if usb4_var != "None".to_string() {
-
-
         let usb4 = scan_usb4();
         let mut usb4_music_list = usb4.0;
         let mut usb4_video_list = usb4.1;
         let mut usb4_media_iamges = usb4.2;
-
         master_music_list.append(&mut usb4_music_list);
         master_video_list.append(&mut usb4_video_list);
         master_img_list.append(&mut usb4_media_iamges);
