@@ -1,4 +1,4 @@
-use actix_web::{get, post, HttpResponse, Responder};
+use actix_web::{get, post, web, HttpResponse, Responder};
 // use actix_web::web::Json;
 // use rusqlite::{Connection, Result};
 // use serde::Serialize;
@@ -196,4 +196,59 @@ async fn therock() -> impl Responder  {
 async fn xmen() -> impl Responder  {
     let xmen_mov = crate::movies::xmen::xmen_movs().await.unwrap();
     HttpResponse::Ok().json(xmen_mov)
+}
+
+
+///////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////
+
+
+#[get("/tvshows/andor/{season}")]
+async fn andor(path: web::Path<(String, String)>) -> impl Responder  {
+    let (_, season) = path.into_inner();
+    let andor_tv = crate::tvshows::andor::andor_tv(season).await.unwrap();
+    HttpResponse::Ok().json(andor_tv)
+}
+
+#[get("/tvshows/badbatch/{season}")]
+async fn badbatch(path: web::Path<(String, String)>) -> impl Responder  {
+    let (_, season) = path.into_inner();
+    let badbatch_tv = crate::tvshows::badbatch::bad_batch_tv(season).await.unwrap();
+    HttpResponse::Ok().json(badbatch_tv)
+}
+
+#[get("/tvshows/bobbafett/{season}")]
+async fn bobbafett(path: web::Path<(String, String)>) -> impl Responder  {
+    let (_, season) = path.into_inner();
+    let bobbafett_tv = crate::tvshows::bobbafett::bobba_fett_tv(season).await.unwrap();
+    HttpResponse::Ok().json(bobbafett_tv)
+}
+
+#[get("/tvshows/mandalorian/{season}")]
+async fn mandalorian(path: web::Path<(String, String)>) -> impl Responder  {
+    let (_, season) = path.into_inner();
+    let mandalorian_tv = crate::tvshows::mandalorian::mandalorian_tv(season).await.unwrap();
+    HttpResponse::Ok().json(mandalorian_tv)
+}
+
+#[get("/tvshows/obiwan/{season}")]
+async fn obiwan(path: web::Path<(String, String)>) -> impl Responder  {
+    let (_, season) = path.into_inner();
+    let obiwan_tv = crate::tvshows::obiwan::obiwan_tv(season).await.unwrap();
+    HttpResponse::Ok().json(obiwan_tv)
+}
+
+#[get("/tvshows/talesofthejedi/{season}")]
+async fn talesofthejedi(path: web::Path<(String, String)>) -> impl Responder  {
+    let (_, season) = path.into_inner();
+    let talesofthejedi_tv = crate::tvshows::talesofthejedi::tales_of_the_jedi_tv(season).await.unwrap();
+    HttpResponse::Ok().json(talesofthejedi_tv)
+}
+
+#[get("/tvshows/visions/{season}")]
+async fn visions(path: web::Path<(String, String)>) -> impl Responder  {
+    let (_, season) = path.into_inner();
+    let visions_tv = crate::tvshows::visions::visions_tv(season).await.unwrap();
+    HttpResponse::Ok().json(visions_tv)
 }

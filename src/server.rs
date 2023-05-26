@@ -46,6 +46,17 @@ pub async fn fire_server_main() -> std::io::Result<()> {
             .service(crate::server::server_functions::tremors)
             .service(crate::server::server_functions::therock)
             .service(crate::server::server_functions::xmen)
+            
+            ///////////////////////////////////////////////////////
+            ///////////////////////////////////////////////////////
+
+            .service(crate::server::server_functions::andor)
+            .service(crate::server::server_functions::badbatch)
+            .service(crate::server::server_functions::bobbafett)
+            .service(crate::server::server_functions::mandalorian)
+            .service(crate::server::server_functions::obiwan)
+            .service(crate::server::server_functions::talesofthejedi)
+            .service(crate::server::server_functions::visions)
             .service(fs::Files::new("/thumbnails", img_path.clone()).show_files_listing())
         }
     )

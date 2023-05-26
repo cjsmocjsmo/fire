@@ -79,7 +79,6 @@ fn visions_season_2() -> Result<Vec<TvShowsStruc>> {
 
 
 pub async fn visions_tv(season: String) -> Result<Vec<Vec<TvShowsStruc>>> {
-    // let db = Connection::open("fire.db")?;
     let mut epilist = Vec::new();
 
     if season == "1" {
