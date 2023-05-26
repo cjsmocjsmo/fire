@@ -22,6 +22,8 @@ fn write_mov_meta_to_file(mi: MovieInfoStruc, count: i32) {
     std::fs::write(outpath, json_info).unwrap();
 }
 
+
+
 fn mov_category(x: String) -> String{
     let mut mov_category = String::new();
     if x.contains("Action") {

@@ -12,6 +12,10 @@ pub async fn fire_server_main() -> std::io::Result<()> {
         App::new()
             .service(crate::server::server_functions::hello)
             .service(crate::server::server_functions::echo)
+            .route(
+                "/hey",
+                web::get().to(crate::server::server_functions::manual_hello),
+            )
             .service(crate::server::server_functions::action)
             .service(crate::server::server_functions::arnold)
             .service(crate::server::server_functions::brucewillis)
@@ -43,11 +47,8 @@ pub async fn fire_server_main() -> std::io::Result<()> {
             .service(crate::server::server_functions::therock)
             .service(crate::server::server_functions::xmen)
             .service(fs::Files::new("/thumbnails", img_path.clone()).show_files_listing())
-            .route(
-                "/hey",
-                web::get().to(crate::server::server_functions::manual_hello),
-            )
-    })
+        }
+    )
     .bind(("192.168.0.26", 8080))?
     .run()
     .await
