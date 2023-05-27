@@ -15,14 +15,14 @@ pub struct TvShowsStruc {
     vidtype: String,
 }
 
-fn lost_in_space_decks_season_1() -> Result<Vec<TvShowsStruc>> {
+fn lost_in_space_season_1() -> Result<Vec<TvShowsStruc>> {
     let db = Connection::open("fire.db")?;
     let mut tv_vec = Vec::new();
     let mut stmt1  = db.prepare("
         SELECT id, fireid, idx, category, name, season, episode, size, httppath, vidtype FROM tvshows
         WHERE name='Lost In Space', season='1'
     ")?;
-    let lost_in_space_decks_tv_iter = stmt1.query_map([], |row| {
+    let lost_in_space_tv_iter = stmt1.query_map([], |row| {
         Ok(TvShowsStruc {
             id: row.get(0)?,
             fireid: row.get(1)?,
@@ -37,7 +37,7 @@ fn lost_in_space_decks_season_1() -> Result<Vec<TvShowsStruc>> {
         })
     })?;
 
-    for mo in lost_in_space_decks_tv_iter {
+    for mo in lost_in_space_tv_iter {
         let m = mo.unwrap();
         tv_vec.push(m);
     }
@@ -47,14 +47,14 @@ fn lost_in_space_decks_season_1() -> Result<Vec<TvShowsStruc>> {
     Ok(tv_vec)
 }
 
-fn lost_in_space_decks_season_2() -> Result<Vec<TvShowsStruc>> {
+fn lost_in_space_season_2() -> Result<Vec<TvShowsStruc>> {
     let db = Connection::open("fire.db")?;
     let mut tv_vec = Vec::new();
     let mut stmt2  = db.prepare("
         SELECT id, fireid, idx, category, name, season, episode, size, httppath, vidtype FROM tvshows
         WHERE name='Lost In Space', season='2'
     ")?;
-    let lost_in_space_decks_tv_iter = stmt2.query_map([], |row| {
+    let lost_in_space_tv_iter = stmt2.query_map([], |row| {
         Ok(TvShowsStruc {
             id: row.get(0)?,
             fireid: row.get(1)?,
@@ -68,7 +68,7 @@ fn lost_in_space_decks_season_2() -> Result<Vec<TvShowsStruc>> {
             vidtype: row.get(9)?,
         })
     })?;
-    for mo in lost_in_space_decks_tv_iter {
+    for mo in lost_in_space_tv_iter {
         let m = mo.unwrap();
         tv_vec.push(m);
     }
@@ -77,14 +77,14 @@ fn lost_in_space_decks_season_2() -> Result<Vec<TvShowsStruc>> {
     Ok(tv_vec)
 }
 
-fn lost_in_space_decks_season_3() -> Result<Vec<TvShowsStruc>> {
+fn lost_in_space_season_3() -> Result<Vec<TvShowsStruc>> {
     let db = Connection::open("fire.db")?;
     let mut tv_vec = Vec::new();
     let mut stmt2  = db.prepare("
         SELECT id, fireid, idx, category, name, season, episode, size, httppath, vidtype FROM tvshows
         WHERE name='Lost In Space', season='3'
     ")?;
-    let lost_in_space_decks_tv_iter = stmt2.query_map([], |row| {
+    let lost_in_space_tv_iter = stmt2.query_map([], |row| {
         Ok(TvShowsStruc {
             id: row.get(0)?,
             fireid: row.get(1)?,
@@ -98,7 +98,7 @@ fn lost_in_space_decks_season_3() -> Result<Vec<TvShowsStruc>> {
             vidtype: row.get(9)?,
         })
     })?;
-    for mo in lost_in_space_decks_tv_iter {
+    for mo in lost_in_space_tv_iter {
         let m = mo.unwrap();
         tv_vec.push(m);
     }
@@ -108,25 +108,25 @@ fn lost_in_space_decks_season_3() -> Result<Vec<TvShowsStruc>> {
 }
 
 
-pub async fn lost_in_space_decks_tv(season: String) -> Result<Vec<Vec<TvShowsStruc>>> {
+pub async fn lost_in_space_tv(season: String) -> Result<Vec<Vec<TvShowsStruc>>> {
     let mut epilist = Vec::new();
 
     if season == "1" {
-        let zlist = lost_in_space_decks_season_1();
+        let zlist = lost_in_space_season_1();
         if let Ok(z) = zlist {
             epilist.push(z);
         }
     };
 
     if season == "2" {
-        let wlist = lost_in_space_decks_season_2();
+        let wlist = lost_in_space_season_2();
         if let Ok(wl) = wlist {
             epilist.push(wl);
         }
     };
 
     if season == "3" {
-        let wlist = lost_in_space_decks_season_3();
+        let wlist = lost_in_space_season_3();
         if let Ok(wl) = wlist {
             epilist.push(wl);
         }

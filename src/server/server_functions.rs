@@ -204,6 +204,20 @@ async fn xmen() -> impl Responder  {
 ///////////////////////////////////////////////////////////
 
 
+#[get("/tvshows/alienworlds/{season}")]
+async fn alienworlds(path: web::Path<(String, String)>) -> impl Responder  {
+    let (_, season) = path.into_inner();
+    let alienworlds_tv = crate::tvshows::alienworlds::alien_worlds_tv(season).await.unwrap();
+    HttpResponse::Ok().json(alienworlds_tv)
+}
+
+#[get("/tvshows/alteredcarbon/{season}")]
+async fn alteredcarbon(path: web::Path<(String, String)>) -> impl Responder  {
+    let (_, season) = path.into_inner();
+    let alteredcarbon_tv = crate::tvshows::alteredcarbon::altered_carbon_tv(season).await.unwrap();
+    HttpResponse::Ok().json(alteredcarbon_tv)
+}
+
 #[get("/tvshows/andor/{season}")]
 async fn andor(path: web::Path<(String, String)>) -> impl Responder  {
     let (_, season) = path.into_inner();
@@ -218,11 +232,88 @@ async fn badbatch(path: web::Path<(String, String)>) -> impl Responder  {
     HttpResponse::Ok().json(badbatch_tv)
 }
 
+#[get("/tvshows/blackknight/{season}")]
+async fn blackknight(path: web::Path<(String, String)>) -> impl Responder  {
+    let (_, season) = path.into_inner();
+    let blackknight_tv = crate::tvshows::blackknight::black_knight_tv(season).await.unwrap();
+    HttpResponse::Ok().json(blackknight_tv)
+}
+
 #[get("/tvshows/bobbafett/{season}")]
 async fn bobbafett(path: web::Path<(String, String)>) -> impl Responder  {
     let (_, season) = path.into_inner();
     let bobbafett_tv = crate::tvshows::bobbafett::bobba_fett_tv(season).await.unwrap();
     HttpResponse::Ok().json(bobbafett_tv)
+}
+
+#[get("/tvshows/cowboybebop/{season}")]
+async fn cowboybebop(path: web::Path<(String, String)>) -> impl Responder  {
+    let (_, season) = path.into_inner();
+    let cowboybebop_tv = crate::tvshows::cowboybebop::cowboy_bebop_tv(season).await.unwrap();
+    HttpResponse::Ok().json(cowboybebop_tv)
+}
+
+#[get("/tvshows/discovery/{season}")]
+async fn discovery(path: web::Path<(String, String)>) -> impl Responder  {
+    let (_, season) = path.into_inner();
+    let discovery_tv = crate::tvshows::discovery::discovery_tv(season).await.unwrap();
+    HttpResponse::Ok().json(discovery_tv)
+}
+
+#[get("/tvshows/enterprise/{season}")]
+async fn enterprise(path: web::Path<(String, String)>) -> impl Responder  {
+    let (_, season) = path.into_inner();
+    let enterprise_tv = crate::tvshows::enterprise::enterprise_tv(season).await.unwrap();
+    HttpResponse::Ok().json(enterprise_tv)
+}
+
+#[get("/tvshows/forallmankind/{season}")]
+async fn forallmankind(path: web::Path<(String, String)>) -> impl Responder  {
+    let (_, season) = path.into_inner();
+    let forallmankind_tv = crate::tvshows::forallmankind::for_all_mankind_tv(season).await.unwrap();
+    HttpResponse::Ok().json(forallmankind_tv)
+}
+
+#[get("/tvshows/foundations/{season}")]
+async fn foundations(path: web::Path<(String, String)>) -> impl Responder  {
+    let (_, season) = path.into_inner();
+    let foundations_tv = crate::tvshows::foundations::foundations_tv(season).await.unwrap();
+    HttpResponse::Ok().json(foundations_tv)
+}
+
+#[get("/tvshows/halo/{season}")]
+async fn halo(path: web::Path<(String, String)>) -> impl Responder  {
+    let (_, season) = path.into_inner();
+    let halo_tv = crate::tvshows::halo::halo_tv(season).await.unwrap();
+    HttpResponse::Ok().json(halo_tv)
+}
+
+#[get("/tvshows/hford1923/{season}")]
+async fn hford1923(path: web::Path<(String, String)>) -> impl Responder  {
+    let (_, season) = path.into_inner();
+    let hford1923_tv = crate::tvshows::hford1923::hford1923_tv(season).await.unwrap();
+    HttpResponse::Ok().json(hford1923_tv)
+}
+
+#[get("/tvshows/houseofthedragon/{season}")]
+async fn houseofthedragon(path: web::Path<(String, String)>) -> impl Responder  {
+    let (_, season) = path.into_inner();
+    let houseofthedragon_tv = crate::tvshows::houseofthedragon::house_of_the_dragon_tv(season).await.unwrap();
+    HttpResponse::Ok().json(houseofthedragon_tv)
+}
+
+#[get("/tvshows/lostinspace/{season}")]
+async fn lostinspace(path: web::Path<(String, String)>) -> impl Responder  {
+    let (_, season) = path.into_inner();
+    let lostinspace_tv = crate::tvshows::lostinspace::lost_in_space_tv(season).await.unwrap();
+    HttpResponse::Ok().json(lostinspace_tv)
+}
+
+#[get("/tvshows/lowerdecks/{season}")]
+async fn lowerdecks(path: web::Path<(String, String)>) -> impl Responder  {
+    let (_, season) = path.into_inner();
+    let lowerdecks_tv = crate::tvshows::lowerdecks::lower_decks_tv(season).await.unwrap();
+    HttpResponse::Ok().json(lowerdecks_tv)
 }
 
 #[get("/tvshows/mandalorian/{season}")]
@@ -232,11 +323,74 @@ async fn mandalorian(path: web::Path<(String, String)>) -> impl Responder  {
     HttpResponse::Ok().json(mandalorian_tv)
 }
 
+#[get("/tvshows/nextgeneration/{season}")]
+async fn nextgeneration(path: web::Path<(String, String)>) -> impl Responder  {
+    let (_, season) = path.into_inner();
+    let nextgeneration_tv = crate::tvshows::nextgeneration::next_generation_tv(season).await.unwrap();
+    HttpResponse::Ok().json(nextgeneration_tv)
+}
+
+#[get("/tvshows/nightsky/{season}")]
+async fn nightsky(path: web::Path<(String, String)>) -> impl Responder  {
+    let (_, season) = path.into_inner();
+    let nightsky_tv = crate::tvshows::nightsky::night_sky_tv(season).await.unwrap();
+    HttpResponse::Ok().json(nightsky_tv)
+}
+
 #[get("/tvshows/obiwan/{season}")]
 async fn obiwan(path: web::Path<(String, String)>) -> impl Responder  {
     let (_, season) = path.into_inner();
     let obiwan_tv = crate::tvshows::obiwan::obiwan_tv(season).await.unwrap();
     HttpResponse::Ok().json(obiwan_tv)
+}
+
+#[get("/tvshows/orville/{season}")]
+async fn orville(path: web::Path<(String, String)>) -> impl Responder  {
+    let (_, season) = path.into_inner();
+    let orville_tv = crate::tvshows::orville::orville_tv(season).await.unwrap();
+    HttpResponse::Ok().json(orville_tv)
+}
+
+#[get("/tvshows/picard/{season}")]
+async fn picard(path: web::Path<(String, String)>) -> impl Responder  {
+    let (_, season) = path.into_inner();
+    let picard_tv = crate::tvshows::picard::picard_tv(season).await.unwrap();
+    HttpResponse::Ok().json(picard_tv)
+}
+
+#[get("/tvshows/prodigy/{season}")]
+async fn prodigy(path: web::Path<(String, String)>) -> impl Responder  {
+    let (_, season) = path.into_inner();
+    let prodigy_tv = crate::tvshows::prodigy::prodigy_tv(season).await.unwrap();
+    HttpResponse::Ok().json(prodigy_tv)
+}
+
+#[get("/tvshows/raisedbywolves/{season}")]
+async fn raisedbywolves(path: web::Path<(String, String)>) -> impl Responder  {
+    let (_, season) = path.into_inner();
+    let raisedbywolves_tv = crate::tvshows::raisedbywolves::raised_by_wolves_tv(season).await.unwrap();
+    HttpResponse::Ok().json(raisedbywolves_tv)
+}
+
+#[get("/tvshows/ringsofpower/{season}")]
+async fn ringsofpower(path: web::Path<(String, String)>) -> impl Responder  {
+    let (_, season) = path.into_inner();
+    let ringsofpower_tv = crate::tvshows::ringsofpower::rings_of_power_tv(season).await.unwrap();
+    HttpResponse::Ok().json(ringsofpower_tv)
+}
+
+#[get("/tvshows/strangenewworlds/{season}")]
+async fn strangenewworlds(path: web::Path<(String, String)>) -> impl Responder  {
+    let (_, season) = path.into_inner();
+    let strangenewworlds_tv = crate::tvshows::strangenewworlds::strange_new_worlds_tv(season).await.unwrap();
+    HttpResponse::Ok().json(strangenewworlds_tv)
+}
+
+#[get("/tvshows/sttv/{season}")]
+async fn sttv(path: web::Path<(String, String)>) -> impl Responder  {
+    let (_, season) = path.into_inner();
+    let sttv_tv = crate::tvshows::sttv::sttv_tv(season).await.unwrap();
+    HttpResponse::Ok().json(sttv_tv)
 }
 
 #[get("/tvshows/talesofthejedi/{season}")]
@@ -246,9 +400,30 @@ async fn talesofthejedi(path: web::Path<(String, String)>) -> impl Responder  {
     HttpResponse::Ok().json(talesofthejedi_tv)
 }
 
+#[get("/tvshows/thelastofus/{season}")]
+async fn thelastofus(path: web::Path<(String, String)>) -> impl Responder  {
+    let (_, season) = path.into_inner();
+    let thelastofus_tv = crate::tvshows::thelastofus::the_last_of_us_tv(season).await.unwrap();
+    HttpResponse::Ok().json(thelastofus_tv)
+}
+
 #[get("/tvshows/visions/{season}")]
 async fn visions(path: web::Path<(String, String)>) -> impl Responder  {
     let (_, season) = path.into_inner();
     let visions_tv = crate::tvshows::visions::visions_tv(season).await.unwrap();
     HttpResponse::Ok().json(visions_tv)
+}
+
+#[get("/tvshows/voyager/{season}")]
+async fn voyager(path: web::Path<(String, String)>) -> impl Responder  {
+    let (_, season) = path.into_inner();
+    let voyager_tv = crate::tvshows::voyager::voyager_tv(season).await.unwrap();
+    HttpResponse::Ok().json(voyager_tv)
+}
+
+#[get("/tvshows/wheeloftime/{season}")]
+async fn wheeloftime(path: web::Path<(String, String)>) -> impl Responder  {
+    let (_, season) = path.into_inner();
+    let wheeloftime_tv = crate::tvshows::wheeloftime::wheel_of_time_tv(season).await.unwrap();
+    HttpResponse::Ok().json(wheeloftime_tv)
 }

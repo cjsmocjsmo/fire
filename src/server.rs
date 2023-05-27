@@ -46,15 +46,51 @@ pub async fn fire_server_main() -> std::io::Result<()> {
             .service(crate::server::server_functions::tremors)
             .service(crate::server::server_functions::therock)
             .service(crate::server::server_functions::xmen)
-            
-            
+            .service(crate::server::server_functions::alienworlds)
+            .service(crate::server::server_functions::alteredcarbon)
             .service(crate::server::server_functions::andor)
             .service(crate::server::server_functions::badbatch)
+            .service(crate::server::server_functions::blackknight)
             .service(crate::server::server_functions::bobbafett)
+            .service(crate::server::server_functions::cowboybebop)
+            .service(crate::server::server_functions::discovery)
+            .service(crate::server::server_functions::enterprise)
+            .service(crate::server::server_functions::forallmankind)
+            .service(crate::server::server_functions::foundations)
+            .service(crate::server::server_functions::halo)
+            .service(crate::server::server_functions::hford1923)
+            .service(crate::server::server_functions::houseofthedragon)
+            .service(crate::server::server_functions::lostinspace)
+            .service(crate::server::server_functions::lowerdecks)
+
+
+
             .service(crate::server::server_functions::mandalorian)
+
+            .service(crate::server::server_functions::nextgeneration)
+            .service(crate::server::server_functions::nightsky)
+
             .service(crate::server::server_functions::obiwan)
+
+
+            .service(crate::server::server_functions::orville)
+            .service(crate::server::server_functions::picard)
+            .service(crate::server::server_functions::prodigy)
+            .service(crate::server::server_functions::raisedbywolves)
+            .service(crate::server::server_functions::ringsofpower)
+            .service(crate::server::server_functions::strangenewworlds)
+            .service(crate::server::server_functions::sttv)
+            
+
+
             .service(crate::server::server_functions::talesofthejedi)
+            .service(crate::server::server_functions::thelastofus)
+            
+
+
             .service(crate::server::server_functions::visions)
+            .service(crate::server::server_functions::voyager)
+            .service(crate::server::server_functions::wheeloftime)
             .service(fs::Files::new("/thumbnails", img_path.clone()).show_files_listing())
         }
     )
