@@ -47,9 +47,7 @@ pub async fn fire_server_main() -> std::io::Result<()> {
             .service(crate::server::server_functions::therock)
             .service(crate::server::server_functions::xmen)
             
-            ///////////////////////////////////////////////////////
-            ///////////////////////////////////////////////////////
-
+            
             .service(crate::server::server_functions::andor)
             .service(crate::server::server_functions::badbatch)
             .service(crate::server::server_functions::bobbafett)
