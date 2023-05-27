@@ -23,6 +23,7 @@ pub mod orville;
 pub mod picard;
 pub mod prodigy;
 pub mod raisedbywolves;
+pub mod reacher;
 pub mod ringsofpower;
 pub mod strangenewworlds;
 pub mod sttv;

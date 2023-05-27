@@ -372,6 +372,13 @@ async fn raisedbywolves(path: web::Path<(String, String)>) -> impl Responder  {
     HttpResponse::Ok().json(raisedbywolves_tv)
 }
 
+#[get("/tvshows/reacher/{season}")]
+async fn reacher(path: web::Path<(String, String)>) -> impl Responder  {
+    let (_, season) = path.into_inner();
+    let reacher_tv = crate::tvshows::reacher::reacher_tv(season).await.unwrap();
+    HttpResponse::Ok().json(reacher_tv)
+}
+
 #[get("/tvshows/ringsofpower/{season}")]
 async fn ringsofpower(path: web::Path<(String, String)>) -> impl Responder  {
     let (_, season) = path.into_inner();

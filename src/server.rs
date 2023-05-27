@@ -77,6 +77,7 @@ pub async fn fire_server_main() -> std::io::Result<()> {
             .service(crate::server::server_functions::picard)
             .service(crate::server::server_functions::prodigy)
             .service(crate::server::server_functions::raisedbywolves)
+            .service(crate::server::server_functions::reacher)
             .service(crate::server::server_functions::ringsofpower)
             .service(crate::server::server_functions::strangenewworlds)
             .service(crate::server::server_functions::sttv)
