@@ -15,14 +15,14 @@ pub struct TvShowsStruc {
     vidtype: String,
 }
 
-fn the_last_of_us_season_1() -> Result<Vec<TvShowsStruc>> {
+fn prodigy_season_1() -> Result<Vec<TvShowsStruc>> {
     let db = Connection::open("fire.db")?;
     let mut tv_vec = Vec::new();
     let mut stmt1  = db.prepare("
         SELECT id, fireid, idx, category, name, season, episode, size, httppath, vidtype FROM tvshows
-        WHERE name='The Last Of Us', season='1'
+        WHERE name='Prodigy', season='1'
     ")?;
-    let the_last_of_us_tv_iter = stmt1.query_map([], |row| {
+    let prodigy_tv_iter = stmt1.query_map([], |row| {
         Ok(TvShowsStruc {
             id: row.get(0)?,
             fireid: row.get(1)?,
@@ -37,7 +37,7 @@ fn the_last_of_us_season_1() -> Result<Vec<TvShowsStruc>> {
         })
     })?;
 
-    for mo in the_last_of_us_tv_iter {
+    for mo in prodigy_tv_iter {
         let m = mo.unwrap();
         tv_vec.push(m);
     }
@@ -47,14 +47,14 @@ fn the_last_of_us_season_1() -> Result<Vec<TvShowsStruc>> {
     Ok(tv_vec)
 }
 
-// fn the_last_of_us_season_2() -> Result<Vec<TvShowsStruc>> {
+// fn prodigy_season_2() -> Result<Vec<TvShowsStruc>> {
 //     let db = Connection::open("fire.db")?;
 //     let mut tv_vec = Vec::new();
 //     let mut stmt2  = db.prepare("
 //         SELECT id, fireid, idx, category, name, season, episode, size, httppath, vidtype FROM tvshows
-//         WHERE name='The Last Of Us', season='2'
+//         WHERE name='Prodigy', season='2'
 //     ")?;
-//     let the_last_of_us_tv_iter = stmt2.query_map([], |row| {
+//     let prodigy_tv_iter = stmt2.query_map([], |row| {
 //         Ok(TvShowsStruc {
 //             id: row.get(0)?,
 //             fireid: row.get(1)?,
@@ -68,7 +68,7 @@ fn the_last_of_us_season_1() -> Result<Vec<TvShowsStruc>> {
 //             vidtype: row.get(9)?,
 //         })
 //     })?;
-//     for mo in the_last_of_us_tv_iter {
+//     for mo in prodigy_tv_iter {
 //         let m = mo.unwrap();
 //         tv_vec.push(m);
 //     }
@@ -78,18 +78,18 @@ fn the_last_of_us_season_1() -> Result<Vec<TvShowsStruc>> {
 // }
 
 
-pub async fn the_last_of_us_tv(season: String) -> Result<Vec<Vec<TvShowsStruc>>> {
+pub async fn prodigy_tv(season: String) -> Result<Vec<Vec<TvShowsStruc>>> {
     let mut epilist = Vec::new();
 
     if season == "1" {
-        let zlist = the_last_of_us_season_1();
+        let zlist = prodigy_season_1();
         if let Ok(z) = zlist {
             epilist.push(z);
         }
     };
 
     // if season == "2" {
-    //     let wlist = the_last_of_us_season_2();
+    //     let wlist = prodigy_season_2();
     //     if let Ok(wl) = wlist {
     //         epilist.push(wl);
     //     }
