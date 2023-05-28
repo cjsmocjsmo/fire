@@ -5,6 +5,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 struct TVShowsStruc {
+    id: String,
     fireid: String,
     idx: String,
     category: String,
@@ -100,6 +101,7 @@ pub fn process_tvshows(tvshows_vec: Vec<String>) -> bool {
             }
             let episodename = fnsplit_vec.pop().unwrap();
             let tvshows = TVShowsStruc {
+                id: count.clone().to_string(),
                 fireid: fire_id,
                 idx: count.clone().to_string(),
                 category: category.clone(),
@@ -138,6 +140,7 @@ fn write_tvshow_to_db(tvs: TVShowsStruc) -> Result<()> {
 
     conn.execute(
         "INSERT INTO tvshows (
+                id,
                 fireid, 
                 idx, 
                 category, 
@@ -148,8 +151,9 @@ fn write_tvshow_to_db(tvs: TVShowsStruc) -> Result<()> {
                 httppath,
                 vidtype
             )
-            VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9)",
+            VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10)",
         (
+            &tvs.id,
             &tvs.fireid,
             &tvs.idx,
             &tvs.category,
