@@ -377,8 +377,10 @@ async fn reacher(path: web::Path<(String, String)>) -> impl Responder  {
     let season = path.into_inner();
     println!("{:?}", season);
     println!("this is season: {}", season.1);
-    let reacher_tv = crate::tvshows::reacher::reacher_tv(season.1).await.unwrap();
-    HttpResponse::Ok().json(reacher_tv)
+    HttpResponse::Ok().json(season.1)
+    // let reacher_tv = crate::tvshows::reacher::reacher_tv(season.1).await.unwrap();
+    // HttpResponse::Ok().json(reacher_tv)
+
 }
 
 #[get("/tvshows/ringsofpower/{season}")]
