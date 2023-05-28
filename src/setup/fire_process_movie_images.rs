@@ -84,6 +84,7 @@ pub fn process_movie_posters(x: String, index: i32) -> i32 {
 
 fn write_movie_images_to_db(mov_img_info: MovPosterInfo) -> Result<()> {
     let conn = Connection::open("fire.db").unwrap();
+    conn.execute("DROP TABLE IF EXISTS movies_images;", ())?;
     conn.execute(
         "CREATE TABLE IF NOT EXISTS movies_images (
             id INTEGER PRIMARY KEY,

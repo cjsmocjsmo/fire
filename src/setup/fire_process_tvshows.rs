@@ -122,6 +122,8 @@ pub fn process_tvshows(tvshows_vec: Vec<String>) -> bool {
 
 fn write_tvshow_to_db(tvs: TVShowsStruc) -> Result<()> {
     let conn = Connection::open("fire.db").unwrap();
+
+    conn.execute("DROP TABLE IF EXISTS tvshows;", ())?;
     conn.execute(
         "CREATE TABLE IF NOT EXISTS tvshows (
             id INTEGER PRIMARY KEY,
