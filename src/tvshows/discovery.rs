@@ -20,7 +20,7 @@ fn discovery_season_1() -> Result<Vec<TvShowsStruc>> {
     let mut tv_vec = Vec::new();
     let mut stmt1  = db.prepare("
         SELECT id, fireid, idx, category, name, season, episode, size, httppath, vidtype FROM tvshows
-        WHERE name='Discovery', season='1'
+        WHERE name='Discovery', season='01'
     ")?;
     let discovery_tv_iter = stmt1.query_map([], |row| {
         Ok(TvShowsStruc {
@@ -52,7 +52,7 @@ fn discovery_season_2() -> Result<Vec<TvShowsStruc>> {
     let mut tv_vec = Vec::new();
     let mut stmt2  = db.prepare("
         SELECT id, fireid, idx, category, name, season, episode, size, httppath, vidtype FROM tvshows
-        WHERE name='Discovery', season='2'
+        WHERE name='Discovery', season='02'
     ")?;
     let discovery_tv_iter = stmt2.query_map([], |row| {
         Ok(TvShowsStruc {
@@ -82,7 +82,7 @@ fn discovery_season_3() -> Result<Vec<TvShowsStruc>> {
     let mut tv_vec = Vec::new();
     let mut stmt2  = db.prepare("
         SELECT id, fireid, idx, category, name, season, episode, size, httppath, vidtype FROM tvshows
-        WHERE name='Discovery', season='3'
+        WHERE name='Discovery', season='03'
     ")?;
     let discovery_tv_iter = stmt2.query_map([], |row| {
         Ok(TvShowsStruc {
@@ -112,7 +112,7 @@ fn discovery_season_4() -> Result<Vec<TvShowsStruc>> {
     let mut tv_vec = Vec::new();
     let mut stmt2  = db.prepare("
         SELECT id, fireid, idx, category, name, season, episode, size, httppath, vidtype FROM tvshows
-        WHERE name='Discovery', season='4'
+        WHERE name='Discovery', season='04'
     ")?;
     let discovery_tv_iter = stmt2.query_map([], |row| {
         Ok(TvShowsStruc {

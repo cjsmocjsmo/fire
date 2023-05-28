@@ -20,7 +20,7 @@ fn the_last_of_us_season_1() -> Result<Vec<TvShowsStruc>> {
     let mut tv_vec = Vec::new();
     let mut stmt1  = db.prepare("
         SELECT id, fireid, idx, category, name, season, episode, size, httppath, vidtype FROM tvshows
-        WHERE name='The Last Of Us', season='1'
+        WHERE name='The Last Of Us', season='01'
     ")?;
     let the_last_of_us_tv_iter = stmt1.query_map([], |row| {
         Ok(TvShowsStruc {
@@ -52,7 +52,7 @@ fn the_last_of_us_season_1() -> Result<Vec<TvShowsStruc>> {
 //     let mut tv_vec = Vec::new();
 //     let mut stmt2  = db.prepare("
 //         SELECT id, fireid, idx, category, name, season, episode, size, httppath, vidtype FROM tvshows
-//         WHERE name='The Last Of Us', season='2'
+//         WHERE name='The Last Of Us', season='02'
 //     ")?;
 //     let the_last_of_us_tv_iter = stmt2.query_map([], |row| {
 //         Ok(TvShowsStruc {

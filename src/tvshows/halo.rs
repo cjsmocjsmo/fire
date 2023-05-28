@@ -20,7 +20,7 @@ fn halo_season_1() -> Result<Vec<TvShowsStruc>> {
     let mut tv_vec = Vec::new();
     let mut stmt1  = db.prepare("
         SELECT id, fireid, idx, category, name, season, episode, size, httppath, vidtype FROM tvshows
-        WHERE name='Halo', season='1'
+        WHERE name='Halo', season='01'
     ")?;
     let halo_tv_iter = stmt1.query_map([], |row| {
         Ok(TvShowsStruc {

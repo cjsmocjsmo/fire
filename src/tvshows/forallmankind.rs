@@ -20,7 +20,7 @@ fn for_all_mankind_season_1() -> Result<Vec<TvShowsStruc>> {
     let mut tv_vec = Vec::new();
     let mut stmt1  = db.prepare("
         SELECT id, fireid, idx, category, name, season, episode, size, httppath, vidtype FROM tvshows
-        WHERE name='For All Mankind', season='1'
+        WHERE name='For All Mankind', season='01'
     ")?;
     let for_all_mankind_tv_iter = stmt1.query_map([], |row| {
         Ok(TvShowsStruc {
@@ -52,7 +52,7 @@ fn for_all_mankind_season_2() -> Result<Vec<TvShowsStruc>> {
     let mut tv_vec = Vec::new();
     let mut stmt2  = db.prepare("
         SELECT id, fireid, idx, category, name, season, episode, size, httppath, vidtype FROM tvshows
-        WHERE name='For All Mankind', season='2'
+        WHERE name='For All Mankind', season='02'
     ")?;
     let for_all_mankind_tv_iter = stmt2.query_map([], |row| {
         Ok(TvShowsStruc {
@@ -82,7 +82,7 @@ fn for_all_mankind_season_3() -> Result<Vec<TvShowsStruc>> {
     let mut tv_vec = Vec::new();
     let mut stmt2  = db.prepare("
         SELECT id, fireid, idx, category, name, season, episode, size, httppath, vidtype FROM tvshows
-        WHERE name='For All Mankind', season='3'
+        WHERE name='For All Mankind', season='03'
     ")?;
     let for_all_mankind_tv_iter = stmt2.query_map([], |row| {
         Ok(TvShowsStruc {

@@ -20,7 +20,7 @@ fn next_generation_season_1() -> Result<Vec<TvShowsStruc>> {
     let mut tv_vec = Vec::new();
     let mut stmt1  = db.prepare("
         SELECT id, fireid, idx, category, name, season, episode, size, httppath, vidtype FROM tvshows
-        WHERE name='Next Generation', season='1'
+        WHERE name='Next Generation', season='01'
     ")?;
     let next_generation_tv_iter = stmt1.query_map([], |row| {
         Ok(TvShowsStruc {
@@ -52,7 +52,7 @@ fn next_generation_season_2() -> Result<Vec<TvShowsStruc>> {
     let mut tv_vec = Vec::new();
     let mut stmt2  = db.prepare("
         SELECT id, fireid, idx, category, name, season, episode, size, httppath, vidtype FROM tvshows
-        WHERE name='Next Generation', season='2'
+        WHERE name='Next Generation', season='02'
     ")?;
     let next_generation_tv_iter = stmt2.query_map([], |row| {
         Ok(TvShowsStruc {
@@ -82,7 +82,7 @@ fn next_generation_season_3() -> Result<Vec<TvShowsStruc>> {
     let mut tv_vec = Vec::new();
     let mut stmt2  = db.prepare("
         SELECT id, fireid, idx, category, name, season, episode, size, httppath, vidtype FROM tvshows
-        WHERE name='Next Generation', season='3'
+        WHERE name='Next Generation', season='03'
     ")?;
     let next_generation_tv_iter = stmt2.query_map([], |row| {
         Ok(TvShowsStruc {
@@ -112,7 +112,7 @@ fn next_generation_season_4() -> Result<Vec<TvShowsStruc>> {
     let mut tv_vec = Vec::new();
     let mut stmt2  = db.prepare("
         SELECT id, fireid, idx, category, name, season, episode, size, httppath, vidtype FROM tvshows
-        WHERE name='Next Generation', season='4'
+        WHERE name='Next Generation', season='04'
     ")?;
     let next_generation_tv_iter = stmt2.query_map([], |row| {
         Ok(TvShowsStruc {
@@ -142,7 +142,7 @@ fn next_generation_season_5() -> Result<Vec<TvShowsStruc>> {
     let mut tv_vec = Vec::new();
     let mut stmt2  = db.prepare("
         SELECT id, fireid, idx, category, name, season, episode, size, httppath, vidtype FROM tvshows
-        WHERE name='Next Generation', season='5'
+        WHERE name='Next Generation', season='05'
     ")?;
     let next_generation_tv_iter = stmt2.query_map([], |row| {
         Ok(TvShowsStruc {
@@ -172,7 +172,7 @@ fn next_generation_season_6() -> Result<Vec<TvShowsStruc>> {
     let mut tv_vec = Vec::new();
     let mut stmt2  = db.prepare("
         SELECT id, fireid, idx, category, name, season, episode, size, httppath, vidtype FROM tvshows
-        WHERE name='Next Generation', season='6'
+        WHERE name='Next Generation', season='06'
     ")?;
     let next_generation_tv_iter = stmt2.query_map([], |row| {
         Ok(TvShowsStruc {
@@ -202,7 +202,7 @@ fn next_generation_season_7() -> Result<Vec<TvShowsStruc>> {
     let mut tv_vec = Vec::new();
     let mut stmt2  = db.prepare("
         SELECT id, fireid, idx, category, name, season, episode, size, httppath, vidtype FROM tvshows
-        WHERE name='Next Generation', season='7'
+        WHERE name='Next Generation', season='07'
     ")?;
     let next_generation_tv_iter = stmt2.query_map([], |row| {
         Ok(TvShowsStruc {
