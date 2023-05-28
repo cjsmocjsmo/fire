@@ -110,6 +110,7 @@ pub fn process_tvshows(tvshows_vec: Vec<String>) -> bool {
                 httppath: tv,
                 vidtype: String::from("tvshow")
             };
+            println!("this is tvshows \n\t{:?}", tvshows);
             write_tvshows_nfos(tvshows.clone(), count);
             write_tvshow_to_db(tvshows.clone()).expect("tvshows write to db failed");
         }
