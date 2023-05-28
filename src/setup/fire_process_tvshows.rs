@@ -7,7 +7,7 @@ use serde::{Deserialize, Serialize};
 struct TVShowsStruc {
     fireid: String,
     idx: String,
-    catagory: String,
+    category: String,
     name: String,
     season: String,
     episode: String,
@@ -21,7 +21,7 @@ pub struct TVShowsUtils {
 }
 
 impl TVShowsUtils {
-    fn get_tv_catagory(&self) -> String {
+    fn get_tv_category(&self) -> String {
         let foo12 = crate::setup::fire_utils::FireUtils {
             apath: self.apath.to_string(),
         };
@@ -87,8 +87,8 @@ pub fn process_tvshows(tvshows_vec: Vec<String>) -> bool {
             let tvshows = crate::setup::fire_utils::FireUtils { apath: tv.clone() };
             let tvshows2 = crate::setup::fire_process_tvshows::TVShowsUtils { apath: tv.clone() };
             let file_size = crate::setup::fire_utils::FireUtils::get_file_size(&tvshows);
-            let catagory =
-                crate::setup::fire_process_tvshows::TVShowsUtils::get_tv_catagory(&tvshows2);
+            let category =
+                crate::setup::fire_process_tvshows::TVShowsUtils::get_tv_category(&tvshows2);
             let es =
                 crate::setup::fire_process_tvshows::TVShowsUtils::get_tv_episode_season(&tvshows2);
             let fire_id = crate::setup::fire_utils::FireUtils::get_md5(&tvshows);
@@ -102,7 +102,7 @@ pub fn process_tvshows(tvshows_vec: Vec<String>) -> bool {
             let tvshows = TVShowsStruc {
                 fireid: fire_id,
                 idx: count.clone().to_string(),
-                catagory: catagory.clone(),
+                category: category.clone(),
                 name: episodename.clone().to_string(),
                 season: es.0,
                 episode: es.1,
@@ -124,7 +124,7 @@ fn write_tvshow_to_db(tvs: TVShowsStruc) -> Result<()> {
             id INTEGER PRIMARY KEY,
             fireid TEXT NOT NULL,
             idx TEXT NOT NULL,
-            catagory TEXT NOT NULL,
+            category TEXT NOT NULL,
             name TEXT NOT NULL,
             season TEXT NOT NULL,
             episode TEXT NOT NULL,
@@ -139,7 +139,7 @@ fn write_tvshow_to_db(tvs: TVShowsStruc) -> Result<()> {
         "INSERT INTO tvshows (
                 fireid, 
                 idx, 
-                catagory, 
+                category, 
                 name, 
                 season, 
                 episode, 
@@ -151,7 +151,7 @@ fn write_tvshow_to_db(tvs: TVShowsStruc) -> Result<()> {
         (
             &tvs.fireid,
             &tvs.idx,
-            &tvs.catagory,
+            &tvs.category,
             &tvs.name,
             &tvs.season,
             &tvs.episode,
