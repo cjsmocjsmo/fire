@@ -111,21 +111,21 @@ fn picard_season_3() -> Result<Vec<TvShowsStruc>> {
 pub async fn picard_tv(season: String) -> Result<Vec<Vec<TvShowsStruc>>> {
     let mut epilist = Vec::new();
 
-    if season == "1" {
+    if season == "01" {
         let zlist = picard_season_1();
         if let Ok(z) = zlist {
             epilist.push(z);
         }
     };
 
-    if season == "2" {
+    if season == "02" {
         let wlist = picard_season_2();
         if let Ok(wl) = wlist {
             epilist.push(wl);
         }
     };
 
-    if season == "3" {
+    if season == "03" {
         let wlist = picard_season_3();
         if let Ok(wl) = wlist {
             epilist.push(wl);

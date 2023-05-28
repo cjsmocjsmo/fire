@@ -111,21 +111,21 @@ fn orville_season_3() -> Result<Vec<TvShowsStruc>> {
 pub async fn orville_tv(season: String) -> Result<Vec<Vec<TvShowsStruc>>> {
     let mut epilist = Vec::new();
 
-    if season == "1" {
+    if season == "01" {
         let zlist = orville_season_1();
         if let Ok(z) = zlist {
             epilist.push(z);
         }
     };
 
-    if season == "2" {
+    if season == "02" {
         let wlist = orville_season_2();
         if let Ok(wl) = wlist {
             epilist.push(wl);
         }
     };
 
-    if season == "3" {
+    if season == "03" {
         let wlist = orville_season_3();
         if let Ok(wl) = wlist {
             epilist.push(wl);

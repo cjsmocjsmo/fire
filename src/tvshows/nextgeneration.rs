@@ -230,49 +230,49 @@ fn next_generation_season_7() -> Result<Vec<TvShowsStruc>> {
 pub async fn next_generation_tv(season: String) -> Result<Vec<Vec<TvShowsStruc>>> {
     let mut epilist = Vec::new();
 
-    if season == "1" {
+    if season == "01" {
         let zlist = next_generation_season_1();
         if let Ok(z) = zlist {
             epilist.push(z);
         }
     };
 
-    if season == "2" {
+    if season == "02" {
         let wlist = next_generation_season_2();
         if let Ok(wl) = wlist {
             epilist.push(wl);
         }
     };
 
-    if season == "3" {
+    if season == "03" {
         let wlist = next_generation_season_3();
         if let Ok(wl) = wlist {
             epilist.push(wl);
         }
     };
 
-    if season == "4" {
+    if season == "04" {
         let wlist = next_generation_season_4();
         if let Ok(wl) = wlist {
             epilist.push(wl);
         }
     };
 
-    if season == "5" {
+    if season == "05" {
         let wlist = next_generation_season_5();
         if let Ok(wl) = wlist {
             epilist.push(wl);
         }
     };
 
-    if season == "6" {
+    if season == "06" {
         let wlist = next_generation_season_6();
         if let Ok(wl) = wlist {
             epilist.push(wl);
         }
     };
 
-    if season == "7" {
+    if season == "07" {
         let wlist = next_generation_season_7();
         if let Ok(wl) = wlist {
             epilist.push(wl);

@@ -50,7 +50,7 @@ fn alien_worlds_season_1() -> Result<Vec<TvShowsStruc>> {
 pub async fn alien_worlds_tv(season: String) -> Result<Vec<Vec<TvShowsStruc>>> {
     let mut epilist = Vec::new();
 
-    if season == "1" {
+    if season == "01" {
         let zlist = alien_worlds_season_1();
         if let Ok(z) = zlist {
             epilist.push(z);

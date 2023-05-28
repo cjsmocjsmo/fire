@@ -81,14 +81,14 @@ fn obiwan_season_1() -> Result<Vec<TvShowsStruc>> {
 pub async fn obiwan_tv(season: String) -> Result<Vec<Vec<TvShowsStruc>>> {
     let mut epilist = Vec::new();
 
-    if season == "1" {
+    if season == "01" {
         let zlist = obiwan_season_1();
         if let Ok(z) = zlist {
             epilist.push(z);
         }
     };
 
-    // if season == "2" {
+    // if season == "02" {
     //     let wlist = obiwan_season_2();
     //     if let Ok(wl) = wlist {
     //         epilist.push(wl);

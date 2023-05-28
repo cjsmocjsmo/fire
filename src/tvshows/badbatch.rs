@@ -82,14 +82,14 @@ pub async fn bad_batch_tv(season: String) -> Result<Vec<Vec<TvShowsStruc>>> {
     // let db = Connection::open("fire.db")?;
     let mut epilist = Vec::new();
 
-    if season == "1" {
+    if season == "01" {
         let zlist = badbatch_season_1();
         if let Ok(z) = zlist {
             epilist.push(z);
         }
     };
 
-    if season == "2" {
+    if season == "02" {
         let wlist = badbatch_season_2();
         if let Ok(wl) = wlist {
             epilist.push(wl);
