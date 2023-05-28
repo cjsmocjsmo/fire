@@ -142,7 +142,6 @@ fn write_tvshow_to_db(tvs: TVShowsStruc) -> Result<()> {
 
     conn.execute(
         "INSERT INTO tvshows (
-                id,
                 fireid, 
                 idx, 
                 category, 
@@ -153,9 +152,8 @@ fn write_tvshow_to_db(tvs: TVShowsStruc) -> Result<()> {
                 httppath,
                 vidtype
             )
-            VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10)",
+            VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9)",
         (
-            &tvs.id,
             &tvs.fireid,
             &tvs.idx,
             &tvs.category,
