@@ -18,10 +18,9 @@ pub struct TvShowsStruc {
 fn bobba_fett_season_1() -> Result<Vec<TvShowsStruc>> {
     let db = Connection::open("fire.db")?;
     let mut tv_vec = Vec::new();
-    let mut stmt1  = db.prepare("
-        SELECT id, fireid, idx, category, name, season, episode, size, httppath, vidtype FROM tvshows
-        WHERE category='BobbaFett' AND season='01'
-    ")?;
+    let mut stmt1  = db.prepare(
+        "SELECT * FROM tvshows WHERE category = 'BobbaFett' AND season = '01';"
+    )?;
     let bobba_fett_tv_iter = stmt1.query_map([], |row| {
         Ok(TvShowsStruc {
             id: row.get(0)?,

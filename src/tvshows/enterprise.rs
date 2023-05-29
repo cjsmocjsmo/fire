@@ -18,10 +18,9 @@ pub struct TvShowsStruc {
 fn enterprise_season_1() -> Result<Vec<TvShowsStruc>> {
     let db = Connection::open("fire.db")?;
     let mut tv_vec = Vec::new();
-    let mut stmt1  = db.prepare("
-        SELECT id, fireid, idx, category, name, season, episode, size, httppath, vidtype FROM tvshows
-        WHERE category='Enterprise' AND season='01'
-    ")?;
+    let mut stmt1  = db.prepare(
+        "SELECT * FROM tvshows WHERE category = 'Enterprise' AND season = '01'"
+    )?;
     let enterprise_tv_iter = stmt1.query_map([], |row| {
         Ok(TvShowsStruc {
             id: row.get(0)?,
@@ -50,10 +49,9 @@ fn enterprise_season_1() -> Result<Vec<TvShowsStruc>> {
 fn enterprise_season_2() -> Result<Vec<TvShowsStruc>> {
     let db = Connection::open("fire.db")?;
     let mut tv_vec = Vec::new();
-    let mut stmt2  = db.prepare("
-        SELECT id, fireid, idx, category, name, season, episode, size, httppath, vidtype FROM tvshows
-        WHERE category='Enterprise' AND season='02'
-    ")?;
+    let mut stmt2  = db.prepare(
+        "SELECT * FROM tvshows WHERE category = 'Enterprise' AND season = '02'"
+    )?;
     let enterprise_tv_iter = stmt2.query_map([], |row| {
         Ok(TvShowsStruc {
             id: row.get(0)?,
@@ -80,10 +78,9 @@ fn enterprise_season_2() -> Result<Vec<TvShowsStruc>> {
 fn enterprise_season_3() -> Result<Vec<TvShowsStruc>> {
     let db = Connection::open("fire.db")?;
     let mut tv_vec = Vec::new();
-    let mut stmt2  = db.prepare("
-        SELECT id, fireid, idx, category, name, season, episode, size, httppath, vidtype FROM tvshows
-        WHERE category='Enterprise' AND season='03'
-    ")?;
+    let mut stmt2  = db.prepare(
+        "SELECT * FROM tvshows WHERE category = 'Enterprise' AND season = '03'"
+    )?;
     let enterprise_tv_iter = stmt2.query_map([], |row| {
         Ok(TvShowsStruc {
             id: row.get(0)?,
