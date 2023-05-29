@@ -174,7 +174,7 @@ pub fn process_movies(movies_vec: Vec<String> ) -> String {
 
 fn write_movies_to_db(mov_info: MovieInfoStruc) -> Result<()> {
     let conn = Connection::open("fire.db").unwrap();
-    conn.execute("DROP TABLE IF EXISTS movies;", ())?;
+    // conn.execute("DROP TABLE IF EXISTS movies;", ())?;
     conn.execute(
         "CREATE TABLE IF NOT EXISTS movies (
             id INTEGER PRIMARY KEY,

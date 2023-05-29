@@ -81,7 +81,7 @@ pub fn process_mp3s(x: String, index: String, page: String) -> MusicInfo {
 
 fn write_music_to_db(music_info: MusicInfo) -> Result<()> {
     let conn = Connection::open("fire.db").unwrap();
-    conn.execute("DROP TABLE IF EXISTS music;", ())?;
+    // conn.execute("DROP TABLE IF EXISTS music;", ())?;
     conn.execute(
         "CREATE TABLE IF NOT EXISTS music (
             id INTEGER PRIMARY KEY,
