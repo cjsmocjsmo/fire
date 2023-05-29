@@ -5,7 +5,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 struct TVShowsStruc {
-    id: String,
+    // id: String,
     fireid: String,
     idx: String,
     category: String,
@@ -145,7 +145,7 @@ pub fn process_tvshows(tvshows_vec: Vec<String>) -> bool {
             }
             let episodename = fnsplit_vec.pop().unwrap();
             let tvshows = TVShowsStruc {
-                id: count.clone().to_string(),
+                // id: count.clone().to_string(),
                 fireid: fire_id,
                 idx: count.clone().to_string(),
                 category: category.clone(),
