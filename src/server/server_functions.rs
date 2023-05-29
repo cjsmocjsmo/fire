@@ -400,7 +400,7 @@ async fn strangenewworlds(path: web::Path<String>) -> impl Responder  {
 #[get("/tvshows/sttv/{season}")]
 async fn sttv(path: web::Path<String>) -> impl Responder  {
     let season = path.into_inner();
-    let sttv_tv = crate::tvshows::sttv::sttv_tv(season).await.unwrap();
+    let sttv_tv = crate::tvshows::startrek::sttv_tv(season).await.unwrap();
     HttpResponse::Ok().json(sttv_tv)
 }
 

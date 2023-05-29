@@ -26,7 +26,7 @@ pub mod raisedbywolves;
 pub mod reacher;
 pub mod ringsofpower;
 pub mod strangenewworlds;
-pub mod sttv;
+pub mod startrek;
 pub mod talesofthejedi;
 pub mod thelastofus;
 pub mod voyager;
