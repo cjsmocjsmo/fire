@@ -42,6 +42,7 @@ fn reacher_season_1() -> Result<Vec<TvShowsStruc>> {
 
     for mo in reacher_tv_iter {
         let m = mo.unwrap();
+        println!("this is m \n\t{:?}", m);
         tv_vec.push(m);
     }
 
