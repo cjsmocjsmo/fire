@@ -24,91 +24,46 @@ pub struct TVShowsUtils {
 
 impl TVShowsUtils {
     fn get_tv_category(&self) -> String {
-        let mut tv_cat = Vec::new();
         let ap = &self.apath.to_string();
-        // let ap = apa;
-        if ap.contains("AlienWorlds") {
-            tv_cat.push("AlienWorlds");
-        } else if ap.contains("AlteredCarbon") {
-            tv_cat.push("AlteredCarbon");
-        } else if ap.contains("Andor") {
-            tv_cat.push("AlteredCarbon");
-        } else if ap.contains("TheBadBatch") {
-            tv_cat.push("TheBadBatch");
-        } else if ap.contains("BlackKnight") {
-            tv_cat.push("BlackKnight");
-        } else if ap.contains("BobbaFett") {
-            tv_cat.push("BobbaFett");
-        } else if ap.contains("CowboyBebop") {
-            tv_cat.push("CowboyBebop");
-        } else if ap.contains("Discovery") {
-            tv_cat.push("Discovery");
-        } else if ap.contains("Enterprise") {
-            tv_cat.push("Enterprise");
-        } else if ap.contains("ForAllManKind") {
-            tv_cat.push("ForAllManKind");
-        } else if ap.contains("Foundations") {
-            tv_cat.push("Foundations");
-        } else if ap.contains("Halo") {
-            tv_cat.push("Halo");
-        } else if ap.contains("HFord1923") {
-            tv_cat.push("HFord1923");
-        } else if ap.contains("HouseOfTheDragon") {
-            tv_cat.push("HouseOfTheDragon");
-        } else if ap.contains("LostInSpace") {
-            tv_cat.push("LostInSpace");
-        } else if ap.contains("LowerDecks") {
-            tv_cat.push("LowerDecks");
-        } else if ap.contains("Mandelorian") {
-            tv_cat.push("Mandelorian");
-        } else if ap.contains("NextGeneration") {
-            tv_cat.push("NextGeneration");
-        } else if ap.contains("NightSky") {
-            tv_cat.push("NightSky");
-        } else if ap.contains("ObiWanKenobi") {
-            tv_cat.push("ObiWanKenobi");
-        } else if ap.contains("Orville") {
-            tv_cat.push("Orville");
-        } else if ap.contains("PrehistoricPlanet") {
-            tv_cat.push("PrehistoricPlanet");
-        } else if ap.contains("Picard") {
-            tv_cat.push("Picard");
-        } else if ap.contains("Prodigy") {
-            tv_cat.push("Prodigy");
-        } else if ap.contains("RaisedByWolves") {
-            tv_cat.push("RaisedByWolves");
-        } else if ap.contains("Reacher") {
-            tv_cat.push("Reacher");
-        } else if ap.contains("RingsOfPower") {
-            tv_cat.push("RingsOfPower");
-        } else if ap.contains("StrangeNewWorlds") {
-            tv_cat.push("StrangeNewWorlds");
-        } else if ap.contains("StarTrek") {
-            tv_cat.push("StarTrek");
-        } else if ap.contains("StarWars") { //fake movies
-            println!("{}", ap); //fake movies
-        } else if ap.contains("TalesOfTheJedi") {
-            tv_cat.push("TalesOfTheJedi");
-        } else if ap.contains("TheLastOfUs") {
-            tv_cat.push("TheLastOfus");
-        } else if ap.contains("Visions") {
-            tv_cat.push("Visions");
-        } else if ap.contains("Voyager") {
-            tv_cat.push("Visions");
-        } else if ap.contains("WheelOfTime") {
-            tv_cat.push("WheelOfTime")
-        } else {
-            println!("Fuck I forgot a catagory")
+        match true {
+            true if ap.contains("AlienWorlds") => String::from("AlienWorlds"),
+            true if ap.contains("AlteredCarbon") => String::from("AlteredCarbon"),
+            true if ap.contains("Andor") => String::from("Andor"),
+            true if ap.contains("TheBadBatch") => String::from("TheBadBatch"),
+            true if ap.contains("BlackKnight") => String::from("BlackKnight"),
+            true if ap.contains("BobbaFett") => String::from("BobbaFett"),
+            true if ap.contains("CowboyBebop") => String::from("CowboyBebop"),
+            true if ap.contains("Discovery") => String::from("Discovery"),
+            true if ap.contains("Enterprise") => String::from("Enterprise"),
+            true if ap.contains("ForAllManKind") => String::from("ForAllManKind"),
+            true if ap.contains("Foundations") => String::from("Foundations"),
+            true if ap.contains("Halo") => String::from("Halo"),
+            true if ap.contains("HFord1923") => String::from("HFord1923"),
+            true if ap.contains("HouseOfTheDragon") => String::from("HouseOfTheDragon"),
+            true if ap.contains("LostInSpace") => String::from("LostInSpace"),
+            true if ap.contains("LowerDecks") => String::from("LowerDecks"),
+            true if ap.contains("Mandelorian") => String::from("Mandelorian"),
+            true if ap.contains("NextGeneration") => String::from("NextGeneration"),
+            true if ap.contains("NightSky") => String::from("NightSky"),
+            true if ap.contains("ObiWanKenobi") => String::from("ObiWanKenobi"),
+            true if ap.contains("Orville") => String::from("Orville"),
+            true if ap.contains("PrehistoricPlanet") => String::from("PrehistoricPlanet"),
+            true if ap.contains("Picard") => String::from("Picard"),
+            true if ap.contains("Prodigy") => String::from("Prodigy"),
+            true if ap.contains("RaisedByWolves") => String::from("RaisedByWolves"),
+            true if ap.contains("Reacher") => String::from("Reacher"),
+            true if ap.contains("RingsOfPower") => String::from("RingsOfPower"),
+            true if ap.contains("StrangeNewWorlds") => String::from("StrangeNewWorlds"),
+            true if ap.contains("StarTrek") => String::from("StarTrek"),
+            true if ap.contains("StarWars") => String::from("shit"), //fake movies
+            true if ap.contains("TalesOfTheJedi") => String::from("TalesOfTheJedi"),
+            true if ap.contains("TheLastOfUs") => String::from("TheLastOfus"),
+            true if ap.contains("Visions") => String::from("Visions"),
+            true if ap.contains("Voyager") => String::from("Visions"),
+            true if ap.contains("WheelOfTime") => String::from("WheelOfTime"),
+            _ => String::from("Fuck Me")
         }
-
-        println!("this is self: {:?}", &self.clone());
-
-        println!("this is tv_cat: {:?}", tv_cat.clone());
-
-        tv_cat[0].to_string()
     }
-
-
 
 
     // fn get_tv_category(&self) -> String {
