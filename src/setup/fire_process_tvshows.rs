@@ -17,6 +17,7 @@ struct TVShowsStruc {
     vidtype: String,
 }
 
+#[derive(Debug)]
 pub struct TVShowsUtils {
     apath: String,
 }
@@ -96,7 +97,9 @@ impl TVShowsUtils {
             println!("Fuck I forgot a catagory")
         }
 
-        println!("{:?}", tv_cat.clone());
+        println!("this is self: {:?}", &self.clone());
+
+        println!("this is tv_cat: {:?}", tv_cat.clone());
 
         tv_cat[0].to_string()
     }
