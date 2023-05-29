@@ -20,7 +20,7 @@ fn hford1923_season_1() -> Result<Vec<TvShowsStruc>> {
     let mut tv_vec = Vec::new();
     let mut stmt1  = db.prepare("
         SELECT id, fireid, idx, category, name, season, episode, size, httppath, vidtype FROM tvshows
-        WHERE name='HFord 1923', season='01'
+        WHERE category='HFord 1923' AND season='01'
     ")?;
     let hford1923_tv_iter = stmt1.query_map([], |row| {
         Ok(TvShowsStruc {

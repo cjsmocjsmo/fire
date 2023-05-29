@@ -20,7 +20,7 @@ fn mandalorian_season_1() -> Result<Vec<TvShowsStruc>> {
     let mut tv_vec = Vec::new();
     let mut stmt1  = db.prepare("
         SELECT id, fireid, idx, category, name, season, episode, size, httppath, vidtype FROM tvshows
-        WHERE name='Mandalorian', season='01'
+        WHERE category='Mandalorian' AND season='01'
     ")?;
     let mandalorian_tv_iter = stmt1.query_map([], |row| {
         Ok(TvShowsStruc {
@@ -52,7 +52,7 @@ fn mandalorian_season_2() -> Result<Vec<TvShowsStruc>> {
     let mut tv_vec = Vec::new();
     let mut stmt2  = db.prepare("
         SELECT id, fireid, idx, category, name, season, episode, size, httppath, vidtype FROM tvshows
-        WHERE name='Mandalorian', season='02'
+        WHERE category='Mandalorian' AND season='02'
     ")?;
     let mandalorian_tv_iter = stmt2.query_map([], |row| {
         Ok(TvShowsStruc {
@@ -82,7 +82,7 @@ fn mandalorian_season_3() -> Result<Vec<TvShowsStruc>> {
     let mut tv_vec = Vec::new();
     let mut stmt2  = db.prepare("
         SELECT id, fireid, idx, category, name, season, episode, size, httppath, vidtype FROM tvshows
-        WHERE name='Mandalorian', season='03'
+        WHERE category='Mandalorian' AND season='03'
     ")?;
     let mandalorian_tv_iter = stmt2.query_map([], |row| {
         Ok(TvShowsStruc {

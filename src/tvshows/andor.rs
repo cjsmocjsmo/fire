@@ -20,7 +20,7 @@ fn andor_season_1() -> Result<Vec<TvShowsStruc>> {
     let mut tv_vec = Vec::new();
     let mut stmt1  = db.prepare("
         SELECT id, fireid, idx, category, name, season, episode, size, httppath, vidtype FROM tvshows
-        WHERE name='Andor', season='01'
+        WHERE category='Andor' AND season='01'
     ")?;
     let andor_tv_iter = stmt1.query_map([], |row| {
         Ok(TvShowsStruc {

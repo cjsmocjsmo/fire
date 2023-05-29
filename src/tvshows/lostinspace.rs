@@ -20,7 +20,7 @@ fn lost_in_space_season_1() -> Result<Vec<TvShowsStruc>> {
     let mut tv_vec = Vec::new();
     let mut stmt1  = db.prepare("
         SELECT id, fireid, idx, category, name, season, episode, size, httppath, vidtype FROM tvshows
-        WHERE name='Lost In Space', season='01'
+        WHERE category='Lost In Space' AND season='01'
     ")?;
     let lost_in_space_tv_iter = stmt1.query_map([], |row| {
         Ok(TvShowsStruc {
@@ -52,7 +52,7 @@ fn lost_in_space_season_2() -> Result<Vec<TvShowsStruc>> {
     let mut tv_vec = Vec::new();
     let mut stmt2  = db.prepare("
         SELECT id, fireid, idx, category, name, season, episode, size, httppath, vidtype FROM tvshows
-        WHERE name='Lost In Space', season='02'
+        WHERE category='Lost In Space' AND season='02'
     ")?;
     let lost_in_space_tv_iter = stmt2.query_map([], |row| {
         Ok(TvShowsStruc {
@@ -82,7 +82,7 @@ fn lost_in_space_season_3() -> Result<Vec<TvShowsStruc>> {
     let mut tv_vec = Vec::new();
     let mut stmt2  = db.prepare("
         SELECT id, fireid, idx, category, name, season, episode, size, httppath, vidtype FROM tvshows
-        WHERE name='Lost In Space', season='03'
+        WHERE category='Lost In Space' AND season='03'
     ")?;
     let lost_in_space_tv_iter = stmt2.query_map([], |row| {
         Ok(TvShowsStruc {
