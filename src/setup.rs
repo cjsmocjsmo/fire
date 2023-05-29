@@ -118,10 +118,10 @@ pub fn run_setup() -> bool {
 
         // run_music_threads(media_lists.0.clone());
         // run_music_img_threads(media_lists.2.clone());
-        run_video_img_threads(media_lists.2.clone());
+        // run_video_img_threads(media_lists.2.clone());
         
 
-        let _movies = crate::setup::fire_process_movies::process_movies(media_lists.1.clone());
+        // let _movies = crate::setup::fire_process_movies::process_movies(media_lists.1.clone());
         let _tvshows = crate::setup::fire_process_tvshows::process_tvshows(media_lists.1.clone());
 
 
