@@ -69,6 +69,8 @@ impl TVShowsUtils {
             tv_cat.push("ObiWanKenobi");
         } else if ap.contains("Orville") {
             tv_cat.push("Orville");
+        } else if ap.contains("PrehistoricPlanet") {
+            tv_cat.push("PrehistoricPlanet");
         } else if ap.contains("Picard") {
             tv_cat.push("Picard");
         } else if ap.contains("Prodigy") {
