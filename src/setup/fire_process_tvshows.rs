@@ -96,6 +96,8 @@ impl TVShowsUtils {
             println!("Fuck I forgot a catagory")
         }
 
+        println!("{:?}", tv_cat.clone());
+
         tv_cat[0].to_string()
     }
 
