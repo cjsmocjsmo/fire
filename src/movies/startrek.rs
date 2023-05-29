@@ -15,11 +15,11 @@ pub struct MovInfoSt {
     vidtype: String
 }
 
-pub async fn startreck_movs() -> Result<Vec<MovInfoSt>> {
+pub async fn startrek_movs() -> Result<Vec<MovInfoSt>> {
     let db = Connection::open("fire.db")?;
     let mut stmt  = db.prepare("
         SELECT id, fireid, idx, name, year, size, httpposterpath, path, category, vidtype FROM movies
-        WHERE category = 'StarTreck';
+        WHERE category = 'StarTrek';
     ")?;
     
     let action_movs_iter = stmt.query_map([], |row| {

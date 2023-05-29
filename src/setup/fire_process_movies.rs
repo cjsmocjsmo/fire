@@ -22,72 +22,108 @@ fn write_mov_meta_to_file(mi: MovieInfoStruc, count: i32) {
     std::fs::write(outpath, json_info).unwrap();
 }
 
-fn mov_category(x: String) -> String{
-    let mut mov_category = String::new();
-    if x.contains("Action") {
-        mov_category = String::from("Action");
-    } else if x.contains("Arnold") {
-        mov_category = String::from("Arnold");
-    } else if x.contains("BruceWillis") {
-        mov_category = String::from("BruceWillis");
-    } else if x.contains("Cartoons") {
-        mov_category = String::from("Cartoons");
-    } else if x.contains("Comedy") {
-        mov_category = String::from("Comedy");
-    } else if x.contains("Drama") {
-        mov_category = String::from("Drama");
-    } else if x.contains("Documentary") {
-        mov_category = String::from("Documentary");
-    } else if x.contains("Fantasy") {
-        mov_category = String::from("Fantasy");
-    } else if x.contains("Godzilla") {
-        mov_category = String::from("Godzilla");
-    } else if x.contains("HarryPotter") {
-        mov_category = String::from("HarryPotter");
-    } else if x.contains("IndianaJones") {
-        mov_category = String::from("IndianaJones");
-    } else if x.contains("JamesBond") {
-        mov_category = String::from("JamesBond");
-    } else if x.contains("JohnWayne") {
-        mov_category = String::from("JohnWayne");
-    } else if x.contains("JohnWick") {
-        mov_category = String::from("JohnWick");
-    } else if x.contains("JurassicPark") {
-        mov_category = String::from("JurassicPark");
-    } else if x.contains("KingsMen") {
-        mov_category = String::from("KingsMen");
-    } else if x.contains("MenInBlack") {
-        mov_category = String::from("MenInBlack");
-    } else if x.contains("Misc") {
-        mov_category = String::from("Misc");
-    } else if x.contains("MicolasCage") {
-        mov_category = String::from("MicolasCage");
-    } else if x.contains("Pirates") {
-        mov_category = String::from("Pirates");
-    } else if x.contains("Riddick") {
-        mov_category = String::from("Riddick");
-    } else if x.contains("StarWars") {
-        mov_category = String::from("StarWars");
-    } else if x.contains("StarTrek") {
-        mov_category = String::from("StarTreck");
-    } else if x.contains("SuperHeroes") {
-        mov_category = String::from("SuperHeroes");
-    } else if x.contains("SciFi") {
-        mov_category = String::from("SciFi");
-    } else if x.contains("TomCruize") {
-        mov_category = String::from("TomCruize");
-    } else if x.contains("Transformers") {
-        mov_category = String::from("Transformers");
-    } else if x.contains("Tremors") {
-        mov_category = String::from("Tremors");
-    } else if x.contains("TheRock") {
-        mov_category = String::from("TheRock");
-    } else if x.contains("XMen") {
-        mov_category = String::from("XMen");
-    };
-
-    mov_category
+fn mov_category(x: String) -> String {
+    match true {
+        true if x.contains("Action") => String::from("Action"),
+        true if x.contains("Arnold") => String::from("Arnold"),
+        true if x.contains("BruceWillis") => String::from("BruceWillis"),
+        true if x.contains("Cartoons") => String::from("Cartoons"),
+        true if x.contains("Comedy") => String::from("Comedy"),
+        true if x.contains("Documentary") => String::from("Documentary"),
+        true if x.contains("Drama") => String::from("Drama"),
+        true if x.contains("Fantasy") => String::from("Fantasy"),
+        true if x.contains("Godzilla") => String::from("Godzilla"),
+        true if x.contains("HarryPotter") => String::from("HarryPotter"),
+        true if x.contains("IndianaJones") => String::from("IndianaJones"),
+        true if x.contains("JamesBond") => String::from("JamesBond"),
+        true if x.contains("JohnWayne") => String::from("JohnWayne"),
+        true if x.contains("JohnWick") => String::from("JohnWick"),
+        true if x.contains("JurassicPark") => String::from("JurassicPark"),
+        true if x.contains("KingMen") => String::from("KingMen"),
+        true if x.contains("MenInBlack") => String::from("MenInBlack"),
+        true if x.contains("Misc") => String::from("Misc"),
+        true if x.contains("NicolasCage") => String::from("NicolasCage"),
+        true if x.contains("Pirates") => String::from("Pirates"),
+        true if x.contains("Riddick") => String::from("Riddick"),
+        true if x.contains("SciFi") => String::from("SciFi"),
+        true if x.contains("StarTrek") => String::from("StarTrek"),
+        true if x.contains("StarWars") => String::from("StarWars"),
+        true if x.contains("SuperHeroes") => String::from("SuperHeroes"),
+        true if x.contains("TheRock") => String::from("TheRock"),
+        true if x.contains("TomCruize") => String::from("TomCruize"),
+        true if x.contains("Transformers") => String::from("Transformers"),
+        true if x.contains("Tremors") => String::from("Tremors"),
+        true if x.contains("XMen") => String::from("XMen"),
+        _ => String::from("Fuck")
+    }
 }
+
+// fn mov_category(x: String) -> String{
+//     let mut mov_category = String::new();
+//     if x.contains("Action") {
+//         mov_category = String::from("Action");
+//     } else if x.contains("Arnold") {
+//         mov_category = String::from("Arnold");
+//     } else if x.contains("BruceWillis") {
+//         mov_category = String::from("BruceWillis");
+//     } else if x.contains("Cartoons") {
+//         mov_category = String::from("Cartoons");
+//     } else if x.contains("Comedy") {
+//         mov_category = String::from("Comedy");
+//     } else if x.contains("Drama") {
+//         mov_category = String::from("Drama");
+//     } else if x.contains("Documentary") {
+//         mov_category = String::from("Documentary");
+//     } else if x.contains("Fantasy") {
+//         mov_category = String::from("Fantasy");
+//     } else if x.contains("Godzilla") {
+//         mov_category = String::from("Godzilla");
+//     } else if x.contains("HarryPotter") {
+//         mov_category = String::from("HarryPotter");
+//     } else if x.contains("IndianaJones") {
+//         mov_category = String::from("IndianaJones");
+//     } else if x.contains("JamesBond") {
+//         mov_category = String::from("JamesBond");
+//     } else if x.contains("JohnWayne") {
+//         mov_category = String::from("JohnWayne");
+//     } else if x.contains("JohnWick") {
+//         mov_category = String::from("JohnWick");
+//     } else if x.contains("JurassicPark") {
+//         mov_category = String::from("JurassicPark");
+//     } else if x.contains("KingsMen") {
+//         mov_category = String::from("KingsMen");
+//     } else if x.contains("MenInBlack") {
+//         mov_category = String::from("MenInBlack");
+//     } else if x.contains("Misc") {
+//         mov_category = String::from("Misc");
+//     } else if x.contains("MicolasCage") {
+//         mov_category = String::from("MicolasCage");
+//     } else if x.contains("Pirates") {
+//         mov_category = String::from("Pirates");
+//     } else if x.contains("Riddick") {
+//         mov_category = String::from("Riddick");
+//     } else if x.contains("StarWars") {
+//         mov_category = String::from("StarWars");
+//     } else if x.contains("StarTrek") {
+//         mov_category = String::from("Startreck");
+//     } else if x.contains("SuperHeroes") {
+//         mov_category = String::from("SuperHeroes");
+//     } else if x.contains("SciFi") {
+//         mov_category = String::from("SciFi");
+//     } else if x.contains("TomCruize") {
+//         mov_category = String::from("TomCruize");
+//     } else if x.contains("Transformers") {
+//         mov_category = String::from("Transformers");
+//     } else if x.contains("Tremors") {
+//         mov_category = String::from("Tremors");
+//     } else if x.contains("TheRock") {
+//         mov_category = String::from("TheRock");
+//     } else if x.contains("XMen") {
+//         mov_category = String::from("XMen");
+//     };
+
+//     mov_category
+// }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 struct MovieInfoStruc {

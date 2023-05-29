@@ -146,7 +146,7 @@ async fn riddick() -> impl Responder  {
 
 #[get("/movies/startreck")]
 async fn startreck() -> impl Responder  {
-    let startrek_mov = crate::movies::startreck::startreck_movs().await.unwrap();
+    let startrek_mov = crate::movies::startrek::startrek_movs().await.unwrap();
     HttpResponse::Ok().json(startrek_mov)
 }
 

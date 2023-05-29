@@ -21,7 +21,7 @@ pub mod nicolascage;
 pub mod pirates;
 pub mod riddick;
 pub mod scifi;
-pub mod startreck;
+pub mod startrek;
 pub mod starwars;
 pub mod superheros;
 pub mod therock;
