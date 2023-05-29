@@ -126,8 +126,8 @@ pub fn run_setup() -> bool {
 
 
         let ab_list = crate::setup::fire_misc::create_art_alb_list(media_lists.0.clone());
-        let _artist_list = crate::setup::fire_misc::create_artistids(ab_list.0);
-        let _album_list = crate::setup::fire_misc::create_albumids(ab_list.1);
+        let artist_list = crate::setup::fire_misc::create_artistids(ab_list.0);
+        let album_list = crate::setup::fire_misc::create_albumids(ab_list.1);
 
         let art_serial = serde_json::to_string(&artist_list).unwrap();
         let alb_serial = serde_json::to_string(&album_list);
