@@ -82,7 +82,7 @@ fn lower_decks_season_3() -> Result<Vec<TvShowsStruc>> {
     let mut tv_vec = Vec::new();
     let mut stmt2  = db.prepare("
         SELECT id, fireid, idx, category, name, season, episode, size, httppath, vidtype FROM tvshows
-        WHERE category='Lower Decks' AND season='03'
+        WHERE category='LowerDecks' AND season='03'
     ")?;
     let lower_decks_tv_iter = stmt2.query_map([], |row| {
         Ok(TvShowsStruc {

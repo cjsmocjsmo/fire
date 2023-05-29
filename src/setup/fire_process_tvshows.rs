@@ -23,30 +23,110 @@ pub struct TVShowsUtils {
 
 impl TVShowsUtils {
     fn get_tv_category(&self) -> String {
-        let foo12 = crate::setup::fire_utils::FireUtils {
-            apath: self.apath.to_string(),
-        };
-
-        let name = crate::setup::fire_utils::FireUtils::split_movie_name(&foo12);
-        let n_split = name.split(" ");
-        let mut n_split_vec = vec![];
-
-        for n in n_split {
-            n_split_vec.push(n);
+        let mut tv_cat = Vec::new();
+        let ap = &self.apath.to_string();
+        // let ap = apa;
+        if ap.contains("AlienWorlds") {
+            tv_cat.push("AlienWorlds");
+        } else if ap.contains("AlteredCarbon") {
+            tv_cat.push("AlteredCarbon");
+        } else if ap.contains("Andor") {
+            tv_cat.push("AlteredCarbon");
+        } else if ap.contains("TheBadBatch") {
+            tv_cat.push("TheBadBatch");
+        } else if ap.contains("BlackKnight") {
+            tv_cat.push("BlackKnight");
+        } else if ap.contains("BobbaFett") {
+            tv_cat.push("BobbaFett");
+        } else if ap.contains("CowboyBebop") {
+            tv_cat.push("CowboyBebop");
+        } else if ap.contains("Discovery") {
+            tv_cat.push("Discovery");
+        } else if ap.contains("Enterprise") {
+            tv_cat.push("Enterprise");
+        } else if ap.contains("ForAllManKind") {
+            tv_cat.push("ForAllManKind");
+        } else if ap.contains("Foundations") {
+            tv_cat.push("Foundations");
+        } else if ap.contains("Halo") {
+            tv_cat.push("Halo");
+        } else if ap.contains("HFord1923") {
+            tv_cat.push("HFord1923");
+        } else if ap.contains("HouseOfTheDragon") {
+            tv_cat.push("HouseOfTheDragon");
+        } else if ap.contains("LostInSpace") {
+            tv_cat.push("LostInSpace");
+        } else if ap.contains("LowerDecks") {
+            tv_cat.push("LowerDecks");
+        } else if ap.contains("Mandelorian") {
+            tv_cat.push("Mandelorian");
+        } else if ap.contains("NextGeneration") {
+            tv_cat.push("NextGeneration");
+        } else if ap.contains("NightSky") {
+            tv_cat.push("NightSky");
+        } else if ap.contains("ObiWanKenobi") {
+            tv_cat.push("ObiWanKenobi");
+        } else if ap.contains("Orville") {
+            tv_cat.push("Orville");
+        } else if ap.contains("Picard") {
+            tv_cat.push("Picard");
+        } else if ap.contains("Prodigy") {
+            tv_cat.push("Prodigy");
+        } else if ap.contains("RaisedByWolves") {
+            tv_cat.push("RaisedByWolves");
+        } else if ap.contains("Reacher") {
+            tv_cat.push("Reacher");
+        } else if ap.contains("RingsOfPower") {
+            tv_cat.push("RingsOfPower");
+        } else if ap.contains("StrangeNewWorlds") {
+            tv_cat.push("StrangeNewWorlds");
+        } else if ap.contains("STTV") {
+            tv_cat.push("STTV");
+        } else if ap.contains("TalesOfTheJedi") {
+            tv_cat.push("TalesOfTheJedi");
+        } else if ap.contains("TheLastOfUs") {
+            tv_cat.push("TheLastOfus");
+        } else if ap.contains("Visions") {
+            tv_cat.push("Visions");
+        } else if ap.contains("Voyager") {
+            tv_cat.push("Visions");
+        } else if ap.contains("WheelOfTime") {
+            tv_cat.push("WheelOfTime")
+        } else {
+            println!("Fuck I forgot a catagory")
         }
 
-        let idx = n_split_vec.len() - 2;
-        let mut newname_vec = vec![];
-        let foo = n_split_vec.drain(0..idx);
-
-        for f in foo {
-            newname_vec.push(f);
-        }
-
-        let bar = newname_vec.join(" ");
-
-        bar.to_string()
+        tv_cat[0].to_string()
     }
+
+
+
+
+    // fn get_tv_category(&self) -> String {
+    //     let foo12 = crate::setup::fire_utils::FireUtils {
+    //         apath: self.apath.to_string(),
+    //     };
+
+    //     let name = crate::setup::fire_utils::FireUtils::split_movie_name(&foo12);
+    //     let n_split = name.split(" ");
+    //     let mut n_split_vec = vec![];
+
+    //     for n in n_split {
+    //         n_split_vec.push(n);
+    //     }
+
+    //     let idx = n_split_vec.len() - 2;
+    //     let mut newname_vec = vec![];
+    //     let foo = n_split_vec.drain(0..idx);
+
+    //     for f in foo {
+    //         newname_vec.push(f);
+    //     }
+
+    //     let bar = newname_vec.join(" ");
+
+    //     bar.to_string()
+    // }
 
     fn get_tv_episode_season(&self) -> (String, String) {
         let foo1 = crate::setup::fire_utils::FireUtils {

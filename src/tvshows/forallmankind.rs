@@ -82,7 +82,7 @@ fn for_all_mankind_season_3() -> Result<Vec<TvShowsStruc>> {
     let mut tv_vec = Vec::new();
     let mut stmt2  = db.prepare("
         SELECT id, fireid, idx, category, name, season, episode, size, httppath, vidtype FROM tvshows
-        WHERE category='For All Mankind' AND season='03'
+        WHERE category='ForAllMankind' AND season='03'
     ")?;
     let for_all_mankind_tv_iter = stmt2.query_map([], |row| {
         Ok(TvShowsStruc {

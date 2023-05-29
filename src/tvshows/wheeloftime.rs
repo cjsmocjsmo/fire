@@ -52,7 +52,7 @@ fn wheel_of_time_season_2() -> Result<Vec<TvShowsStruc>> {
     let mut tv_vec = Vec::new();
     let mut stmt2  = db.prepare("
         SELECT id, fireid, idx, category, name, season, episode, size, httppath, vidtype FROM tvshows
-        WHERE category='Wheel Of Time' AND season='02'
+        WHERE category='WheelOfTime' AND season='02'
     ")?;
     let wheel_of_time_tv_iter = stmt2.query_map([], |row| {
         Ok(TvShowsStruc {

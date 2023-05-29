@@ -20,7 +20,7 @@ fn strange_new_worlds_season_1() -> Result<Vec<TvShowsStruc>> {
     let mut tv_vec = Vec::new();
     let mut stmt1  = db.prepare("
         SELECT id, fireid, idx, category, name, season, episode, size, httppath, vidtype FROM tvshows
-        WHERE category='Strange New Worlds' AND season='01'
+        WHERE category='StrangeNewWorlds' AND season='01'
     ")?;
     let strange_new_worlds_tv_iter = stmt1.query_map([], |row| {
         Ok(TvShowsStruc {

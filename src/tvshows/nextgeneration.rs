@@ -202,7 +202,7 @@ fn next_generation_season_7() -> Result<Vec<TvShowsStruc>> {
     let mut tv_vec = Vec::new();
     let mut stmt2  = db.prepare("
         SELECT id, fireid, idx, category, name, season, episode, size, httppath, vidtype FROM tvshows
-        WHERE category='Next Generation' AND season='07'
+        WHERE category='NextGeneration' AND season='07'
     ")?;
     let next_generation_tv_iter = stmt2.query_map([], |row| {
         Ok(TvShowsStruc {

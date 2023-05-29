@@ -20,7 +20,7 @@ fn rings_of_power_season_1() -> Result<Vec<TvShowsStruc>> {
     let mut tv_vec = Vec::new();
     let mut stmt1  = db.prepare("
         SELECT id, fireid, idx, category, name, season, episode, size, httppath, vidtype FROM tvshows
-        WHERE category='Rings Of Power' AND season='01'
+        WHERE category='RingsOfPower' AND season='01'
     ")?;
     let rings_of_power_tv_iter = stmt1.query_map([], |row| {
         Ok(TvShowsStruc {

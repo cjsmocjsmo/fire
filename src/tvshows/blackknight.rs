@@ -20,7 +20,7 @@ fn black_knight_season_1() -> Result<Vec<TvShowsStruc>> {
     let mut tv_vec = Vec::new();
     let mut stmt1  = db.prepare("
         SELECT id, fireid, idx, category, name, season, episode, size, httppath, vidtype FROM tvshows
-        WHERE category='Black Knight' AND season='01'
+        WHERE category='BlackKnight' AND season='01'
     ")?;
     let black_knight_tv_iter = stmt1.query_map([], |row| {
         Ok(TvShowsStruc {

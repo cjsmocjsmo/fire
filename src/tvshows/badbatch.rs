@@ -52,7 +52,7 @@ fn badbatch_season_2() -> Result<Vec<TvShowsStruc>> {
     let mut tv_vec = Vec::new();
     let mut stmt2  = db.prepare("
         SELECT id, fireid, idx, category, name, season, episode, size, httppath, vidtype FROM tvshows
-        WHERE category='The Bad Batch' AND season='02'
+        WHERE category='TheBadBatch' AND season='02'
     ")?;
     let bad_batch_tv_iter = stmt2.query_map([], |row| {
         Ok(TvShowsStruc {
