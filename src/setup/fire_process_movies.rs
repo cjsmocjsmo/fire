@@ -127,7 +127,7 @@ fn mov_category(x: String) -> String {
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 struct MovieInfoStruc {
-    id: String,
+    // id: String,
     fireid: String,
     idx: String,
     name: String,
@@ -151,7 +151,7 @@ pub fn process_movies(movies_vec: Vec<String> ) -> String {
             let mov_year = crate::setup::fire_utils::FireUtils::split_movie_year(&foo);
             let mov_poster_addr = get_poster_addr(mov_name.clone(), mov_year.clone());
             let mov_info = MovieInfoStruc {
-                id: count.clone().to_string(),
+                // id: count.clone().to_string(),
                 fireid: fire_id,
                 idx: count.clone().to_string(),
                 name: mov_name.clone(),
