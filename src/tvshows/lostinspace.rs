@@ -79,8 +79,7 @@ fn lost_in_space_season_3() -> Result<Vec<TvShowsStruc>> {
     let db = Connection::open("fire.db")?;
     let mut tv_vec = Vec::new();
     let mut stmt2  = db.prepare("
-        SELECT * FROM tvshows WHERE category = 'LostInSpace' AND season = '03';
-    ")?;
+        SELECT * FROM tvshows WHERE category = 'LostInSpace' AND season = '03';")?;
     let lost_in_space_tv_iter = stmt2.query_map([], |row| {
         Ok(TvShowsStruc {
             id: row.get(0)?,
