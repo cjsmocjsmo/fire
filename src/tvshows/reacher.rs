@@ -22,9 +22,10 @@ fn reacher_season_1() -> Result<Vec<TvShowsStruc>> {
     //     SELECT id, fireid, idx, category, name, season, episode, size, httppath, vidtype FROM tvshows
     //     WHERE category='Reacher' AND season='01';
     // ")?;
-    let mut stmt1  = db.prepare("
-        SELECT * FROM tvshows;
-    ")?;
+    let mut stmt1  = db.prepare(
+        
+        "SELECT * FROM tvshows WHERE category = 'Reacher' AND season = '01';"
+    )?;
     let reacher_tv_iter = stmt1.query_map([], |row| {
         Ok(TvShowsStruc {
             id: row.get(0)?,
