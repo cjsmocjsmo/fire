@@ -197,7 +197,7 @@ fn write_tvshow_to_db(tvs: TVShowsStruc) -> Result<()> {
                 vidtype
             )
             VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9)",
-        (
+        &[
             &tvs.fireid,
             &tvs.idx,
             &tvs.category,
@@ -206,8 +206,8 @@ fn write_tvshow_to_db(tvs: TVShowsStruc) -> Result<()> {
             &tvs.episode,
             &tvs.size,
             &tvs.httppath,
-            &tvs.vidtype,
-        ),
+            &tvs.vidtype
+        ],
     )?;
 
     Ok(())
