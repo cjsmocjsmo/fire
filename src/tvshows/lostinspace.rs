@@ -18,10 +18,9 @@ pub struct TvShowsStruc {
 fn lost_in_space_season_1() -> Result<Vec<TvShowsStruc>> {
     let db = Connection::open("fire.db")?;
     let mut tv_vec = Vec::new();
-    let mut stmt1  = db.prepare("
-        SELECT * FROM tvshows
-        WHERE category='LostInSpace' AND WHERE season='01'
-    ")?;
+    let mut stmt1  = db.prepare(
+        "SELECT * FROM tvshows WHERE category = 'LostInSpace' AND season = '01';"
+    )?;
     let lost_in_space_tv_iter = stmt1.query_map([], |row| {
         Ok(TvShowsStruc {
             id: row.get(0)?,
@@ -50,9 +49,9 @@ fn lost_in_space_season_1() -> Result<Vec<TvShowsStruc>> {
 fn lost_in_space_season_2() -> Result<Vec<TvShowsStruc>> {
     let db = Connection::open("fire.db")?;
     let mut tv_vec = Vec::new();
-    let mut stmt2  = db.prepare("
-        SELECT * FROM tvshows WHERE category='LostInSpace' AND WHERE season='02'
-    ")?;
+    let mut stmt2  = db.prepare(
+        "SELECT * FROM tvshows WHERE category = 'LostInSpace' AND season = '02';"
+    )?;
     let lost_in_space_tv_iter = stmt2.query_map([], |row| {
         Ok(TvShowsStruc {
             id: row.get(0)?,
