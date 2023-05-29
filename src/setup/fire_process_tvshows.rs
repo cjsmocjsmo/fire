@@ -85,6 +85,8 @@ impl TVShowsUtils {
             tv_cat.push("StrangeNewWorlds");
         } else if ap.contains("StarTrek") {
             tv_cat.push("StarTrek");
+        } else if ap.contains("StarWars") { //fake movies
+            println!("{}", ap); //fake movies
         } else if ap.contains("TalesOfTheJedi") {
             tv_cat.push("TalesOfTheJedi");
         } else if ap.contains("TheLastOfUs") {
