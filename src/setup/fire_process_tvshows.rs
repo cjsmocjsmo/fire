@@ -59,9 +59,9 @@ impl TVShowsUtils {
             true if ap.contains("TalesOfTheJedi") => String::from("TalesOfTheJedi"),
             true if ap.contains("TheLastOfUs") => String::from("TheLastOfus"),
             true if ap.contains("Visions") => String::from("Visions"),
-            true if ap.contains("Voyager") => String::from("Visions"),
+            true if ap.contains("Voyager") => String::from("Voyager"),
             true if ap.contains("WheelOfTime") => String::from("WheelOfTime"),
-            _ => String::from("Fuck Me")
+            _ => format!("{}", ap)
         }
     }
 
