@@ -17,7 +17,9 @@ pub struct MovInfoSt {
 
 pub async fn therock_movs() -> Result<Vec<MovInfoSt>> {
     let db = Connection::open("fire.db")?;
-    let mut stmt  = db.prepare("SELECT * FROM movies WHERE category = 'TheRock';")?;
+    let mut stmt  = db.prepare(
+        "SELECT * FROM movies WHERE category = 'TheRock';"
+    )?;
     
     let action_movs_iter = stmt.query_map([], |row| {
         Ok(MovInfoSt {
