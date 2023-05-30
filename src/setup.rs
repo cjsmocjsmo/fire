@@ -122,7 +122,7 @@ pub fn run_setup() -> bool {
         
 
         let _movies = crate::setup::fire_process_movies::process_movies(media_lists.1.clone());
-        // let _tvshows = crate::setup::fire_process_tvshows::process_tvshows(media_lists.1.clone());
+        let _tvshows = crate::setup::fire_process_tvshows::process_tvshows(media_lists.1.clone());
 
 
         // let ab_list = crate::setup::fire_misc::create_art_alb_list(media_lists.0.clone());
