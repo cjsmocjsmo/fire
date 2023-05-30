@@ -5,7 +5,7 @@ use std::env;
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct MusicInfo {
-    id: String,
+    fireid: String,
     imgurl: String,
     artist: String,
     album: String,
@@ -57,7 +57,7 @@ pub fn process_mp3s(x: String, index: String, page: String) -> MusicInfo {
     let idx = index.to_string();
     let fsize_results = crate::setup::fire_utils::FireUtils::get_file_size(&fu).to_string();
     let music_info = MusicInfo {
-        id: id,
+        fireid: id,
         imgurl: create_thumb_path(music_artist_results.clone(), music_album_results.clone(), ext.clone()),
         artist: artist,
         album: album,
@@ -85,6 +85,7 @@ fn write_music_to_db(music_info: MusicInfo) -> Result<()> {
     conn.execute(
         "CREATE TABLE IF NOT EXISTS music (
             id INTEGER PRIMARY KEY,
+            fireid TEXT NOT NULL,
             imgurl TEXT NOT NULL,
             artist TEXT NOT NULL,
             album TEXT NOT NULL,
@@ -104,6 +105,7 @@ fn write_music_to_db(music_info: MusicInfo) -> Result<()> {
 
     conn.execute(
         "INSERT INTO music (
+                fireid,
                 imgurl, 
                 artist, 
                 album, 
@@ -118,8 +120,9 @@ fn write_music_to_db(music_info: MusicInfo) -> Result<()> {
                 page, 
                 fsizeresults
             )
-            VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13)",
+            VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13, ?14)",
         (
+            &music_info.fireid,
             &music_info.imgurl,
             &music_info.artist,
             &music_info.album,

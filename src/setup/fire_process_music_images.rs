@@ -27,7 +27,7 @@ fn write_music_img_to_file(miinfo: MusicImageInfo, index: i32) {
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct MusicImageInfo {
-    id: String,
+    fireid: String,
     width: String,
     height: String,
     basedir: String,
@@ -63,7 +63,7 @@ pub fn process_music_images(x: String, index: i32) -> i32 {
         let thumb_path = create_music_thumbnail(&x, artist_results.clone(), album_results.clone());
 
         let music_img_info = MusicImageInfo {
-            id: id,
+            fireid: id,
             width: width_r,
             height: height_r,
             basedir: base_dir,
@@ -89,6 +89,7 @@ fn write_music_img_to_db(music_img_info: MusicImageInfo) -> Result<()> {
     conn.execute(
         "CREATE TABLE IF NOT EXISTS music_images (
             id INTEGER PRIMARY KEY,
+            fireid TEXT NOT NULL,
             width TEXT NOT NULL,
             height TEXT NOT NULL,
             basedir TEXT NOT NULL,
@@ -106,6 +107,7 @@ fn write_music_img_to_db(music_img_info: MusicImageInfo) -> Result<()> {
 
     conn.execute(
         "INSERT INTO music_images (
+                fireid,
                 width, 
                 height,
                 basedir,
@@ -118,8 +120,9 @@ fn write_music_img_to_db(music_img_info: MusicImageInfo) -> Result<()> {
                 thumbpath,
                 idx
             )
-            VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11)",
+            VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12)",
         (
+            &music_img_info.fireid,
             &music_img_info.width,
             &music_img_info.height,
             &music_img_info.basedir,
