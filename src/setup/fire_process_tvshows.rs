@@ -1,11 +1,11 @@
-use std::env;
-use std::clone::Clone;
+use crate::setup::fire_utils::FireUtils;
 use rusqlite::{Connection, Result};
 use serde::{Deserialize, Serialize};
+use std::clone::Clone;
+use std::env;
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 struct TVShowsStruc {
-    // id: String,
     fireid: String,
     idx: String,
     category: String,
@@ -61,10 +61,9 @@ impl TVShowsUtils {
             true if ap.contains("Visions") => String::from("Visions"),
             true if ap.contains("Voyager") => String::from("Voyager"),
             true if ap.contains("WheelOfTime") => String::from("WheelOfTime"),
-            _ => format!("{}", ap)
+            _ => format!("{}", ap),
         }
     }
-
 
     // fn get_tv_category(&self) -> String {
     //     let foo12 = crate::setup::fire_utils::FireUtils {
@@ -93,11 +92,11 @@ impl TVShowsUtils {
     // }
 
     fn get_tv_episode_season(&self) -> (String, String) {
-        let foo1 = crate::setup::fire_utils::FireUtils {
+        let foo1 = FireUtils {
             apath: self.apath.to_string(),
         };
 
-        let name = crate::setup::fire_utils::FireUtils::split_movie_name(&foo1);
+        let name = FireUtils::split_movie_name(&foo1);
         let n_split = name.split(" ");
         let mut n_split_vec = vec![];
 
@@ -129,15 +128,13 @@ pub fn process_tvshows(tvshows_vec: Vec<String>) -> bool {
     for tv in tvshows_vec {
         if tv.contains("TVShows") {
             count = count + 1;
-            let tvshows = crate::setup::fire_utils::FireUtils { apath: tv.clone() };
-            let tvshows2 = crate::setup::fire_process_tvshows::TVShowsUtils { apath: tv.clone() };
-            let file_size = crate::setup::fire_utils::FireUtils::get_file_size(&tvshows);
-            let category =
-                crate::setup::fire_process_tvshows::TVShowsUtils::get_tv_category(&tvshows2);
-            let es =
-                crate::setup::fire_process_tvshows::TVShowsUtils::get_tv_episode_season(&tvshows2);
-            let fire_id = crate::setup::fire_utils::FireUtils::get_md5(&tvshows);
-            let fname = crate::setup::fire_utils::FireUtils::split_filename(&tvshows);
+            let tvshows = FireUtils { apath: tv.clone() };
+            let tvshows2 = TVShowsUtils { apath: tv.clone() };
+            let file_size = FireUtils::get_file_size(&tvshows);
+            let category = TVShowsUtils::get_tv_category(&tvshows2);
+            let es = TVShowsUtils::get_tv_episode_season(&tvshows2);
+            let fire_id = FireUtils::get_md5(&tvshows);
+            let fname = FireUtils::split_filename(&tvshows);
             let mut fnsplit_vec = Vec::new();
             let fnsplit = fname.split(" ");
             for f in fnsplit {
@@ -154,7 +151,7 @@ pub fn process_tvshows(tvshows_vec: Vec<String>) -> bool {
                 episode: es.1,
                 size: file_size,
                 httppath: tv,
-                vidtype: String::from("tvshow")
+                vidtype: String::from("tvshow"),
             };
             println!("this is tvshows \n\t{:?}", tvshows);
             write_tvshows_nfos(tvshows.clone(), count);
@@ -167,7 +164,6 @@ pub fn process_tvshows(tvshows_vec: Vec<String>) -> bool {
 fn write_tvshow_to_db(tvs: TVShowsStruc) -> Result<()> {
     let conn = Connection::open("fire.db").unwrap();
 
-    // conn.execute("DROP TABLE IF EXISTS tvshows;", ())?;
     conn.execute(
         "CREATE TABLE IF NOT EXISTS tvshows (
             id INTEGER PRIMARY KEY,
@@ -206,7 +202,7 @@ fn write_tvshow_to_db(tvs: TVShowsStruc) -> Result<()> {
             &tvs.episode,
             &tvs.size,
             &tvs.httppath,
-            &tvs.vidtype
+            &tvs.vidtype,
         ],
     )?;
 

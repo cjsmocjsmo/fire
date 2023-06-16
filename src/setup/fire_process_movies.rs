@@ -1,3 +1,4 @@
+use crate::setup::fire_utils::FireUtils;
 use rusqlite::{Connection, Result};
 use serde::{Deserialize, Serialize};
 use std::clone::Clone;
@@ -22,43 +23,7 @@ fn write_mov_meta_to_file(mi: MovieInfoStruc, count: i32) {
     std::fs::write(outpath, json_info).unwrap();
 }
 
-// fn mov_category(x: String) -> String {
-//     match true {
-//         true if x.contains("Action") => String::from("Action"),
-//         true if x.contains("Arnold") => String::from("Arnold"),
-//         true if x.contains("BruceWillis") => String::from("BruceWillis"),
-//         true if x.contains("Cartoons") => String::from("Cartoons"),
-//         true if x.contains("Comedy") => String::from("Comedy"),
-//         true if x.contains("Documentary") => String::from("Documentary"),
-//         true if x.contains("Drama") => String::from("Drama"),
-//         true if x.contains("Fantasy") => String::from("Fantasy"),
-//         true if x.contains("Godzilla") => String::from("Godzilla"),
-//         true if x.contains("HarryPotter") => String::from("HarryPotter"),
-//         true if x.contains("IndianaJones") => String::from("IndianaJones"),
-//         true if x.contains("JamesBond") => String::from("JamesBond"),
-//         true if x.contains("JohnWayne") => String::from("JohnWayne"),
-//         true if x.contains("JohnWick") => String::from("JohnWick"),
-//         true if x.contains("JurassicPark") => String::from("JurassicPark"),
-//         true if x.contains("KingMen") => String::from("KingMen"),
-//         true if x.contains("MenInBlack") => String::from("MenInBlack"),
-//         true if x.contains("Misc") => String::from("Misc"),
-//         true if x.contains("NicolasCage") => String::from("NicolasCage"),
-//         true if x.contains("Pirates") => String::from("Pirates"),
-//         true if x.contains("Riddick") => String::from("Riddick"),
-//         true if x.contains("SciFi") => String::from("SciFi"),
-//         true if x.contains("StarTrek") => String::from("StarTrek"),
-//         true if x.contains("StarWars") => String::from("StarWars"),
-//         true if x.contains("SuperHeroes") => String::from("SuperHeroes"),
-//         true if x.contains("TheRock") => String::from("TheRock"),
-//         true if x.contains("TomCruize") => String::from("TomCruize"),
-//         true if x.contains("Transformers") => String::from("Transformers"),
-//         true if x.contains("Tremors") => String::from("Tremors"),
-//         true if x.contains("XMen") => String::from("XMen"),
-//         _ => String::from("Fuck")
-//     }
-// }
-
-fn mov_category(x: String) -> String{
+fn mov_category(x: String) -> String {
     let mut mov_category = String::new();
     if x.contains("Action") {
         mov_category = String::from("Action");
@@ -127,7 +92,6 @@ fn mov_category(x: String) -> String{
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 struct MovieInfoStruc {
-    // id: String,
     fireid: String,
     idx: String,
     name: String,
@@ -136,19 +100,19 @@ struct MovieInfoStruc {
     httpposterpath: String,
     path: String,
     category: String,
-    vidtype: String
+    vidtype: String,
 }
 
-pub fn process_movies(movies_vec: Vec<String> ) -> String {
+pub fn process_movies(movies_vec: Vec<String>) -> String {
     let mut count = 0;
     for x in movies_vec {
         if x.clone().contains("Movies") {
             count = count + 1;
-            let foo = crate::setup::fire_utils::FireUtils { apath: x.clone() };
-            let fire_id = crate::setup::fire_utils::FireUtils::get_md5(&foo);
-            let mov_name = crate::setup::fire_utils::FireUtils::split_movie_name(&foo);
-            let mov_size = crate::setup::fire_utils::FireUtils::get_file_size(&foo);
-            let mov_year = crate::setup::fire_utils::FireUtils::split_movie_year(&foo);
+            let foo = FireUtils { apath: x.clone() };
+            let fire_id = FireUtils::get_md5(&foo);
+            let mov_name = FireUtils::split_movie_name(&foo);
+            let mov_size = FireUtils::get_file_size(&foo);
+            let mov_year = FireUtils::split_movie_year(&foo);
             let mov_poster_addr = get_poster_addr(mov_name.clone(), mov_year.clone());
             let mov_info = MovieInfoStruc {
                 // id: count.clone().to_string(),
@@ -174,7 +138,7 @@ pub fn process_movies(movies_vec: Vec<String> ) -> String {
 
 fn write_movies_to_db(mov_info: MovieInfoStruc) -> Result<()> {
     let conn = Connection::open("fire.db").unwrap();
-    // conn.execute("DROP TABLE IF EXISTS movies;", ())?;
+
     conn.execute(
         "CREATE TABLE IF NOT EXISTS movies (
             id INTEGER PRIMARY KEY,
@@ -213,10 +177,9 @@ fn write_movies_to_db(mov_info: MovieInfoStruc) -> Result<()> {
             &mov_info.httpposterpath,
             &mov_info.path,
             &mov_info.category,
-            &mov_info.vidtype
+            &mov_info.vidtype,
         ),
     )?;
 
     Ok(())
 }
-

@@ -1,3 +1,5 @@
+use crate::setup::fire_mp3_info;
+use crate::setup::fire_utils::FireUtils;
 use rusqlite::{Connection, Result};
 use serde::{Deserialize, Serialize};
 use std::clone::Clone;
@@ -40,25 +42,29 @@ fn create_thumb_path(art: String, alb: String, ext: String) -> String {
 }
 
 pub fn process_mp3s(x: String, index: String, page: String) -> MusicInfo {
-    let tags = crate::setup::fire_mp3_info::get_tag_info(&x);
+    let tags = fire_mp3_info::get_tag_info(&x);
     let artist = tags.0;
     let album = tags.1;
     let song = tags.2;
-    let fu = crate::setup::fire_utils::FireUtils { apath: x.clone() };
-    let id = crate::setup::fire_utils::FireUtils::get_md5(&fu);
-    let duration_results = crate::setup::fire_mp3_info::get_duration(&x);
+    let fu = FireUtils { apath: x.clone() };
+    let id = FireUtils::get_md5(&fu);
+    let duration_results = fire_mp3_info::get_duration(&x);
     let fullpath = &x.to_string();
-    let base_dir = crate::setup::fire_utils::FireUtils::split_base_dir(&fu);
-    let filename_results = crate::setup::fire_utils::FireUtils::split_filename(&fu);
-    let art_alb = crate::setup::fire_utils::FireUtils::music_split_artist(&fu);
+    let base_dir = FireUtils::split_base_dir(&fu);
+    let filename_results = FireUtils::split_filename(&fu);
+    let art_alb = FireUtils::music_split_artist(&fu);
     let music_artist_results = art_alb.0;
     let music_album_results = art_alb.1;
-    let ext = crate::setup::fire_utils::FireUtils::split_ext(&fu);
+    let ext = FireUtils::split_ext(&fu);
     let idx = index.to_string();
-    let fsize_results = crate::setup::fire_utils::FireUtils::get_file_size(&fu).to_string();
+    let fsize_results = FireUtils::get_file_size(&fu).to_string();
     let music_info = MusicInfo {
         fireid: id,
-        imgurl: create_thumb_path(music_artist_results.clone(), music_album_results.clone(), ext.clone()),
+        imgurl: create_thumb_path(
+            music_artist_results.clone(),
+            music_album_results.clone(),
+            ext.clone(),
+        ),
         artist: artist,
         album: album,
         song: song,
@@ -81,7 +87,7 @@ pub fn process_mp3s(x: String, index: String, page: String) -> MusicInfo {
 
 fn write_music_to_db(music_info: MusicInfo) -> Result<()> {
     let conn = Connection::open("fire.db").unwrap();
-    // conn.execute("DROP TABLE IF EXISTS music;", ())?;
+    
     conn.execute(
         "CREATE TABLE IF NOT EXISTS music (
             id INTEGER PRIMARY KEY,

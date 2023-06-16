@@ -41,24 +41,25 @@ pub struct MusicImageInfo {
     idx: String,
 }
 
-pub fn process_music_images(x: String, index: i32) -> i32 {
-    let foo2 = crate::setup::fire_utils::FireUtils {
-        apath: x.clone()
-    };
+use crate::setup::fire_utils::FireUtils;
+use crate::setup::fire_image;
 
-    let id = crate::setup::fire_utils::FireUtils::get_md5(&foo2);
-    let dims = crate::setup::fire_utils::FireUtils::get_dims(&foo2);
+
+pub fn process_music_images(x: String, index: i32) -> i32 {
+    let foo2 = FireUtils {apath: x.clone()};
+    let id = FireUtils::get_md5(&foo2);
+    let dims = FireUtils::get_dims(&foo2);
 
     if dims != (0, 0) {
-        let newdims = crate::setup::fire_image::normalize_music_image(dims);
+        let newdims = fire_image::normalize_music_image(dims);
         let width_r = newdims.0.to_string();
         let height_r = newdims.1.to_string();
-        let base_dir = crate::setup::fire_utils::FireUtils::split_base_dir(&foo2);
-        let file_name = crate::setup::fire_utils::FireUtils::split_filename(&foo2);
-        let ext = crate::setup::fire_utils::FireUtils::split_ext(&foo2);
-        let artist_results = crate::setup::fire_utils::FireUtils::image_split_artist(&foo2);
-        let album_results = crate::setup::fire_utils::FireUtils::image_split_album(&foo2);
-        let fsize_results = crate::setup::fire_utils::FireUtils::get_file_size(&foo2).to_string();
+        let base_dir = FireUtils::split_base_dir(&foo2);
+        let file_name = FireUtils::split_filename(&foo2);
+        let ext = FireUtils::split_ext(&foo2);
+        let artist_results = FireUtils::image_split_artist(&foo2);
+        let album_results = FireUtils::image_split_album(&foo2);
+        let fsize_results = FireUtils::get_file_size(&foo2).to_string();
         let full_path = &x.to_string();
         let thumb_path = create_music_thumbnail(&x, artist_results.clone(), album_results.clone());
 
@@ -85,7 +86,7 @@ pub fn process_music_images(x: String, index: i32) -> i32 {
 
 fn write_music_img_to_db(music_img_info: MusicImageInfo) -> Result<()> {
     let conn = Connection::open("fire.db").unwrap();
-    // conn.execute("DROP TABLE IF EXISTS music_images;", ())?;
+    
     conn.execute(
         "CREATE TABLE IF NOT EXISTS music_images (
             id INTEGER PRIMARY KEY,
